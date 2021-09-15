@@ -1,0 +1,45 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Ticket {
+  id              String   @id @default(uuid())
+  isAlive         Boolean
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @default(now())
+  operatorId      String?
+  userId          String?
+  ticketProblemId String?
+
+  ticketUser     User?       @relation(fields: [userId], references: [userId])
+  ticketOperator Operator?   @relation(fields: [operatorId], references: [operatorId])
+  ticketProblem  TicketType? @relation(fields: [ticketProblemId], references: [ticketTypeId])
+}
+
+model User {
+  userId      String   @id @default(uuid())
+  userEmail   String   @unique
+  userName    String
+  userSurname String?
+  Ticket      Ticket[]
+}
+
+model Operator {
+  operatorId      String   @id @default(uuid())
+  operatorEmail   String   @unique
+  operatorName    String
+  operatorSurname String?
+  Ticket          Ticket[]
+}
+
+model TicketType {
+  ticketTypeId      String   @id @default(uuid())
+  ticketProblem     String   @unique
+  ticketDescription String
+  Ticket            Ticket[]
+}
