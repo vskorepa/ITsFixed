@@ -1,5 +1,5 @@
-import {gql, ApolloServer }from 'apollo-server-micro'
-import { PrismaClient } from '@prisma/client';
+import {gql, ApolloServer }from "apollo-server-micro";
+import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
@@ -32,22 +32,22 @@ const typeDefs = gql`
         tickets: [Ticket]
     }
 
-`
+`;
 
 const resolvers = {
 
-    Query: {
-        tickets: (_parent, _args, _context) => {
-            return prisma.ticket.findMany();
-        },
-    }, 
+	Query: {
+		tickets: (_parent, _args, _context) => {
+			return prisma.ticket.findMany();
+		},
+	}, 
     
 };
 
 const apolloServer =  new ApolloServer({typeDefs, resolvers });
 
 
-export const config = {api: { bodyParser: false,},}
+export const config = {api: { bodyParser: false,},};
 
 
 export default apolloServer.createHandler({path: "api/graphql"});
