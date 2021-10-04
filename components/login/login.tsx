@@ -1,11 +1,13 @@
+import { Container } from "@nextui-org/react"
 import React from "react"
-const login = () =>
+import SignUp from "./signUp"
+const Login = () =>
 {
     return (
-        <div>
-            
-        </div>
+        <Container fluid wrap="wrap" justify="center">
+            <SignUp/>
+        </Container>
     )
 }
 
-export default login
+export default Login

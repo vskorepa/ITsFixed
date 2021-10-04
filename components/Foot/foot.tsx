@@ -2,12 +2,14 @@ import React from 'react'
 import { useRouter } from "next/router";
 import  Link  from "next/link";
 import { Container, Link as NextUiLink } from "@nextui-org/react";
+import useTranslation from "next-translate/useTranslation";
 
 export const Foot = () =>
 {
+    const {t} = useTranslation("common");
     const router = useRouter();
     return (
-        <Container>
+        <Container justify="flex-end">
         <ul>
             {router.locales?.map((locale)=>(
                 <li key={locale}>
@@ -16,7 +18,10 @@ export const Foot = () =>
                     </Link>
                 </li>       
             ))}
-        </ul>
+            </ul>
+            <Link href="..">
+                <NextUiLink>{t("back")}</NextUiLink>
+            </Link>
     </Container>
     )
 }

@@ -13,11 +13,14 @@ const Home: NextPage = () => {
 
 
 	return (
-		<Container>
+		<Container fluid={true}>
 			<PageHead/>
 			<Row>
 				<Container>
 					<h1>{t("greeting")}</h1>
+					<Link href="./login">
+						<NextUiLink block color="success" href="./login">{t("loginRedirect")}</NextUiLink>
+					</Link>
 				</Container>
 			</Row>
 			<Foot/>

@@ -1,5 +1,7 @@
 {
     "greeting": "Vítejte",
     "powered": "Vyvíjeno",
-    "metadescription": "Webová aplikace vyvinutá pro pomoc lidem, kteří se nachází v potížích se svám počítačem"
+    "metadescription": "Webová aplikace vyvinutá pro pomoc lidem, kteří se nachází v potížích se svám počítačem",
+    "loginRedirect": "Na přihlašovací stránku",
+    "back": "Zpět"
 }

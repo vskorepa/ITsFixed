@@ -1,6 +1,8 @@
 {
     "greeting": "Welcome",
     "powered": "Powered by",
-    "metadescription": "Web application designed to help people that have ran into problems with their computer"
+    "metadescription": "Web application designed to help people that have ran into problems with their computer",
+    "loginRedirect": "To the login page",
+    "back": "Back"
 
 }
