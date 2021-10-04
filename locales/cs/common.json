@@ -3,5 +3,9 @@
     "powered": "Vyvíjeno",
     "metadescription": "Webová aplikace vyvinutá pro pomoc lidem, kteří se nachází v potížích se svám počítačem",
     "loginRedirect": "Na přihlašovací stránku",
-    "back": "Zpět"
+    "back": "Zpět",
+    "SignIn": "Přihlásit se",
+    "SignUp": "Registrovat se",
+    "noAccount": "Ještě nemáte účet? Klikněte zde",
+    "alreadyAccount": "Máte již účet? Klikněte zde"
 }

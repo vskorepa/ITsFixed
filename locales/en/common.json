@@ -3,6 +3,9 @@
     "powered": "Powered by",
     "metadescription": "Web application designed to help people that have ran into problems with their computer",
     "loginRedirect": "To the login page",
-    "back": "Back"
-
+    "back": "Back",
+    "SignIn": "SignIn",
+    "SignUp": "SignUp",
+    "noAccount": "Don't have an account yet? clik here",
+    "alreadyAccount": "Already have an account? clik here"
 }

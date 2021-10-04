@@ -12,17 +12,17 @@ import { SingUpValues } from "../../types/formtypes";
 import { supabase } from "../../lib/supabaseClient";
 import { useState } from "react";
 
-const SignUp = () => {
+const SignIn = () => {
     const { register, handleSubmit } = useForm<SingUpValues>();
     const onSubmint: SubmitHandler<SingUpValues> = (data) => {
-        handleSignUp(data.email, data.password);
+        handleSignIn(data.email, data.password);
         console.log(data);
     };
     const [loading, setLoading] = useState(false);
-    const handleSignUp = async (email: string, password: string) => {
+    const handleSignIn = async (email: string, password: string) => {
         try {
             setLoading(true);
-            const { user, session, error } = await supabase.auth.signUp({
+            const { user, session, error } = await supabase.auth.signIn({
                 email: email,
                 password: password,
             });
@@ -68,18 +68,6 @@ const SignUp = () => {
                             {...register("password")}
                         ></Input>
                     </Row>
-                    <Row justify="center">
-                        <Input
-                            size="xlarge"
-                            rounded
-                            bordered
-                            color="primary"
-                            label="Confirm password"
-                            type="password"
-                            placeholder="Confirm password"
-                            {...register("confirmpassword")}
-                        ></Input>
-                    </Row>
                     <Spacer />
                     <Row justify="center">
                         <Button size="large" color="primary" type="submit">
@@ -91,4 +79,4 @@ const SignUp = () => {
         );
 };
 
-export default SignUp;
+export default SignIn;
