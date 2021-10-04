@@ -1,4 +1,6 @@
 {
     "greeting": "Welcome",
-    "powered": "Powered by"
+    "powered": "Powered by",
+    "metadescription": "Web application designed to help people that have ran into problems with their computer"
+
 }
