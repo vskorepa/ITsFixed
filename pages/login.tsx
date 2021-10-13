@@ -11,6 +11,7 @@ import React, { useState } from "react";
 import Foot from "../components/Foot";
 import Login from "../components/login/login";
 import useTranslation from "next-translate/useTranslation";
+import TopNav from "../components/Nav/topNav";
 
 const loginPage = () => {
     const [auth, setAuth] = useState(true);
@@ -18,6 +19,8 @@ const loginPage = () => {
 
     return (
         <Container fluid justify="center">
+            <TopNav />
+
             <Login auth={auth} />
             <Spacer />
             <Row justify="flex-end">

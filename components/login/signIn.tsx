@@ -5,78 +5,78 @@ import {
     Loading,
     Button,
     Spacer,
+    Text,
 } from "@nextui-org/react";
 import React from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
-import { SingUpValues } from "../../types/formtypes";
+import { SignInValues } from "../../types/formtypes";
 import { supabase } from "../../lib/supabaseClient";
 import { useState } from "react";
+import { useRouter } from "next/router";
+import useLogin from "../../hooks/login/useLoginUser";
 
-const SignIn = () => {
-    const { register, handleSubmit } = useForm<SingUpValues>();
-    const onSubmint: SubmitHandler<SingUpValues> = (data) => {
-        handleSignIn(data.email, data.password);
-        console.log(data);
-    };
-    const [loading, setLoading] = useState(false);
-    const handleSignIn = async (email: string, password: string) => {
-        try {
-            setLoading(true);
-            const { user, session, error } = await supabase.auth.signIn({
-                email: email,
-                password: password,
-            });
-            console.log(user);
-        } catch (error) {
-            // @ts-ignore
-            alert(error.error_description || error.message);
-        } finally {
-            setLoading(false);
-        }
+const SignIp = () => {
+    const { register, handleSubmit } = useForm<SignInValues>();
+    const onSubmit: SubmitHandler<SignInValues> = (data) => {
+        setEmail(data.email);
+        setPassword(data.password);
+        loginMutation.mutate();
     };
 
-    if (loading == true)
-        return (
-            <Container>
-                <Loading size={80} />
-            </Container>
-        );
-    else
-        return (
-            <Container justify="center" wrap="wrap" fluid>
-                <form onSubmit={handleSubmit(onSubmint)}>
+    const router = useRouter();
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+
+    const loginMutation = useLogin({ email, password });
+    if (loginMutation.isSuccess) {
+        router.push("/");
+    }
+    return (
+        <Container gap={2} justify="center" wrap="wrap" fluid>
+            <form onSubmit={handleSubmit(onSubmit)}>
+                <Row justify="center">
+                    <Input
+                        clearable
+                        size="xlarge"
+                        rounded
+                        bordered
+                        color="primary"
+                        label="Email"
+                        placeholder="example@email.com"
+                        {...register("email")}
+                    ></Input>
+                </Row>
+                <Row justify="center">
+                    <Input.Password
+                        clearable
+                        size="xlarge"
+                        rounded
+                        bordered
+                        color="primary"
+                        label="Password"
+                        type="password"
+                        placeholder="password"
+                        {...register("password")}
+                    ></Input.Password>
+                </Row>
+                <Spacer />
+                {loginMutation.isError && (
+                    <Text color="error">{loginMutation.data}</Text>
+                )}
+                {loginMutation.isLoading ? (
                     <Row justify="center">
-                        <Input
-                            size="xlarge"
-                            rounded
-                            bordered
-                            color="primary"
-                            label="Email"
-                            placeholder="example@email.com"
-                            {...register("email")}
-                        ></Input>
+                        <Loading size={80} />
                     </Row>
-                    <Row justify="center">
-                        <Input
-                            size="xlarge"
-                            rounded
-                            bordered
-                            color="primary"
-                            label="Password"
-                            type="password"
-                            placeholder="password"
-                            {...register("password")}
-                        ></Input>
-                    </Row>
-                    <Spacer />
+                ) : (
                     <Row justify="center">
                         <Button size="large" color="primary" type="submit">
                             Odeslat
                         </Button>
                     </Row>
-                </form>
-            </Container>
-        );
+                )}
+            </form>
+        </Container>
+    );
 };
 
-export default SignIn;
+export default SignIp;

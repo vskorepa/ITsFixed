@@ -14,6 +14,8 @@ import PageHead from "../components/Head/";
 import Foot from "../components/Foot";
 import { useState, useEffect } from "react";
 import { supabase } from "../lib/supabaseClient";
+import TopNav from "../components/Nav/topNav";
+import ProtectedWrapper from "../components/protected";
 const Home: NextPage = () => {
     const { t } = useTranslation("common");
     const [session, setSession] = useState(null);
@@ -24,24 +26,31 @@ const Home: NextPage = () => {
         });
     }, []);
     return (
-        <Container fluid={true}>
-            <PageHead />
-            <Row>
-                <Container>
-                    <h1>{t("greeting")}</h1>
-                    {!session ? (
-                        <Link href="./login">
-                            <NextUiLink block color="success" href="./login">
-                                {t("loginRedirect")}
-                            </NextUiLink>
-                        </Link>
-                    ) : (
-                        <Text>You are logged in as {session.user.id} </Text>
-                    )}
-                </Container>
-            </Row>
-            <Foot />
-        </Container>
+        <ProtectedWrapper>
+            <Container fluid={true}>
+                <PageHead />
+                <TopNav />
+                <Row>
+                    <Container>
+                        <h1>{t("greeting")}</h1>
+                        {!session ? (
+                            <Link href="./login">
+                                <NextUiLink
+                                    block
+                                    color="success"
+                                    href="./login"
+                                >
+                                    {t("loginRedirect")}
+                                </NextUiLink>
+                            </Link>
+                        ) : (
+                            <Text>You are logged in as {session.user.id} </Text>
+                        )}
+                    </Container>
+                </Row>
+                <Foot />
+            </Container>
+        </ProtectedWrapper>
     );
 };
 
