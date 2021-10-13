@@ -16,5 +16,6 @@
     "firstName": "First name",
     "surname": "Surname",
     "password": "Password",
+    "validemail": "Please enter valid email",
     "confirmpassword": "Confirm password"
 }

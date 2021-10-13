@@ -15,6 +15,7 @@
     "emailRegistered": "Tento email už je zde zaregistrovaný, zkuste se přihlásit nebo si změnit heslo",
     "firstName": "Křestní jméno",
     "surname": "Příjmení",
+    "validemail": "Prosím zadejte platný email",
     "password": "Heslo",
     "confirmpassword": "Kontrolní heslo"
 }

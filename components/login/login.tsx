@@ -11,7 +11,7 @@ const Login: React.FC = () => {
     const [auth, setAuth] = useState(true);
 
     return (
-        <div className="w-full flex-wrap ">
+        <div className="w-full flex-wrap justify-center">
             <Row className="text-sandy" justify="center">
                 {auth ? (
                     <Text className="text-4xl font-bold" h1>

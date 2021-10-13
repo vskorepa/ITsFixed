@@ -14,9 +14,14 @@ import { supabase } from "../../lib/supabaseClient";
 import { useState } from "react";
 import { useRouter } from "next/router";
 import useLogin from "../../hooks/login/useLoginUser";
-
+import useTranslation from "next-translate/useTranslation";
 const SignIp = () => {
-    const { register, handleSubmit } = useForm<SignInValues>();
+    const { t } = useTranslation("common");
+    const {
+        register,
+        handleSubmit,
+        formState: { errors },
+    } = useForm<SignInValues>();
     const onSubmit: SubmitHandler<SignInValues> = (data) => {
         setEmail(data.email);
         setPassword(data.password);
@@ -32,32 +37,65 @@ const SignIp = () => {
         router.push("/");
     }
     return (
-        <Container gap={2} justify="center" wrap="wrap" fluid>
+        <div className="justify-center flex-wrap">
             <form onSubmit={handleSubmit(onSubmit)}>
-                <Row justify="center">
+                <Row className="py-2.5" justify="center">
                     <Input
-                        clearable
                         size="xlarge"
-                        rounded
-                        bordered
-                        color="primary"
+                        helperColor="error"
+                        status={errors.email ? "warning" : "primary"}
+                        color={errors.email ? "warning" : "primary"}
+                        helperText={errors.email && `${errors.email.message}`}
+                        shadow={false}
                         label="Email"
                         placeholder="example@email.com"
-                        {...register("email")}
+                        {...register("email", {
+                            required: {
+                                value: true,
+                                message: t("required"),
+                            },
+                            pattern: {
+                                value: RegExp(
+                                    "[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?"
+                                ),
+
+                                message: t("validemail"),
+                            },
+                        })}
                     ></Input>
                 </Row>
-                <Row justify="center">
+                <Row className="py-2.5" justify="center">
                     <Input.Password
-                        clearable
                         size="xlarge"
-                        rounded
-                        bordered
-                        color="primary"
+                        helperColor="error"
+                        status={errors.password ? "warning" : "primary"}
+                        color={errors.password ? "warning" : "primary"}
+                        helperText={
+                            errors.password?.type == "required"
+                                ? `${errors.password.message}`
+                                : ""
+                        }
+                        shadow={false}
                         label="Password"
                         type="password"
                         placeholder="password"
-                        {...register("password")}
-                    ></Input.Password>
+                        {...register("password", {
+                            required: {
+                                value: true,
+                                message: t("required"),
+                            },
+                            maxLength: {
+                                value: 30,
+                                message: `${t("maxLength")} 30`,
+                            },
+                            pattern: {
+                                value: RegExp(
+                                    "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d]{8,}$"
+                                ),
+                                message: `${t("strongerPassword")}`,
+                            },
+                        })}
+                    />
                 </Row>
                 <Spacer />
                 {loginMutation.isError && (
@@ -75,7 +113,7 @@ const SignIp = () => {
                     </Row>
                 )}
             </form>
-        </Container>
+        </div>
     );
 };
 

@@ -33,12 +33,13 @@ const SignUp = () => {
                 type: "manual",
                 message: t("NotMatchingPasswords"),
             });
+        } else {
+            setEmail(data.email);
+            setPassword(data.password);
+            setName(data.name);
+            setSurname(data.surname);
+            createUserMutation.mutate();
         }
-        // setEmail(data.email);
-        // setPassword(data.password);
-        // setName(data.name);
-        // setSurname(data.surname);
-        // createUserMutation.mutate();
     };
 
     const router = useRouter();
@@ -69,6 +70,7 @@ const SignUp = () => {
                             helperText={errors.name && `${errors.name.message}`}
                             shadow={false}
                             label="Name"
+                            placeholder="John"
                             {...register("name", {
                                 required: {
                                     value: true,
@@ -121,6 +123,12 @@ const SignUp = () => {
                                 value: true,
                                 message: t("required"),
                             },
+                            pattern: {
+                                value: RegExp(
+                                    "[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?"
+                                ),
+                                message: t("validemail"),
+                            },
                         })}
                     ></Input>
                 </Row>
@@ -150,9 +158,9 @@ const SignUp = () => {
                             },
                             pattern: {
                                 value: RegExp(
-                                    "(?=^.{8,}$)((?=.*d)|(?=.*W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$"
+                                    "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d]{8,}$"
                                 ),
-                                message: `${t("strongerPassword")} 30`,
+                                message: `${t("strongerPassword")}`,
                             },
                         })}
                     />
