@@ -17,7 +17,6 @@ const createUser = async (user: typeUser) => {
         email: user.email,
         password: user.password,
     });
-    console.log(data);
     if (SighUpError) {
         throw SighUpError;
     }
@@ -36,7 +35,6 @@ const useCreateUser = (user: typeUser) => {
                     email: user.email,
                     id: data.id,
                 });
-            console.log(insertData);
             if (insertError) {
                 throw insertError;
             }

@@ -7,5 +7,14 @@
     "SignIn": "Přihlásit se",
     "SignUp": "Registrovat se",
     "noAccount": "Ještě nemáte účet? Klikněte zde:",
-    "alreadyAccount": "Už máte účet? Klikněte zde:"
+    "alreadyAccount": "Už máte účet? Klikněte zde:",
+    "required": "Toto pole je povinné",
+    "maxLength": "Maximální délka tohoto pole je:",
+    "NotMatchingPasswords": "Hesla se neshodují",
+    "strongerPassword": "Heslo musí mít alespoň 8 znaků a jednu číslici a jedno malé a velké písmeno",
+    "emailRegistered": "Tento email už je zde zaregistrovaný, zkuste se přihlásit nebo si změnit heslo",
+    "firstName": "Křestní jméno",
+    "surname": "Příjmení",
+    "password": "Heslo",
+    "confirmpassword": "Kontrolní heslo"
 }

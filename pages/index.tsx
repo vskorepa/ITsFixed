@@ -15,7 +15,7 @@ import Foot from "../components/Foot";
 import { useState, useEffect } from "react";
 import { supabase } from "../lib/supabaseClient";
 import TopNav from "../components/Nav/topNav";
-import ProtectedWrapper from "../components/protected";
+import ProtectedWrapper from "../components/protected/protected";
 const Home: NextPage = () => {
     const { t } = useTranslation("common");
     const [session, setSession] = useState(null);
@@ -27,29 +27,35 @@ const Home: NextPage = () => {
     }, []);
     return (
         <ProtectedWrapper>
-            <Container fluid={true}>
-                <PageHead />
+            <PageHead />
+
+            <div className="flex w-full h-full flex-wrap">
                 <TopNav />
-                <Row>
-                    <Container>
-                        <h1>{t("greeting")}</h1>
-                        {!session ? (
-                            <Link href="./login">
-                                <NextUiLink
-                                    block
-                                    color="success"
-                                    href="./login"
-                                >
-                                    {t("loginRedirect")}
-                                </NextUiLink>
-                            </Link>
-                        ) : (
-                            <Text>You are logged in as {session.user.id} </Text>
-                        )}
-                    </Container>
-                </Row>
-                <Foot />
-            </Container>
+
+                <Container>
+                    <Row>
+                        <Container>
+                            <h1>{t("greeting")}</h1>
+                            {!session ? (
+                                <Link href="./login">
+                                    <NextUiLink
+                                        block
+                                        color="success"
+                                        href="./login"
+                                    >
+                                        {t("loginRedirect")}
+                                    </NextUiLink>
+                                </Link>
+                            ) : (
+                                <Text>
+                                    You are logged in as {session.user.id}{" "}
+                                </Text>
+                            )}
+                        </Container>
+                    </Row>
+                </Container>
+            </div>
+            <Foot />
         </ProtectedWrapper>
     );
 };

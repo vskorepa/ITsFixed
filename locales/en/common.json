@@ -7,5 +7,14 @@
     "SignIn": "SignIn",
     "SignUp": "SignUp",
     "noAccount": "Don't have an account yet? clik here",
-    "alreadyAccount": "Already have an account? clik here"
+    "alreadyAccount": "Already have an account? clik here",
+    "required": "This field is required",
+    "maxLength": "this fields max lenght is:",
+    "NotMatchingPasswords": "passwords don't match",
+    "strongerPassword": "Password needs to have at least 8 characters one digit, one lowercase and uppercase letter",
+    "emailRegistered": "This email is already registered, try to login or reset your password",
+    "firstName": "First name",
+    "surname": "Surname",
+    "password": "Password",
+    "confirmpassword": "Confirm password"
 }
