@@ -11,13 +11,12 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import React from "react";
 import useUser from "../../hooks/useUser";
+import { supabase } from "../../lib/supabaseClient";
 import SignOut from "../login/signOut";
 
 const TopNav: React.FC = () => {
     const router = useRouter();
     const { data, isLoading } = useUser();
-    console.log(data);
-
     return (
         <div className="flex w-full items-center justify-between py-3 text-flame font-bold shadow mb-2">
             <div className="text-xl flex items-center space-x-4">

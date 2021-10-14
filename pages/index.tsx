@@ -16,6 +16,7 @@ import { useState, useEffect } from "react";
 import { supabase } from "../lib/supabaseClient";
 import TopNav from "../components/Nav/topNav";
 import ProtectedWrapper from "../components/protected/protected";
+import TicketList from "../components/Tickets/TicketList";
 const Home: NextPage = () => {
     const { t } = useTranslation("common");
     const [session, setSession] = useState(null);
@@ -53,6 +54,9 @@ const Home: NextPage = () => {
                             )}
                         </Container>
                     </Row>
+                    <div className="justify-center">
+                        <TicketList />
+                    </div>
                 </Container>
             </div>
             <Foot />
