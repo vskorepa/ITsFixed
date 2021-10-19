@@ -10,6 +10,7 @@ import {
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React from "react";
+import { BsTools } from "react-icons/bs";
 import useUser from "../../hooks/useUser";
 import { supabase } from "../../lib/supabaseClient";
 import SignOut from "../login/signOut";
@@ -18,29 +19,32 @@ const TopNav: React.FC = () => {
     const router = useRouter();
     const { data, isLoading } = useUser();
     return (
-        <div className="flex w-full items-center justify-between py-3 text-flame font-bold shadow mb-2">
-            <div className="text-xl flex items-center space-x-4">
-                <Link href="/">
-                    <div className=" plr-1 px-2 text-2xl cursor-pointer">
-                        Home
-                    </div>
-                </Link>
-            </div>
+        <div className="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center">
+            <a className="flex title-font font-medium items-center text-white mb-4 md:mb-0">
+                <BsTools />
 
-            <div className="text-xl px-2 flex items-center space-x-4">
+                <span className="ml-3 text-2xl text-sandy">FixedIT</span>
+            </a>
+            <nav className="md:ml-auto flex flex-wrap items-center text-base text-sandy justify-center">
+                <Link href="/">
+                    <a className="mr-5 hover:text-white">Home</a>
+                </Link>
+                <Link href="/tickets">
+                    <a className="mr-5 hover:text-white">Tickets</a>
+                </Link>
                 {isLoading ? (
-                    <Loading size="medium" className="bg-flame" />
+                    <Loading />
                 ) : (
-                    <div className="text-xl px-2 flex items-center space-x-4">
-                        <div>
-                            <Link href="/profile?">{data.email}</Link>
-                        </div>
-                    </div>
+                    <Link href={"user?userId=" + data.id}>
+                        <a className="mr-5 hover:text-white text-flame">
+                            {data.email}
+                        </a>
+                    </Link>
                 )}
-                <div className="text-xl px-2 flex items-center space-x-4">
-                    <SignOut />
-                </div>
-            </div>
+            </nav>
+            <button className="inline-flex items-center bg-gray-800 border-0 py-1 px-3 focus:outline-none hover:bg-gray-700 rounded text-base mt-4 md:mt-0">
+                <SignOut />
+            </button>
         </div>
     );
 };

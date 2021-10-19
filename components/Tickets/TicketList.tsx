@@ -17,6 +17,7 @@ import { useRouter } from "next/router";
 import useCreateUser from "../../hooks/login/useCreateUser";
 import useTranslation from "next-translate/useTranslation";
 import useTickets from "../../hooks/tickets/useTickets";
+import TicketInList from "./TicketInList";
 
 const TicketList = () => {
     const { t } = useTranslation("common");
@@ -24,22 +25,13 @@ const TicketList = () => {
     const { data, isLoading } = useTickets();
     console.log(data);
     return (
-        <table className="table-auto w-full border-collapse">
-            <tr className="table-row">
-                <th className="table-cell border">Users name</th>
-                <th className="table-cell border">Users email</th>
-                <th className="table-cell border">Ticket type</th>
-            </tr>
-            {data?.map((item) => (
-                <tr key={item.id} className="table-row justify-center">
-                    <td className="table-cell border">{item.users.name}</td>
-                    <td className="table-cell border">{item.users.email}</td>
-                    <td className="table-cell border">
-                        {item.tickettype.name}
-                    </td>
-                </tr>
-            ))}
-        </table>
+        <div className="container px-5 py-24 mx-auto">
+            <div className="flex flex-wrap -m-4">
+                {data?.map((item) => (
+                    <TicketInList />
+                ))}
+            </div>
+        </div>
     );
 };
 export default TicketList;
