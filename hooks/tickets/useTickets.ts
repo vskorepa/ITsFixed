@@ -1,9 +1,14 @@
+import { typeUser } from "./../../types/supabaseTypes";
 import { useQuery } from "react-query";
 import { supabase } from "../../lib/supabaseClient";
-
+import { TicketBasicInfo } from "../../types/supabaseTypes";
+import { definitions } from "../../types/supabase";
 const getTickets = async () => {
-    const { data, error } = await supabase.from("ticket").select(`
+    const { data, error } = await supabase.from<TicketBasicInfo>("ticket")
+        .select(`
         id,
+        isalive,
+        description,
         tickettype(
             name,
             description
@@ -22,11 +27,6 @@ const getTickets = async () => {
     if (!data) {
         throw new Error("User has no Tickets");
     }
-    // const getTicketType = await supabase
-    //     .from("tickettype")
-    //     .select()
-    //     .eq("id", data.ticket_type_id);
-
     return data;
 };
 

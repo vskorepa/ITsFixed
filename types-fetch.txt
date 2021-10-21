@@ -1,0 +1,1 @@
+yarn openapi-typescript https://xgeusesbuvdmkkpbiqtb.supabase.co/rest/v1/?apikey=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYW5vbiIsImlhdCI6MTYzNDExNDc0NiwiZXhwIjoxOTQ5NjkwNzQ2fQ.DvOOwED6RgFJrjlQcKsJHRpqzsxRaHveg3dupDcxH98 --output types/supabase.ts
