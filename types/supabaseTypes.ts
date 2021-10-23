@@ -7,6 +7,6 @@ export type typeUser = {
     surname: string;
 };
 export type TicketBasicInfo = definitions["ticket"] & {
-    user: definitions["users"];
+    users: definitions["users"];
     tickettype: definitions["tickettype"];
 };

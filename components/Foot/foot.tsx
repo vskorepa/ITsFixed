@@ -27,13 +27,16 @@ export const Foot = () => {
                 </p>
                 <span className="inline-flex sm:ml-auto sm:mt-0 mt-4 justify-center sm:justify-start">
                     {router.locales?.map((locale) => (
-                        <a className="ml-3 text-gray-400">
-                            <Link passHref href={router.asPath} locale={locale}>
-                                <NextUiLink block color="success">
-                                    {locale}
-                                </NextUiLink>
-                            </Link>
-                        </a>
+                        <Link
+                            key={locale}
+                            passHref
+                            href={router.asPath}
+                            locale={locale}
+                        >
+                            <NextUiLink block color="success">
+                                {locale}
+                            </NextUiLink>
+                        </Link>
                     ))}
                 </span>
             </div>
