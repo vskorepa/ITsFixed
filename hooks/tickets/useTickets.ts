@@ -26,7 +26,7 @@ const getTickets = async (page: number) => {
         )
         .order("isalive")
         .order("created_at")
-        .range((page - 1) * 10, page * 10);
+        .range((page - 1) * 20, page * 20);
 
     if (error) {
         throw new Error(error.message);

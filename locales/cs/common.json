@@ -17,5 +17,8 @@
     "surname": "Příjmení",
     "validemail": "Prosím zadejte platný email",
     "password": "Heslo",
-    "confirmpassword": "Kontrolní heslo"
+    "confirmpassword": "Kontrolní heslo",
+    "home": "Domů",
+    "tickets": "Tickety",
+    "invalidCredentials": "Špatný email nebo heslo, zkuste to znovu nebo si změňte heslo"
 }

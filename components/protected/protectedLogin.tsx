@@ -1,10 +1,10 @@
-import { Container, Loading, Row } from "@nextui-org/react";
+import { Container, Loading, Row, Text } from "@nextui-org/react";
 import { useRouter } from "next/router";
 import useUser from "../../hooks/useUser";
 
 const ProtectedLoginWrapper: React.FC = ({ children }: any) => {
     const router = useRouter();
-    const { isLoading, isError } = useUser();
+    const { isLoading, isError, error } = useUser();
     if (isLoading) {
         return (
             <Container className="h-screen" fluid justify="center">

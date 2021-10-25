@@ -14,14 +14,12 @@ const Home: NextPage = () => {
         <ProtectedWrapper>
             <PageHead />
 
-            <div className="flex w-full h-full flex-wrap justify-center">
-                <TopNav />
+            <TopNav />
 
-                <div className="justify-center">
-                    <Text className="text-sandy font-bold text-4xl" h1>
-                        {t("greeting")}
-                    </Text>
-                </div>
+            <div className="text-center">
+                <Text className="text-sandy font-bold text-4xl" h1>
+                    {t("greeting")}
+                </Text>
             </div>
             <Foot />
         </ProtectedWrapper>

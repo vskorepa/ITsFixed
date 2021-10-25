@@ -36,6 +36,9 @@ const SignIp = () => {
     if (loginMutation.isSuccess) {
         router.push("/");
     }
+    // if (loginMutation.error) {
+    //     <Text color="error">{loginMutation.error}</Text>;
+    // }
     return (
         <div className="justify-center flex-wrap">
             <form onSubmit={handleSubmit(onSubmit)}>
@@ -87,12 +90,6 @@ const SignIp = () => {
                             maxLength: {
                                 value: 30,
                                 message: `${t("maxLength")} 30`,
-                            },
-                            pattern: {
-                                value: RegExp(
-                                    "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d]{8,}$"
-                                ),
-                                message: `${t("strongerPassword")}`,
                             },
                         })}
                     />

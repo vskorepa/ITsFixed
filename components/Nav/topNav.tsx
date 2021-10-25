@@ -14,8 +14,9 @@ import { BsTools } from "react-icons/bs";
 import useUser from "../../hooks/useUser";
 import { supabase } from "../../lib/supabaseClient";
 import SignOut from "../login/signOut";
-
+import useTranslation from "next-translate/useTranslation";
 const TopNav: React.FC = () => {
+    const { t } = useTranslation("common");
     const router = useRouter();
     const { data, isLoading } = useUser();
     return (
@@ -27,10 +28,10 @@ const TopNav: React.FC = () => {
             </a>
             <nav className="md:ml-auto flex flex-wrap items-center text-base text-sandy justify-center">
                 <Link href="/">
-                    <a className="mr-5 hover:text-white">Home</a>
+                    <a className="mr-5 hover:text-white">{t("home")}</a>
                 </Link>
                 <Link href="/tickets">
-                    <a className="mr-5 hover:text-white">Tickets</a>
+                    <a className="mr-5 hover:text-white">{t("tickets")}</a>
                 </Link>
                 {isLoading ? (
                     <Loading />

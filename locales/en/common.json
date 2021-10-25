@@ -17,5 +17,8 @@
     "surname": "Surname",
     "password": "Password",
     "validemail": "Please enter valid email",
-    "confirmpassword": "Confirm password"
+    "confirmpassword": "Confirm password",
+    "home": "Home",
+    "tickets": "Tickets",
+    "invalidCredentials": "Incorrect email or password, try again or reset the password"
 }
