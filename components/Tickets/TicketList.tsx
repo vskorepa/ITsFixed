@@ -27,31 +27,40 @@ const TicketList = () => {
     const [page, setPage] = useState(0);
     const { data, isLoading, refetch } = useTickets(page + 1);
     return (
-        <div className="container px-5 py-24 mx-auto">
-            <div className="flex flex-wrap -m-4">
+        <div className="flex w-screen h-screen">
+            <div className="flex flex-col flex-shrink-0 w-120 gap-4 overflow-x-scroll overflow-scroll">
                 {data?.ticketData.map((item) => (
                     <TicketInList key={item.id} ticketData={item} />
                 ))}
             </div>
-            <div className="pt-6 flex text-xl justify-evenly items-stretch">
-                <button
-                    onClick={async () => {
-                        setPage(page != 1 ? page - 1 : page);
-                        await refetch();
-                    }}
-                >
-                    <MdOutlineArrowBackIosNew />
-                </button>
-                <button
-                    onClick={async () => {
-                        setPage(page + 1);
-                        await refetch();
-                    }}
-                >
-                    <MdOutlineArrowForwardIos />
-                </button>
-            </div>
+            <div className="flex flex-col flex-grow"></div>
         </div>
+
+        // <div className="container px-5 py-24 mx-auto">
+        //     <div className="flex flex-wrap -m-4">
+        //         {data?.ticketData.map((item) => (
+        //             <TicketInList key={item.id} ticketData={item} />
+        //         ))}
+        //     </div>
+        //     <div className="pt-6 flex text-xl justify-evenly items-stretch">
+        //         <button
+        //             onClick={async () => {
+        //                 setPage(page != 1 ? page - 1 : page);
+        //                 await refetch();
+        //             }}
+        //         >
+        //             <MdOutlineArrowBackIosNew />
+        //         </button>
+        //         <button
+        //             onClick={async () => {
+        //                 setPage(page + 1);
+        //                 await refetch();
+        //             }}
+        //         >
+        //             <MdOutlineArrowForwardIos />
+        //         </button>
+        //     </div>
+        // </div>
     );
 };
 export default TicketList;
