@@ -14,6 +14,37 @@ module.exports = {
                 brown: "#F4A261",
                 warning: "#ff9966",
             },
+            maxHeight: {
+                "3/5": "60%",
+                "4/5": "80%",
+                "3/4": "75%",
+                "85vh": "85vh",
+            },
+            height: {
+                "7.5vh": "7.5vh",
+                "5vh": "5vh",
+                "2.5vh": "2.5vh",
+            },
+            minWidth: {
+                "30vw": "30vw",
+                "35vw": "35vw",
+                "40vw": "40vw",
+                "45vw": "45vw",
+                "50vw": "50vw",
+                "90vw": "90vw",
+                "100vw": "100vw",
+            },
+            width: {
+                minWidth: {
+                    "30vw": "30vw",
+                    "35vw": "35vw",
+                    "40vw": "40vw",
+                    "45vw": "45vw",
+                    "50vw": "50vw",
+                    "90vw": "90vw",
+                    "100vw": "100vw",
+                },
+            },
         },
     },
     variants: {

@@ -24,28 +24,22 @@ import {
 } from "react-icons/md";
 import SimpleBar from "simplebar-react";
 import "simplebar/dist/simplebar.css";
-import TicketDetail from "./TicketDetail";
-const TicketList = () => {
+import { TicketBasicInfo } from "../../types/supabaseTypes";
+
+type TicketDetailProps = {
+    ticketData: TicketBasicInfo;
+};
+
+const TicketDetail: React.FC<TicketDetailProps> = (item) => {
     const { t } = useTranslation("common");
-    const [page, setPage] = useState(0);
-    const { data, isLoading, refetch } = useTickets(page + 1);
-    const [detailId, setDetailId] = useState(0);
     return (
-        <div className="flex flex-row w-screen">
-            <div></div>
-            <div className="flex flex-row w-full">
-                <SimpleBar className="min-w-35vw max-h-85vh" autoHide={false}>
-                    {data?.ticketData.map((item) => (
-                        <TicketInList key={item.id} ticketData={item} />
-                    ))}
-                </SimpleBar>
-                <div className="flex justify-center w-full flex-grow">
-                    <Text h1 color="success">
-                        Ticket Detail:
-                    </Text>
-                </div>
+        <div className="flex flex-wrap w-full">
+            <div>
+                <Text h1 color="success">
+                    TICKET NUMBER: {}
+                </Text>
             </div>
         </div>
     );
 };
-export default TicketList;
+export default TicketDetail;

@@ -26,11 +26,9 @@ type TicketInListProps = {
 
 const TicketInList: React.FC<TicketInListProps> = (data) => {
     const { t } = useTranslation("common");
-
     return (
-        // <div className="xl:w-1/3 md:w-1/2 p-4">
-        <div className="border-b border-gray-700 border-opacity-75 p-6 hover:bg-gray-100">
-            <div className="w-full h-10 inline-flex items-center justify-between rounded-full mb-4">
+        <div className="border-b border-gray-700 border-opacity-75 p-6 dark:hover:bg-gray-900 hover:bg-gray-100">
+            <div className="w-full h-auto inline-flex items-center justify-between rounded-full mb-4">
                 <div className="flex gap-2">
                     {data.ticketData.isalive ? (
                         <BiCheckCircle size="30" className="text-primary" />
@@ -55,8 +53,8 @@ const TicketInList: React.FC<TicketInListProps> = (data) => {
                 {data.ticketData.tickettype.name}
             </h2>
             <p className="leading-relaxed text-base">
-                {data.ticketData.description?.substr(0, 55)}
-                {(data.ticketData.description?.length ?? 60 > 55) && "..."}
+                {data.ticketData.description?.substr(0, 100)}
+                {(data.ticketData.description?.length ?? 0 > 100) && "..."}
             </p>
         </div>
         // </div>

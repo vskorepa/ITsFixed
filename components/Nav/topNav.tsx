@@ -24,7 +24,6 @@ import Image from "next/image";
 import { BiSun, BiMoon } from "react-icons/bi";
 import { useTheme } from "next-themes";
 import { ReactLogo } from "./logo";
-
 export const ToolTipDropDown: React.ReactNode = () => {
     return (
         <div className="flex w-16 h-20">
@@ -41,8 +40,9 @@ const TopNav: React.FC = () => {
 
     const [open, setOpen] = useState(false);
     const { theme, setTheme } = useTheme();
+    const [nav, showNav] = useState(true);
     return (
-        <div className="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center">
+        <div className="mx-auto w-full flex flex-wrap p-5 flex-col md:flex-row items-center">
             <Link href="/">
                 <a className="flex title-font font-medium items-center mb-4 md:mb-0">
                     <ReactLogo />
