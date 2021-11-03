@@ -20,5 +20,6 @@
     "confirmpassword": "Kontrolní heslo",
     "home": "Domů",
     "tickets": "Tickety",
-    "invalidCredentials": "Špatný email nebo heslo, zkuste to znovu nebo si změňte heslo"
+    "invalidCredentials": "Špatný email nebo heslo, zkuste to znovu nebo si změňte heslo",
+    "aboutus": "O Nás"
 }

@@ -20,5 +20,6 @@
     "confirmpassword": "Confirm password",
     "home": "Home",
     "tickets": "Tickets",
-    "invalidCredentials": "Incorrect email or password, try again or reset the password"
+    "invalidCredentials": "Incorrect email or password, try again or reset the password",
+    "aboutus": "About us"
 }

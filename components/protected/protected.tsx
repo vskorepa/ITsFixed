@@ -7,7 +7,11 @@ const ProtectedWrapper: React.FC = ({ children }: any) => {
     const { isLoading, isError } = useUser();
     if (isLoading) {
         return (
-            <Container className="h-screen" fluid justify="center">
+            <Container
+                className="h-screen dark:bg-black"
+                fluid
+                justify="center"
+            >
                 <Row justify="center">
                     <Loading color="success" size={200} />
                 </Row>

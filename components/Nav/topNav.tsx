@@ -6,6 +6,10 @@ import {
     Link as NextUiLink,
     Loading,
     Row,
+    Avatar,
+    Text,
+    Tooltip,
+    Switch,
 } from "@nextui-org/react";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -17,38 +21,68 @@ import SignOut from "../login/signOut";
 import useTranslation from "next-translate/useTranslation";
 import { HiX, HiOutlineMenu, HiOutlineBell } from "react-icons/hi";
 import Image from "next/image";
+import { BiSun, BiMoon } from "react-icons/bi";
+import { useTheme } from "next-themes";
+import { ReactLogo } from "./logo";
+
+export const ToolTipDropDown: React.ReactNode = () => {
+    return (
+        <div className="flex w-16 h-20">
+            <Text>Ahoj</Text>
+            <Text>Je to tak</Text>
+        </div>
+    );
+};
+
 const TopNav: React.FC = () => {
     const { t } = useTranslation("common");
     const router = useRouter();
     const { data, isLoading } = useUser();
 
     const [open, setOpen] = useState(false);
-
+    const { theme, setTheme } = useTheme();
     return (
         <div className="container mx-auto flex flex-wrap p-5 flex-col md:flex-row items-center">
-            <a className="flex title-font font-medium items-center text-white mb-4 md:mb-0">
-                <img src="/public/logo.png"></img>
-            </a>
-            <nav className="md:ml-auto flex flex-wrap items-center text-base text-sandy justify-center">
-                <Link href="/">
-                    <a className="mr-5 hover:text-white">{t("home")}</a>
+            <Link href="/">
+                <a className="flex title-font font-medium items-center mb-4 md:mb-0">
+                    <ReactLogo />
+                </a>
+            </Link>
+            <nav className="md:ml-auto font-semibold text-xl flex flex-wrap items-center text-primary justify-center">
+                <Link href="/about">
+                    <a className="mr-5 hover:text-black dark:hover:text-white ">
+                        {t("aboutus")}
+                    </a>
                 </Link>
                 <Link href="/tickets">
-                    <a className="mr-5 hover:text-white">{t("tickets")}</a>
+                    <a className="mr-5 hover:text-black dark:hover:text-white ">
+                        {t("tickets")}
+                    </a>
                 </Link>
-                {isLoading ? (
-                    <Loading />
-                ) : (
-                    <Link href={"user?userId=" + data.id}>
-                        <a className="mr-5 hover:text-white text-flame">
-                            {data.email}
-                        </a>
-                    </Link>
-                )}
             </nav>
-            <button className="inline-flex items-center border-0 py-1 px-3 focus:outline-none rounded text-base mt-4 md:mt-0">
-                <SignOut />
-            </button>
+
+            <div className="flex gap-2 items-center">
+                <Tooltip trigger="hover" color="success" position="bottom">
+                    <Avatar
+                        src="/avatar1.png"
+                        pointer
+                        bordered
+                        color="success"
+                        size={50}
+                    />
+                </Tooltip>
+                <Switch
+                    className="text-black"
+                    color="black"
+                    checked={theme === "dark" ? false : true}
+                    size="xlarge"
+                    iconOff={<BiSun />}
+                    iconOn={<BiMoon />}
+                    onChange={() =>
+                        setTheme(theme === "dark" ? "light" : "dark")
+                    }
+                />
+            </div>
         </div>
     );
 };

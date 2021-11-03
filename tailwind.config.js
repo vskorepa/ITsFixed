@@ -3,11 +3,11 @@ module.exports = {
         "./pages/**/*.{js,ts,jsx,tsx}",
         "./components/**/*.{js,ts,jsx,tsx}",
     ],
-    darkMode: false, // or 'media' or 'class'
+    darkMode: "class", // or 'media' or 'class'
     theme: {
         extend: {
             colors: {
-                primary: "#2A9D8F",
+                primary: "#51ae32",
                 dark: "#264653",
                 sandy: "#E9C46A",
                 flame: "#E76F51",
