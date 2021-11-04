@@ -30,13 +30,13 @@ type TicketDetailProps = {
     ticketData: TicketBasicInfo;
 };
 
-const TicketDetail: React.FC<TicketDetailProps> = (item) => {
+const TicketDetail: React.FC = (item) => {
     const { t } = useTranslation("common");
     return (
         <div className="flex flex-wrap w-full">
             <div>
                 <Text h1 color="success">
-                    TICKET NUMBER: {}
+                    TICKET NUMBER: {item}
                 </Text>
             </div>
         </div>

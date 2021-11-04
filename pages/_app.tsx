@@ -4,6 +4,10 @@ import { QueryClient, QueryClientProvider } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
 import "tailwindcss/tailwind.css";
 import { ThemeProvider } from "next-themes";
+import React from "react";
+import TopNav from "../components/Nav/topNav";
+import PageHead from "../components/Head";
+import Foot from "../components/Foot";
 const queryClient = new QueryClient({
     defaultOptions: {
         queries: {
@@ -14,12 +18,17 @@ const queryClient = new QueryClient({
 
 function MyApp({ Component, pageProps }: AppProps) {
     return (
-        <QueryClientProvider client={queryClient}>
-            <ThemeProvider attribute="class">
+        <ThemeProvider attribute="class">
+            <PageHead />
+
+            <QueryClientProvider client={queryClient}>
+                <TopNav />
+
                 <Component {...pageProps} />
-            </ThemeProvider>
-            <ReactQueryDevtools initialIsOpen={false} />
-        </QueryClientProvider>
+                <ReactQueryDevtools initialIsOpen={false} />
+            </QueryClientProvider>
+            <Foot />
+        </ThemeProvider>
     );
 }
 export default MyApp;

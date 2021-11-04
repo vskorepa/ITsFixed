@@ -42,7 +42,7 @@ const TopNav: React.FC = () => {
     const { theme, setTheme } = useTheme();
     const [nav, showNav] = useState(true);
     return (
-        <div className="mx-auto w-full flex flex-wrap p-5 flex-col md:flex-row items-center">
+        <div className="mx-auto w-full flex flex-wrap px-6 py-1 h-7.5vh flex-col md:flex-row items-center shadow-sm">
             <Link href="/">
                 <a className="flex title-font font-medium items-center mb-4 md:mb-0">
                     <ReactLogo />
@@ -73,7 +73,7 @@ const TopNav: React.FC = () => {
                 </Tooltip>
                 <Switch
                     className="text-black"
-                    color="black"
+                    color="foreground"
                     checked={theme === "dark" ? false : true}
                     size="xlarge"
                     iconOff={<BiSun />}

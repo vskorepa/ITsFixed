@@ -22,12 +22,23 @@ import { TicketBasicInfo } from "../../types/supabaseTypes";
 
 type TicketInListProps = {
     ticketData: TicketBasicInfo;
+    onClick: () => void;
 };
 
 const TicketInList: React.FC<TicketInListProps> = (data) => {
     const { t } = useTranslation("common");
+    const router = useRouter();
     return (
-        <div className="border-b border-gray-700 border-opacity-75 p-6 dark:hover:bg-gray-900 hover:bg-gray-100">
+        <div
+            onClick={() => {
+                router.push({
+                    pathname: "/tickets",
+                    query: { ticketId: data.ticketData.id },
+                });
+                data.onClick();
+            }}
+            className="border-b cursor-pointer border-gray-700 border-opacity-75 p-6 dark:hover:bg-gray-900 hover:bg-gray-100"
+        >
             <div className="w-full h-auto inline-flex items-center justify-between rounded-full mb-4">
                 <div className="flex gap-2">
                     {data.ticketData.isalive ? (

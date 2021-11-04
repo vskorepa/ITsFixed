@@ -12,13 +12,9 @@ const Home: NextPage = () => {
 
     return (
         <ProtectedWrapper>
-            <PageHead />
-            <TopNav />
-
             <div className="flex w-full h-full flex-wrap justify-center">
                 <TicketList />
             </div>
-            <Foot />
         </ProtectedWrapper>
     );
 };

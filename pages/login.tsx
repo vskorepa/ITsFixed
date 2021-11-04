@@ -18,8 +18,6 @@ const loginPage = () => {
         <ProtectedLoginWrapper>
             <div className="h-screen ">
                 <Login />
-
-                <Foot />
             </div>
         </ProtectedLoginWrapper>
     );
