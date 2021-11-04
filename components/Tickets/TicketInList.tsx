@@ -22,7 +22,6 @@ import { TicketBasicInfo } from "../../types/supabaseTypes";
 
 type TicketInListProps = {
     ticketData: TicketBasicInfo;
-    onClick: () => void;
 };
 
 const TicketInList: React.FC<TicketInListProps> = (data) => {
@@ -35,7 +34,6 @@ const TicketInList: React.FC<TicketInListProps> = (data) => {
                     pathname: "/tickets",
                     query: { ticketId: data.ticketData.id },
                 });
-                data.onClick();
             }}
             className="border-b cursor-pointer border-gray-700 border-opacity-75 p-6 dark:hover:bg-gray-900 hover:bg-gray-100"
         >

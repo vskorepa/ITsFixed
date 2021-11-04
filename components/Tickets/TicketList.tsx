@@ -33,32 +33,25 @@ const TicketList = () => {
     const [page, setPage] = useState(0);
     const { data, isLoading, refetch } = useTickets(page + 1);
     const router = useRouter();
-    const [ticketDetail, setTicketDetail] = useState({});
-
     return (
         <div className="flex flex-row w-screen flex-wrap">
             <TicketsNav></TicketsNav>
             <div className="flex flex-row w-full">
-                <SimpleBar className="min-w-35vw overflow-y-auto max-h-80vh pr-3">
+                <SimpleBar className="w-1/3 overflow-y-auto max-h-80vh pr-3">
                     {data?.ticketData.map((item) => (
-                        <TicketInList
-                            key={item.id}
-                            ticketData={item}
-                            onClick={() =>
-                                setTicketDetail(
-                                    data?.ticketData.find(
-                                        ({ id }) => id === router.query.ticketId
-                                    ) ?? {}
-                                )
-                            }
-                        />
+                        <TicketInList key={item.id} ticketData={item} />
                     ))}
                 </SimpleBar>
-                <div className="flex justify-center w-full flex-grow">
-                    <Text key={ticketDetail.id} h1 color="success">
-                        {ticketDetail?.id}
+                <TicketDetail
+                    key={router.query.ticketId}
+                    id={router.query.ticketId ?? ""}
+                />
+
+                {/* <div className="flex justify-center w-2/3">
+                    <Text key={ticketDetail?.id} h1 color="success">
+                        {ticketDetail?.id ?? "TICKET DETAIL:"}
                     </Text>
-                </div>
+                </div> */}
             </div>
         </div>
     );

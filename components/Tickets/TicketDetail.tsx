@@ -25,18 +25,20 @@ import {
 import SimpleBar from "simplebar-react";
 import "simplebar/dist/simplebar.css";
 import { TicketBasicInfo } from "../../types/supabaseTypes";
-
+import useTicketDetail from "../../hooks/tickets/useTicketDetail";
+import { data } from "autoprefixer";
 type TicketDetailProps = {
-    ticketData: TicketBasicInfo;
+    id: string;
 };
 
-const TicketDetail: React.FC = (item) => {
+const TicketDetail: React.FC<TicketDetailProps> = ({ id }) => {
     const { t } = useTranslation("common");
+    const { data, isLoading, error } = useTicketDetail(id);
     return (
-        <div className="flex flex-wrap w-full">
+        <div className="flex flex-wrap w-2/3 justify-center">
             <div>
                 <Text h1 color="success">
-                    TICKET NUMBER: {item}
+                    TICKET NUMBER: {data?.id}
                 </Text>
             </div>
         </div>

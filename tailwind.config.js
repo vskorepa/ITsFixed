@@ -7,8 +7,9 @@ module.exports = {
     theme: {
         extend: {
             colors: {
-                primary: "#51ae32",
-                dark: "#264653",
+                primary: "#50D890",
+                dark: "#272727",
+                secondary: "#4F98CA",
                 sandy: "#E9C46A",
                 flame: "#E76F51",
                 brown: "#F4A261",
@@ -37,6 +38,9 @@ module.exports = {
             },
             width: {
                 minWidth: {
+                    "1/4": "25%",
+                    "1/3": "33%",
+                    "2/5": "40%",
                     "30vw": "30vw",
                     "35vw": "35vw",
                     "40vw": "40vw",
