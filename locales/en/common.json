@@ -21,5 +21,7 @@
     "home": "Home",
     "tickets": "Tickets",
     "invalidCredentials": "Incorrect email or password, try again or reset the password",
-    "aboutus": "About us"
+    "aboutus": "About us",
+    "close": "Close",
+    "submit": "Submit"
 }

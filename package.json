@@ -9,7 +9,7 @@
         "lint": "next lint"
     },
     "dependencies": {
-        "@nextui-org/react": "^1.0.1-alpha.32",
+        "@nextui-org/react": "^1.0.1-alpha.57",
         "@supabase/supabase-js": "^1.22.6",
         "autoprefixer": "^10.3.7",
         "next": "11.1.2",
