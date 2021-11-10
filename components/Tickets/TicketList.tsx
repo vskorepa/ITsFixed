@@ -44,7 +44,7 @@ const TicketList = () => {
                 </SimpleBar>
                 <TicketDetail
                     key={router.query.ticketId}
-                    id={router.query.ticketId ?? ""}
+                    id={router.query.ticketId ?? null}
                 />
 
                 {/* <div className="flex justify-center w-2/3">

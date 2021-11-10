@@ -12,6 +12,7 @@ const Home: NextPage = () => {
 
     return (
         <ProtectedWrapper>
+            <TopNav />
             <div className="text-center">
                 <Text className="text-sandy font-bold text-4xl" h1>
                     {t("greeting")}

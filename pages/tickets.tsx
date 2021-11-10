@@ -12,6 +12,8 @@ const Home: NextPage = () => {
 
     return (
         <ProtectedWrapper>
+            <TopNav />
+
             <div className="flex w-full h-full flex-wrap justify-center">
                 <TicketList />
             </div>

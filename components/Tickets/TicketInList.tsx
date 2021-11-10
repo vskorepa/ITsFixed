@@ -40,9 +40,9 @@ const TicketInList: React.FC<TicketInListProps> = (data) => {
             <div className="w-full h-auto inline-flex items-center justify-between rounded-full mb-4">
                 <div className="flex gap-2">
                     {data.ticketData.isalive ? (
-                        <BiCheckCircle size="30" className="text-primary" />
-                    ) : (
                         <BiError size="30" className="text-warning" />
+                    ) : (
+                        <BiCheckCircle size="30" className="text-primary" />
                     )}
                     <Text className="self-center">
                         {data.ticketData.created_at

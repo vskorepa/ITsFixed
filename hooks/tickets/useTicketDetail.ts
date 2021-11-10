@@ -5,10 +5,11 @@ import { supabase } from "../../lib/supabaseClient";
 import { TicketBasicInfo } from "../../types/supabaseTypes";
 import { definitions } from "../../types/supabase";
 const getTicketDetail = async (id: string) => {
-    const { data, error } = await supabase
-        .from<TicketBasicInfo>("ticket")
-        .select(
-            `
+    if (id !== null) {
+        const { data, error } = await supabase
+            .from<TicketBasicInfo>("ticket")
+            .select(
+                `
         *
         tickettype(
             name,
@@ -20,15 +21,18 @@ const getTicketDetail = async (id: string) => {
         )
 
     `
-        )
-        .eq("id", id)
-        .single();
+            )
+            .eq("id", id)
+            .single();
 
-    if (error) {
-        throw new Error(error.message);
+        if (error) {
+            throw new Error(error.message);
+        }
+
+        return data;
+    } else {
+        return null;
     }
-
-    return data;
 };
 
 const useTicketDetail = (id: string) => {

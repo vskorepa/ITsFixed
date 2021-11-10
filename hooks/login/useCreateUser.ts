@@ -1,3 +1,4 @@
+import { data } from "autoprefixer";
 import { useMutation } from "react-query";
 import { supabase } from "../../lib/supabaseClient";
 import { typeUser } from "../../types/supabaseTypes";

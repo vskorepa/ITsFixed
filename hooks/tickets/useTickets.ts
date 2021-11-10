@@ -24,7 +24,7 @@ const getTickets = async (page: number) => {
 
     `
         )
-        .order("isalive")
+        .order("isalive", { ascending: false })
         .order("created_at")
         .range((page - 1) * 20, page * 20);
 
@@ -46,7 +46,6 @@ const getTickets = async (page: number) => {
         },
         ticketData: data,
     };
-    console.log(response);
     return response;
 };
 
