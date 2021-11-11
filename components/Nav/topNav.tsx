@@ -12,7 +12,7 @@ import {
     Switch,
 } from "@nextui-org/react";
 import Link from "next/link";
-import { useRouter } from "next/router";
+import router, { useRouter } from "next/router";
 import React, { useState } from "react";
 import { BsTools } from "react-icons/bs";
 import useUser from "../../hooks/useUser";
@@ -24,11 +24,25 @@ import Image from "next/image";
 import { BiSun, BiMoon } from "react-icons/bi";
 import { useTheme } from "next-themes";
 import { ReactLogo } from "./logo";
-export const ToolTipDropDown: React.ReactNode = () => {
+import { ToolTipButton } from "../esential/Buttons";
+import useLogoutUser from "../../hooks/login/useLogoutUser";
+import { IoLogOutOutline } from "react-icons/io5";
+
+export const ToolTipDropDown: React.FC = () => {
+    const LogoutMutation = useLogoutUser();
+    if (LogoutMutation.isSuccess) {
+        router.push("/");
+    }
     return (
-        <div className="flex w-16 h-20">
-            <Text>Ahoj</Text>
-            <Text>Je to tak</Text>
+        <div color="error" className="flex flex-wrap w-40">
+            <ToolTipButton text="Profile" href="/profile" icon="profile" />
+            <button
+                className="flex rounded-xl w-full h-full justify-start gap-3 items-center border-2 border-opacity-0 focus:border-opacity-100 focus:border-dark hover:bg-gray-100 hover:bg-opacity-10 text-xl"
+                onClick={() => LogoutMutation.mutate()}
+            >
+                <IoLogOutOutline />
+                LogOut
+            </button>
         </div>
     );
 };
@@ -62,7 +76,12 @@ const TopNav: React.FC = () => {
             </nav>
 
             <div className="flex gap-2 items-center">
-                <Tooltip trigger="hover" color="success" position="bottom">
+                <Tooltip
+                    trigger="click"
+                    color="#4F98CA"
+                    placement="bottom"
+                    content={<ToolTipDropDown />}
+                >
                     <Avatar
                         src="/avatar1.png"
                         pointer

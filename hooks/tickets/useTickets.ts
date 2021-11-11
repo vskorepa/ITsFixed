@@ -17,7 +17,7 @@ const getTickets = async (page: number) => {
             name,
             description
         ),
-        users(
+        users:user_id(
             name,
             email
         )
@@ -28,6 +28,7 @@ const getTickets = async (page: number) => {
         .order("created_at")
         .range((page - 1) * 20, page * 20);
 
+    console.log(data);
     if (error) {
         throw new Error(error.message);
     }

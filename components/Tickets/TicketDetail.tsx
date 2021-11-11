@@ -26,10 +26,15 @@ const TicketDetail: React.FC<TicketDetailProps> = ({ id, onClick }) => {
         <div className="h-full flex flex-wrap w-2/3">
             <div className="h-1/4 bg-gray-300 w-full justify-center">
                 <div className="flex flex-nowrap justify-between p-3 items-center">
-                    <Text color="success">
-                        TICKET NUMBER:
-                        {isLoading ? <Loading /> : data?.id ?? ""}
-                    </Text>
+                    <Text color="success">TICKET NUMBER:</Text>
+                    {isLoading ? (
+                        <Loading />
+                    ) : (
+                        <Text color="success">
+                            TICKET NUMBER: {data?.id ?? ""}
+                        </Text>
+                    )}
+
                     <div className="flex-nowrap flex gap-2 items-center">
                         <Text weight="bold">Is activated:</Text>
                         <Switch

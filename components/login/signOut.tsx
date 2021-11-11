@@ -14,15 +14,7 @@ const SignOut = () => {
     if (LogoutMutation.isSuccess) {
         router.push("/");
     }
-    return (
-        <Avatar
-            onClick={() => LogoutMutation.mutate()}
-            bordered
-            zoomed
-            className="bg-flame"
-            icon={<BiLogOut size="25" />}
-        ></Avatar>
-    );
+    return <div></div>;
 };
 
 export default SignOut;
