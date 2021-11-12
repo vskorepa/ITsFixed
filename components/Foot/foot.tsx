@@ -8,7 +8,7 @@ export const Foot = () => {
     const { t } = useTranslation("common");
     const router = useRouter();
     return (
-        <footer className="bottom-0 text-gray-400 bg-gray-900 h-7.5vh body-font w-full items-center">
+        <footer className="bottom-0 text-gray-400  bg-dark h-7.5vh body-font w-full items-center">
             <div className="container h-full px-5 mx-auto flex items-center sm:flex-row flex-col">
                 <a className="flex title-font font-medium items-center md:justify-start justify-center text-white">
                     <BsTools />

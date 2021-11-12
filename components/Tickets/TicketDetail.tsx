@@ -24,7 +24,7 @@ const TicketDetail: React.FC<TicketDetailProps> = ({ id, onClick }) => {
     const { data, isLoading, error } = useTicketDetail(id);
     return (
         <div className="h-full flex flex-wrap w-2/3">
-            <div className="h-1/4 bg-gray-300 w-full justify-center">
+            <div className="h-1/4 w-full justify-center">
                 <div className="flex flex-nowrap justify-between p-3 items-center">
                     <Text color="success">TICKET NUMBER:</Text>
                     {isLoading ? (
@@ -49,7 +49,7 @@ const TicketDetail: React.FC<TicketDetailProps> = ({ id, onClick }) => {
                     </div>
                 </div>
             </div>
-            <div className="h-3/4 w-full bg-gray-200"></div>
+            <div className="h-3/4 w-full "></div>
         </div>
     );
 };

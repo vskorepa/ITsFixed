@@ -10,6 +10,7 @@ module.exports = {
                 primary: "#50D890",
                 dark: "#272727",
                 secondary: "#4F98CA",
+                light: "#f5f9f8",
                 sandy: "#E9C46A",
                 flame: "#E76F51",
                 brown: "#F4A261",
@@ -26,6 +27,8 @@ module.exports = {
                 "7.5vh": "7.5vh",
                 "5vh": "5vh",
                 "2.5vh": "2.5vh",
+                "80vh": "80vh",
+                "85vh": "85vh",
             },
             minWidth: {
                 "30vw": "30vw",

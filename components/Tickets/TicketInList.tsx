@@ -19,6 +19,7 @@ import useTranslation from "next-translate/useTranslation";
 import useTickets from "../../hooks/tickets/useTickets";
 import { BiError, BiCheckCircle } from "react-icons/bi";
 import { TicketBasicInfo } from "../../types/supabaseTypes";
+import { GrDocumentTime } from "react-icons/gr";
 
 type TicketInListProps = {
     ticketData: TicketBasicInfo;
@@ -27,6 +28,13 @@ type TicketInListProps = {
 const TicketInList: React.FC<TicketInListProps> = (data) => {
     const { t } = useTranslation("common");
     const router = useRouter();
+    const Now = Date.now();
+    const CreatedAt = new Date(data.ticketData.created_at!);
+    const Test = CreatedAt.getTime() - Now;
+    // const startTime = () => {
+    //     let h =
+    // }
+
     return (
         <div
             onClick={() => {
@@ -44,11 +52,7 @@ const TicketInList: React.FC<TicketInListProps> = (data) => {
                     ) : (
                         <BiCheckCircle size="30" className="text-primary" />
                     )}
-                    <Text className="self-center">
-                        {data.ticketData.created_at
-                            .replace("T", " ")
-                            .substr(0, 16)}
-                    </Text>
+                    <Text className="self-center">{Test}</Text>
                 </div>
 
                 <div className="flex-nowrap">

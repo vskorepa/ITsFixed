@@ -11,7 +11,6 @@ const getUser = async (userId: string) => {
     if (error) {
         throw new Error(error.message);
     }
-    console.log(userId);
     if (!data) {
         throw new Error("User not found");
     }
