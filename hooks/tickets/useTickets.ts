@@ -26,6 +26,7 @@ const getTickets = async (page: number) => {
         )
         .order("isalive", { ascending: false })
         .order("created_at")
+        // .eq("isalive", true)
         .range((page - 1) * 20, page * 20);
 
     console.log(data);

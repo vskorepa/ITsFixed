@@ -34,6 +34,7 @@ const useCreateUser = (user: typeUser) => {
                     name: user.name,
                     surname: user.surname,
                     email: user.email,
+                    //@ts-ignore
                     id: data.id,
                 });
             if (insertError) {

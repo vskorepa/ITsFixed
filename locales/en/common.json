@@ -23,5 +23,11 @@
     "invalidCredentials": "Incorrect email or password, try again or reset the password",
     "aboutus": "About us",
     "close": "Close",
-    "submit": "Submit"
+    "submit": "Submit",
+    "user": "User:",
+    "ticketNumber": "Ticket number:",
+    "isActive": "Is active:",
+    "profile": "Profile",
+    "logout": "LogOut",
+    "wantToHelp": "Want to help?"
 }

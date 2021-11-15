@@ -23,5 +23,11 @@
     "invalidCredentials": "Špatný email nebo heslo, zkuste to znovu nebo si změňte heslo",
     "aboutus": "O Nás",
     "close": "Zavřít",
-    "submit": "Odeslat"
+    "submit": "Odeslat",
+    "user": "Uživatel:",
+    "ticketNumber": "Číslo ticketu:",
+    "isActive": "Je aktivní:",
+    "profile": "Profil",
+    "logout": "Odhlásit se",
+    "wantToHelp": "Chcete pomáhat?"
 }

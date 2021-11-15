@@ -1,19 +1,21 @@
+import { Button } from "@nextui-org/react";
 import router from "next/router";
 import React from "react";
 import { IoLogOutOutline } from "react-icons/io5";
 import useLogoutUser from "../../hooks/login/useLogoutUser";
 import { ToolTipButton } from "./Buttons";
-
+import useTranslation from "next-translate/useTranslation";
 export const ToolTipDropDown: React.FC = () => {
+    const { t } = useTranslation("common");
     const LogoutMutation = useLogoutUser();
     if (LogoutMutation.isSuccess) {
         router.push("/");
     }
     return (
-        <div color="error" className="flex flex-wrap w-40">
-            <ToolTipButton text="Profile" href="/profile" icon="profile" />
+        <div color="error" className="flex flex-wrap w-48">
+            <ToolTipButton text={t("profile")} href="/profile" icon="profile" />
             <ToolTipButton
-                text="Want to help?"
+                text={t("wantToHelp")}
                 href="/operator"
                 icon="operator"
             />
@@ -23,7 +25,7 @@ export const ToolTipDropDown: React.FC = () => {
                 onClick={() => LogoutMutation.mutate()}
             >
                 <IoLogOutOutline />
-                LogOut
+                {t("logout")}
             </button>
         </div>
     );

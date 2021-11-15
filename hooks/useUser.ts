@@ -20,7 +20,7 @@ const getUser = async (userId: string) => {
 
 const useUser = () => {
     const user = supabase.auth.user();
-    return useQuery("user", () => getUser(user?.id));
+    return useQuery("user", () => getUser(user!.id));
 };
 
 export default useUser;

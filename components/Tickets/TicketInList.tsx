@@ -20,7 +20,7 @@ import useTickets from "../../hooks/tickets/useTickets";
 import { BiError, BiCheckCircle } from "react-icons/bi";
 import { TicketBasicInfo } from "../../types/supabaseTypes";
 import { GrDocumentTime } from "react-icons/gr";
-
+import moment from "moment-timezone";
 type TicketInListProps = {
     ticketData: TicketBasicInfo;
 };
@@ -28,13 +28,7 @@ type TicketInListProps = {
 const TicketInList: React.FC<TicketInListProps> = (data) => {
     const { t } = useTranslation("common");
     const router = useRouter();
-    const Now = Date.now();
-    const CreatedAt = new Date(data.ticketData.created_at!);
-    const Test = CreatedAt.getTime() - Now;
-    // const startTime = () => {
-    //     let h =
-    // }
-
+    const createdAt = moment(data.ticketData.created_at).tz("Europe/Prague");
     return (
         <div
             onClick={() => {
@@ -52,12 +46,13 @@ const TicketInList: React.FC<TicketInListProps> = (data) => {
                     ) : (
                         <BiCheckCircle size="30" className="text-primary" />
                     )}
-                    <Text className="self-center">{Test}</Text>
+                    <Text className="self-center">{createdAt.fromNow()}</Text>
                 </div>
 
                 <div className="flex-nowrap">
                     <Text>
-                        <strong>User:</strong> {data.ticketData.users.email}
+                        <strong>{t("user")}</strong>{" "}
+                        {data.ticketData.users.email}
                     </Text>
                 </div>
             </div>

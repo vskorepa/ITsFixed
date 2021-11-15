@@ -10,13 +10,16 @@ const getTicketDetail = async (id: string) => {
             .from<TicketBasicInfo>("ticket")
             .select(
                 `
-        *
+        description,
+        isalive,
+        
         tickettype(
             name,
             description
         ),
         users(
             name,
+            surname,
             email
         )
 
@@ -36,6 +39,6 @@ const getTicketDetail = async (id: string) => {
 };
 
 const useTicketDetail = (id: string) => {
-    return useQuery("ticketDetail", () => getTicketDetail(id));
+    return useQuery(["ticketDetail", id], () => getTicketDetail(id));
 };
 export default useTicketDetail;

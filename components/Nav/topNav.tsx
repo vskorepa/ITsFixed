@@ -51,7 +51,6 @@ const TopNav: React.FC = () => {
                 </Tooltip>
                 <Switch
                     className="text-black"
-                    color="black"
                     checked={theme === "dark" ? false : true}
                     size="xlarge"
                     iconOff={<BiSun />}
