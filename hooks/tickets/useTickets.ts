@@ -6,25 +6,25 @@ import { TicketBasicInfo } from "../../types/supabaseTypes";
 import { definitions } from "../../types/supabase";
 const getTickets = async (page: number) => {
     const { data, error } = await supabase
-        .from<TicketBasicInfo>("ticket")
+        .from<TicketBasicInfo>("tickets")
         .select(
             `
         id,
-        isalive,
+        state,
         description,
         created_at,
-        tickettype(
+        ticket_type(
             name,
             description
         ),
         users:user_id(
-            name,
+            first_name,
             email
         )
 
     `
         )
-        .order("isalive", { ascending: false })
+        .order("state", { ascending: false })
         .order("created_at")
         // .eq("isalive", true)
         .range((page - 1) * 20, page * 20);

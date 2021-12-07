@@ -1,3 +1,4 @@
+import useTranslation from "next-translate/useTranslation";
 import Link from "next/link";
 import React from "react";
 import { CgProfile } from "react-icons/cg";
@@ -21,6 +22,22 @@ export const ToolTipButton: React.FC<ToolTipButtonProps> = (props) => {
                     {props.text}
                 </a>
             </Link>
+        </button>
+    );
+};
+type SubmitButtonProps = {
+    text: string;
+};
+
+export const SubmitButton: React.FC<SubmitButtonProps> = ({ text }) => {
+    const { t } = useTranslation("common");
+
+    return (
+        <button
+            className="bg-primary hover:shadow-sm hover:translate-x-1 shadow-md text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+            type="submit"
+        >
+            {t(text)}
         </button>
     );
 };

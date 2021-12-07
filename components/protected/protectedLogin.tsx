@@ -5,6 +5,7 @@ import useUser from "../../hooks/useUser";
 const ProtectedLoginWrapper: React.FC = ({ children }: any) => {
     const router = useRouter();
     const { isLoading, isError, error } = useUser();
+
     if (isLoading) {
         return (
             <Container className="h-screen" fluid justify="center">

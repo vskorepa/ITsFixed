@@ -31,8 +31,8 @@ const useCreateUser = (user: typeUser) => {
             const { data: insertData, error: insertError } = await supabase
                 .from("users")
                 .insert({
-                    name: user.name,
-                    surname: user.surname,
+                    first_name: user.first_name,
+                    last_name: user.last_name,
                     email: user.email,
                     //@ts-ignore
                     id: data.id,

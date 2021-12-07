@@ -5,6 +5,7 @@ import useUser from "../../hooks/useUser";
 const ProtectedWrapper: React.FC = ({ children }: any) => {
     const router = useRouter();
     const { isLoading, isError } = useUser();
+
     if (isLoading) {
         return (
             <Container
@@ -20,7 +21,7 @@ const ProtectedWrapper: React.FC = ({ children }: any) => {
     }
 
     if (isError) {
-        router.push("/login");
+        router.push("/auth/login");
         return (
             <Container fluid justify="center">
                 <Row justify="center">

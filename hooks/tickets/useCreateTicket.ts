@@ -9,7 +9,7 @@ import { definitions } from "../../types/supabase";
 const insertTicket = async (props: CreateTicketType) => {
     console.log(props);
     const { data, error } = await supabase
-        .from<CreateTicketType>("ticket")
+        .from<CreateTicketType>("tickets")
         .insert([
             {
                 ticket_type_id: props.ticket_type_id,

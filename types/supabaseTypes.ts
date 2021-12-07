@@ -3,11 +3,11 @@ import { definitions } from "./supabase";
 export type typeUser = {
     email: string;
     password: string;
-    name: string;
-    surname: string;
+    first_name: string;
+    last_name: string;
 };
-export type TicketBasicInfo = definitions["ticket"] & {
+export type TicketBasicInfo = definitions["tickets"] & {
     users: definitions["users"];
-    tickettype: definitions["tickettype"];
+    ticket_type: definitions["ticket_type"];
 };
-export type CreateTicketType = definitions["ticket"];
+export type CreateTicketType = definitions["tickets"];

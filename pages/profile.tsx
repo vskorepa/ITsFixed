@@ -2,7 +2,7 @@ import type { NextPage } from "next";
 import useTranslation from "next-translate/useTranslation";
 import { Avatar, Container, Loading, Row, Text } from "@nextui-org/react";
 import TopNav from "../components/Nav/topNav";
-import ProtectedWrapper from "../components/protected/protected";
+import ProtectedWrapper from "../components/protected/UserProtected";
 import useUser from "../hooks/useUser";
 
 const Home: NextPage = () => {

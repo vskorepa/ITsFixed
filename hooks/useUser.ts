@@ -1,16 +1,15 @@
+import { data } from "autoprefixer";
 import { useQuery } from "react-query";
 import { supabase } from "../lib/supabaseClient";
 
-const getUser = async (userId: string) => {
-    const { data, error } = await supabase
-        .from("users")
-        .select()
-        .eq("id", userId)
-        .single();
+const getUser = async () => {
+    // const { data, error } = await supabase
+    //     .from("users")
+    //     .select()
+    //     .eq("id", userId)
+    //     .single();
+    const data = await supabase.auth.user();
 
-    if (error) {
-        throw new Error(error.message);
-    }
     if (!data) {
         throw new Error("User not found");
     }
@@ -19,8 +18,7 @@ const getUser = async (userId: string) => {
 };
 
 const useUser = () => {
-    const user = supabase.auth.user();
-    return useQuery("user", () => getUser(user!.id));
+    return useQuery("user", () => getUser());
 };
 
 export default useUser;

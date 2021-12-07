@@ -1,11 +1,11 @@
 import React from "react";
 
-export type SingUpValues = {
-    name: string;
-    surname: string;
+export type SignUpValues = {
+    first_name: string;
+    last_name: string;
     email: string;
     password: string;
-    confirmpassword: string;
+    confirm_password: string;
 };
 export type SignInValues = {
     email: string;
