@@ -10,4 +10,8 @@ export type TicketBasicInfo = definitions["tickets"] & {
     users: definitions["users"];
     ticket_type: definitions["ticket_type"];
 };
-export type CreateTicketType = definitions["tickets"];
+export type CreateTicketProps = {
+    ticket_type_id: number;
+    description: string;
+    user_id: string;
+};

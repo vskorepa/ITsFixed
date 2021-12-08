@@ -29,7 +29,6 @@ const getTickets = async (page: number) => {
         // .eq("isalive", true)
         .range((page - 1) * 20, page * 20);
 
-    console.log(data);
     if (error) {
         throw new Error(error.message);
     }

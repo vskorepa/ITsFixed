@@ -3,14 +3,20 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import {
     PasswordInput,
     EmailInput,
-    FirstNameInput,
-    LastNameInput,
     ConfirmPasswordInput,
     RegexPasswordInput,
+    BasicInput,
+    SelectInput,
+    TextAreaInput,
 } from "./FromInputs";
-import { SignInValues, SignUpValues } from "../../types/formtypes";
+import {
+    SignInValues,
+    SignUpValues,
+    CreateTicketValues,
+} from "../../types/formtypes";
 import { SubmitButton } from "../esential/Buttons";
 import useTranslation from "next-translate/useTranslation";
+import { Modal, Textarea } from "@nextui-org/react";
 type SignInFormProps = {
     OnFormSubmit: (data: SignInValues) => void;
 };
@@ -76,8 +82,22 @@ export const SignUpForm: React.FC<SignUpFormProps> = ({ OnFormSubmit }) => {
             onSubmit={handleSubmit(onSubmit)}
         >
             <div className="gap-4 flex w-full flex-wrap md:flex-nowrap">
-                <FirstNameInput register={register} errors={errors} />
-                <LastNameInput register={register} errors={errors} />
+                <BasicInput
+                    name="first_name"
+                    type="text"
+                    required={true}
+                    register={register}
+                    errors={errors}
+                    placeholder="John"
+                />
+                <BasicInput
+                    name="last_name"
+                    type="text"
+                    required={true}
+                    register={register}
+                    errors={errors}
+                    placeholder="Smith"
+                />
             </div>
 
             <EmailInput register={register} errors={errors} />
@@ -97,6 +117,60 @@ export const SignUpForm: React.FC<SignUpFormProps> = ({ OnFormSubmit }) => {
                     Forgot Password?
                 </a>
             </div>
+        </form>
+    );
+};
+
+type CreateTicketFormProps = {
+    OnFormSubmit: (data: CreateTicketValues) => void;
+    options: {
+        id: number;
+        name: string;
+    }[];
+};
+export const CreateTicketModalForm: React.FC<CreateTicketFormProps> = ({
+    OnFormSubmit,
+    options,
+}) => {
+    const { t } = useTranslation("common");
+
+    const {
+        register,
+        formState: { errors },
+        handleSubmit,
+    } = useForm();
+    const onSubmit = (data: CreateTicketValues) => {
+        OnFormSubmit(data);
+    };
+    return (
+        <form
+            className="flex flex-col items-center gap-5"
+            onSubmit={handleSubmit(onSubmit)}
+        >
+            <Modal.Header>
+                <h2 id="modal-title">Create yours ticket</h2>
+            </Modal.Header>
+
+            <Modal.Body>
+                <SelectInput
+                    register={register}
+                    name="ticket_type_id"
+                    options={options}
+                />
+                <TextAreaInput
+                    register={register}
+                    errors={errors}
+                    required={true}
+                    name="description"
+                    placeholder="Briefly describe you problem"
+                    maxLenght={500}
+                />
+            </Modal.Body>
+            <Modal.Footer>
+                <button type="submit" onClick={close}>
+                    {t("submit")}
+                </button>
+            </Modal.Footer>
         </form>
     );
 };

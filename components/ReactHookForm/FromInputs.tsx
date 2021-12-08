@@ -1,94 +1,80 @@
 import React from "react";
 import { UseFormReturn, FieldErrors } from "react-hook-form";
 import useTranslation from "next-translate/useTranslation";
-
+import { Textarea } from "@nextui-org/react";
+import { MdKeyboardArrowDown } from "react-icons/md";
 type InputProps = {
     register: UseFormReturn["register"];
     errors: FieldErrors;
+    name?: string;
+    type?: "text" | "number" | "email" | "password";
+    placeholder?: string;
+    maxLenght?: number;
+    required?: boolean;
+    options?: {
+        value: number;
+        name: string;
+    }[];
+};
+type SelectInputProps = {
+    register: UseFormReturn["register"];
+    name?: string;
+    options?: {
+        id: number;
+        name: string;
+    }[];
 };
 
-export const FirstNameInput: React.FC<InputProps> = ({ register, errors }) => {
+export const BasicInput: React.FC<InputProps> = ({
+    register,
+    errors,
+    name,
+    type,
+    placeholder,
+    maxLenght,
+    required,
+}) => {
     const { t } = useTranslation("common");
 
     return (
         <div className="mb-4 w-full">
             <label
                 className="block text-gray-700 text-sm font-bold mb-2"
-                id="first_name"
+                id={name ?? "basic"}
             >
-                First name
+                {name ?? "basic"}
             </label>
             <input
-                id="first_name"
+                id={name ?? "basic"}
                 className={` ${
-                    errors.first_name ? "border-red-500" : "border-dark"
+                    errors[name ?? "basic"] ? "border-red-500" : "border-dark"
                 }
                 focus:border-primary 
                  shadow bg-light appearance-none border-2 rounded w-full py-2 px-3
                  text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline
                  `}
-                type="text"
-                placeholder="John"
-                {...register("first_name", {
+                type={type ?? "text"}
+                placeholder={placeholder ?? "basic"}
+                {...register(name ?? "basic", {
                     required: {
-                        value: true,
+                        value: required ?? false,
                         message: t("required"),
                     },
                     maxLength: {
-                        value: 30,
-                        message: `${t("maxLength")} 30`,
+                        value: maxLenght ?? 30,
+                        message: `${t("maxLength")} ${maxLenght ?? "30"}`,
                     },
                 })}
             />
-            {errors.first_name && (
+            {errors[name ?? "basic"] && (
                 <p className="text-red-500 text-md italic">
-                    {errors.first_name.message}
+                    {errors[name ?? "basic"].message}
                 </p>
             )}
         </div>
     );
 };
-export const LastNameInput: React.FC<InputProps> = ({ register, errors }) => {
-    const { t } = useTranslation("common");
 
-    return (
-        <div className="mb-4 w-full">
-            <label
-                className="block text-gray-700 text-sm font-bold mb-2"
-                id="last_name"
-            >
-                Last name
-            </label>
-            <input
-                id="last_name"
-                className={` ${
-                    errors.last_name ? "border-red-500" : "border-dark"
-                }
-                focus:border-primary 
-                 shadow bg-light appearance-none border-2 rounded w-full py-2 px-3
-                 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline
-                 `}
-                type="text"
-                placeholder="Smith"
-                {...register("last_name", {
-                    required: {
-                        value: true,
-                        message: t("required"),
-                    },
-                    maxLength: {
-                        value: 30,
-                        message: `${t("maxLength")} 30`,
-                    },
-                })}
-            />
-            {errors.last_name && (
-                <p className="text-red-500 text-md italic">
-                    {errors.last_name.message}
-                </p>
-            )}
-        </div>
-    );
-};
 export const EmailInput: React.FC<InputProps> = ({ register, errors }) => {
     const { t } = useTranslation("common");
 
@@ -274,6 +260,74 @@ export const ConfirmPasswordInput: React.FC<InputProps> = ({
                 </p>
             ) : (
                 <></>
+            )}
+        </div>
+    );
+};
+
+export const SelectInput: React.FC<SelectInputProps> = ({
+    register,
+    name,
+    options,
+}) => {
+    const { t } = useTranslation("common");
+
+    return (
+        <div className="inline-block relative w-full">
+            <label
+                className="block text-gray-700 text-sm font-bold mb-2"
+                id={name ?? "select"}
+            >
+                {name ?? "select"}
+            </label>
+            <div className="flex justify-between">
+                <select
+                    id={name ?? "select"}
+                    className="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline"
+                    {...register(name ?? "select")}
+                >
+                    {options?.map((option) => (
+                        <option key={option.name} value={option.id}>
+                            {option.name}
+                        </option>
+                    ))}
+                </select>
+                {/* <MdKeyboardArrowDown /> */}
+            </div>
+        </div>
+    );
+};
+
+export const TextAreaInput: React.FC<InputProps> = ({
+    register,
+    errors,
+    name,
+    placeholder,
+    required,
+    maxLenght,
+}) => {
+    const { t } = useTranslation("common");
+
+    return (
+        <div>
+            <Textarea
+                placeholder={placeholder ?? "Type some text"}
+                rows={5}
+                {...register(name ?? "TextArea", {
+                    required: {
+                        value: required ?? false,
+                        message: t("required"),
+                    },
+                    maxLength: {
+                        value: maxLenght ?? 50,
+                        message: `${t("maxLength")} ${maxLenght ?? 50}`,
+                    },
+                })}
+            />
+            {errors[name ?? "basic"] && (
+                <p className="text-red-500 text-md italic">
+                    {errors[name ?? "basic"].message}
+                </p>
             )}
         </div>
     );

@@ -7,19 +7,18 @@ import { definitions } from "../../types/supabase";
 const getTicketDetail = async (id: string) => {
     if (id !== null) {
         const { data, error } = await supabase
-            .from<TicketBasicInfo>("ticket")
+            .from<TicketBasicInfo>("tickets")
             .select(
                 `
         description,
-        isalive,
-        
-        tickettype(
+        state,
+        ticket_type(
             name,
             description
         ),
-        users(
-            name,
-            surname,
+        users:user_id(
+            first_name,
+            last_name,
             email
         )
 

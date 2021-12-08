@@ -9,7 +9,7 @@ import {
     Col,
     Switch,
 } from "@nextui-org/react";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import useTranslation from "next-translate/useTranslation";
 import useTicketDetail from "../../hooks/tickets/useTicketDetail";
 import { FaRegCircle, FaMinus } from "react-icons/fa";
@@ -28,11 +28,14 @@ const TicketDetail: React.FC<TicketDetailProps> = ({ id, onClick }) => {
     //     TicketMutation()
     // }
     const { data, isLoading, error } = useTicketDetail(id);
-    const TicketMutation = useUpdateTicket({
-        id: id,
-        isalive: !data?.isalive,
-    });
-    console.log(data);
+    console.log(supabase.auth.session());
+    const [session, setSessin] = useState(supabase.);
+
+    // const TicketMutation = useUpdateTicket({
+    //     id: id,
+    //     state: !data?.state,
+    // });
+    // console.log(data);
     return (
         <div className="h-full flex flex-wrap w-2/3">
             <div className="h-1/3 w-full justify-center">
@@ -47,19 +50,10 @@ const TicketDetail: React.FC<TicketDetailProps> = ({ id, onClick }) => {
 
                     <div className="flex-nowrap flex gap-2 items-center">
                         <Text weight="bold">{t("isActive")}</Text>
-                        <Switch
-                            bordered={true}
-                            color="success"
-                            size="large"
-                            checked={data?.isalive}
-                            iconOn={<FaRegCircle />}
-                            iconOff={<FaMinus />}
-                            onChange={() => TicketMutation.mutate()}
-                        />
                     </div>
                 </div>
-                <Text>{data?.users.name}</Text>
-                <Text>{data?.users.surname}</Text>
+                <Text>{data?.users.first_name}</Text>
+                <Text>{data?.users.last_name}</Text>
                 <Text>{data?.users.email}</Text>
 
                 <Text>{data?.description}</Text>

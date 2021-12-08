@@ -11,3 +11,7 @@ export type SignInValues = {
     email: string;
     password: string;
 };
+export type CreateTicketValues = {
+    ticket_type_id: number;
+    description: string;
+};

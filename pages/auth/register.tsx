@@ -19,7 +19,7 @@ const registerPage = () => {
     const { t } = useTranslation("common");
     const router = useRouter();
     return (
-        <ProtectedLoginWrapper>
+        <div>
             <TopNav />
 
             <div className="w-full h-85vh">
@@ -39,7 +39,7 @@ const registerPage = () => {
                     </Row>
                 </div>
             </div>
-        </ProtectedLoginWrapper>
+        </div>
     );
 };
 export default registerPage;

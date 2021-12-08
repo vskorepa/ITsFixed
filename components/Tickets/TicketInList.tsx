@@ -10,7 +10,6 @@ import {
 } from "@nextui-org/react";
 import React from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
-import { SingUpValues } from "../../types/formtypes";
 import { supabase } from "../../lib/supabaseClient";
 import { useState } from "react";
 import { useRouter } from "next/router";
@@ -40,14 +39,7 @@ const TicketInList: React.FC<TicketInListProps> = (data) => {
             className="border-b cursor-pointer border-gray-700 border-opacity-75 p-6 dark:hover:bg-gray-900 hover:bg-gray-100"
         >
             <div className="w-full h-auto inline-flex items-center justify-between rounded-full mb-4">
-                <div className="flex gap-2">
-                    {data.ticketData.isalive ? (
-                        <BiError size="30" className="text-warning" />
-                    ) : (
-                        <BiCheckCircle size="30" className="text-primary" />
-                    )}
-                    <Text className="self-center">{createdAt.fromNow()}</Text>
-                </div>
+                <div className="flex gap-2">{data.ticketData.state}</div>
 
                 <div className="flex-nowrap">
                     <Text>
@@ -58,7 +50,7 @@ const TicketInList: React.FC<TicketInListProps> = (data) => {
             </div>
 
             <h2 className="text-lg font-medium title-font mb-2">
-                {data.ticketData.tickettype.name}
+                {data.ticketData.ticket_type.name}
             </h2>
             <p className="leading-relaxed text-base">
                 {data.ticketData.description?.substr(0, 100)}

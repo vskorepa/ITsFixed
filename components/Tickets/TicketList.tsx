@@ -10,7 +10,6 @@ import {
 } from "@nextui-org/react";
 import React, { useEffect } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
-import { SingUpValues } from "../../types/formtypes";
 import { supabase } from "../../lib/supabaseClient";
 import { useState } from "react";
 import { useRouter } from "next/router";
@@ -34,10 +33,10 @@ const TicketList = () => {
     const { data, isLoading, refetch } = useTickets(page + 1);
     const router = useRouter();
     return (
-        <div className="flex flex-row w-screen flex-wrap">
+        <div className="flex flex-row w-screen h-full flex-wrap">
             <TicketsNav></TicketsNav>
-            <div className="flex flex-row w-full">
-                <SimpleBar className="w-1/3 overflow-y-auto max-h-80vh pr-3">
+            <div className="flex flex-row h-full w-full">
+                <SimpleBar className="w-1/3 overflow-y-auto h-80vh pr-3">
                     {data?.ticketData.map((item) => (
                         <TicketInList key={item.id} ticketData={item} />
                     ))}

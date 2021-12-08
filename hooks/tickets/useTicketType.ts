@@ -1,9 +1,8 @@
 import { useQuery } from "react-query";
 import { supabase } from "../../lib/supabaseClient";
-import { TicketBasicInfo } from "../../types/supabaseTypes";
-import { definitions } from "./../../types/supabase";
+import { definitions } from "../../types/supabase";
 
-const getTickets = async () => {
+const getTicketType = async () => {
     const { data, error } = await supabase
         .from<definitions["ticket_type"]>("ticket_type")
         .select(
@@ -26,7 +25,7 @@ const getTickets = async () => {
     return data;
 };
 
-const useTickets = () => {
-    return useQuery("tickets", () => getTickets());
+const useTicketType = () => {
+    return useQuery("ticket_type", () => getTicketType());
 };
-export default useTickets;
+export default useTicketType;
