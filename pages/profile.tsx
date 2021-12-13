@@ -2,7 +2,7 @@ import type { NextPage } from "next";
 import useTranslation from "next-translate/useTranslation";
 import { Avatar, Container, Loading, Row, Text } from "@nextui-org/react";
 import TopNav from "../components/Nav/topNav";
-import ProtectedWrapper from "../components/protected/UserProtected";
+import AuthProtectedWrapper from "../components/protected/UserProtected";
 import useUser from "../hooks/useUser";
 
 const Home: NextPage = () => {
@@ -10,7 +10,7 @@ const Home: NextPage = () => {
     const { data, isLoading } = useUser();
 
     return (
-        <ProtectedWrapper>
+        <AuthProtectedWrapper role="user">
             <TopNav />
             <div className="h-85vh w-full flex flex-nowrap">
                 {isLoading ? (
@@ -27,11 +27,11 @@ const Home: NextPage = () => {
                         </div>
                         <div className="w-full h-3/4 flex text-2xl flex-wrap gap-3">
                             <div className="flex h-10 justify-evenly w-full">
-                                <h2>{data.name}</h2>
-                                <h2>{data.surname}</h2>
+                                {/* <h2>{data.first_name}</h2>
+                                <h2>{data.last_name}</h2> */}
                             </div>
                             <div className="flex justify-evenly w-full">
-                                <h2>{data.email}</h2>
+                                <h2>{data?.data.email}</h2>
                             </div>
                         </div>
                     </div>
@@ -39,7 +39,7 @@ const Home: NextPage = () => {
 
                 <div className="w-2/3 "></div>
             </div>
-        </ProtectedWrapper>
+        </AuthProtectedWrapper>
     );
 };
 

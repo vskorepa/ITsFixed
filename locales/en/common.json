@@ -29,5 +29,8 @@
     "isActive": "Is active:",
     "profile": "Profile",
     "logout": "LogOut",
-    "wantToHelp": "Want to help?"
+    "wantToHelp": "Want to help?",
+    "waiting": "waiting for operator",
+    "ongoing": "ongoing",
+    "done": "solved"
 }

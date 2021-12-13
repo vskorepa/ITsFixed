@@ -24,9 +24,9 @@ const getTickets = async (page: number) => {
 
     `
         )
-        .order("state", { ascending: false })
+        .eq("state", "waiting")
+        // .order("state", { ascending: true })
         .order("created_at")
-        // .eq("isalive", true)
         .range((page - 1) * 20, page * 20);
 
     if (error) {

@@ -13,7 +13,7 @@ const getTicketType = async () => {
     `
         );
 
-    console.log(data);
+    // console.log(data);
     if (error) {
         throw new Error(error.message);
     }

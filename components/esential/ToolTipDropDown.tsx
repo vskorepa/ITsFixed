@@ -9,7 +9,7 @@ export const ToolTipDropDown: React.FC = () => {
     const { t } = useTranslation("common");
     const LogoutMutation = useLogoutUser();
     if (LogoutMutation.isSuccess) {
-        router.push("/");
+        router.push("/auth/login");
     }
     return (
         <div color="error" className="flex flex-wrap w-48">

@@ -4,20 +4,24 @@ import { supabase } from "../../lib/supabaseClient";
 import { typeUser } from "../../types/supabaseTypes";
 
 const createUser = async (user: typeUser) => {
-    const { data: userWithEmail } = await supabase
-        .from("users")
-        .select("*")
-        .eq("email", user.email)
-        .single();
+    // const { data: userWithEmail } = await supabase
+    //     .from("users")
+    //     .select("*")
+    //     .eq("email", user.email)
+    //     .single();
 
-    if (userWithEmail) {
-        throw new Error("User with this email exists");
-    }
+    // if (userWithEmail) {
+    //     throw new Error("User with this email exists");
+    // }
 
     const { data, error: SighUpError } = await supabase.auth.signUp({
         email: user.email,
         password: user.password,
     });
+    // console.log(SighUpError?.code);
+    // if (SighUpError?.code == "23505") {
+    //     throw new Error("User with this email exists");
+    // }
     if (SighUpError) {
         throw SighUpError;
     }

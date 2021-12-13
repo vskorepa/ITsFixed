@@ -15,3 +15,7 @@ export type CreateTicketProps = {
     description: string;
     user_id: string;
 };
+export type UpdateStateProps = {
+    id: string;
+    state: string;
+};

@@ -23,18 +23,14 @@ type TicketDetailProps = {
 const TicketDetail: React.FC<TicketDetailProps> = ({ id, onClick }) => {
     const { t } = useTranslation("common");
 
-    // const onStateChange = () =>
-    // {
-    //     TicketMutation()
-    // }
+    const TicketFinish = () => {
+        TicketMutation.mutate();
+    };
     const { data, isLoading, error } = useTicketDetail(id);
-    console.log(supabase.auth.session());
-    const [session, setSessin] = useState(supabase.);
-
-    // const TicketMutation = useUpdateTicket({
-    //     id: id,
-    //     state: !data?.state,
-    // });
+    const TicketMutation = useUpdateTicket({
+        id: id,
+        state: "done",
+    });
     // console.log(data);
     return (
         <div className="h-full flex flex-wrap w-2/3">
@@ -48,8 +44,17 @@ const TicketDetail: React.FC<TicketDetailProps> = ({ id, onClick }) => {
                         </Text>
                     )}
 
-                    <div className="flex-nowrap flex gap-2 items-center">
-                        <Text weight="bold">{t("isActive")}</Text>
+                    <div className="flex-wrap flex gap-2 items-center">
+                        {isLoading ? (
+                            <Loading size="medium" />
+                        ) : (
+                            <Text weight="bold">
+                                {data ? t(`${data?.state}`) : "Ticket state:"}
+                            </Text>
+                        )}
+                        <Button onClick={() => TicketFinish()} auto>
+                            Finish
+                        </Button>
                     </div>
                 </div>
                 <Text>{data?.users.first_name}</Text>

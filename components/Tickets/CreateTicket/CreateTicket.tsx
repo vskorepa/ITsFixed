@@ -18,12 +18,12 @@ const CreateTicket: React.FC<createTicketProps> = ({ close, visible }) => {
     const [ticketType, setTicketType] = useState(0);
     const { data, isLoading, error } = useTicketType();
     const onSubmit: SubmitHandler<CreateTicketValues> = (data) => {
-        console.log(data);
+        // console.log(data);
         setTicketType(data.ticket_type_id!);
         setdescription(data.description!);
         TicketMutation.mutate();
     };
-    console.log(ticketType);
+    // console.log(ticketType);
     const TicketMutation = useCreateTicket({
         description: description,
         ticket_type_id: ticketType,

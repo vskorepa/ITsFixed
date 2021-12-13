@@ -3,18 +3,18 @@ import { useQuery } from "react-query";
 import { supabase } from "../lib/supabaseClient";
 
 const getUser = async () => {
-    // const { data, error } = await supabase
-    //     .from("users")
-    //     .select()
-    //     .eq("id", userId)
-    //     .single();
+    // const { data, error } = await supabase.from("users").select().single();
     const data = await supabase.auth.user();
-
+    const { data: roledata, error } = await supabase
+        .from("user_roles")
+        .select(`role`)
+        .eq("user_id", data?.id)
+        .single();
     if (!data) {
         throw new Error("User not found");
     }
-
-    return data;
+    console.log(roledata);
+    return { data, roledata };
 };
 
 const useUser = () => {

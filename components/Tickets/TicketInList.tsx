@@ -27,7 +27,10 @@ type TicketInListProps = {
 const TicketInList: React.FC<TicketInListProps> = (data) => {
     const { t } = useTranslation("common");
     const router = useRouter();
-    const createdAt = moment(data.ticketData.created_at).tz("Europe/Prague");
+    const createdAt = moment(data.ticketData.created_at).tz(
+        "Europe/Prague",
+        true
+    );
     return (
         <div
             onClick={() => {
@@ -39,7 +42,16 @@ const TicketInList: React.FC<TicketInListProps> = (data) => {
             className="border-b cursor-pointer border-gray-700 border-opacity-75 p-6 dark:hover:bg-gray-900 hover:bg-gray-100"
         >
             <div className="w-full h-auto inline-flex items-center justify-between rounded-full mb-4">
-                <div className="flex gap-2">{data.ticketData.state}</div>
+                <div
+                    className={`
+                    flex gap-2
+                     ${data.ticketData.state == "waiting" && "text-brown"}
+                     ${data.ticketData.state == "ongoing" && "text-secondary"}
+                     ${data.ticketData.state == "done" && "text-primary"}
+                     `}
+                >
+                    {t(data.ticketData.state!)}
+                </div>
 
                 <div className="flex-nowrap">
                     <Text>
@@ -52,10 +64,13 @@ const TicketInList: React.FC<TicketInListProps> = (data) => {
             <h2 className="text-lg font-medium title-font mb-2">
                 {data.ticketData.ticket_type.name}
             </h2>
-            <p className="leading-relaxed text-base">
-                {data.ticketData.description?.substr(0, 100)}
-                {(data.ticketData.description?.length ?? 0 > 100) && "..."}
-            </p>
+            <div className="flex justify-between">
+                <p className="leading-relaxed text-base">
+                    {data.ticketData.description?.substr(0, 100)}
+                    {(data.ticketData.description?.length ?? 0 > 100) && "..."}
+                </p>
+                <p>{createdAt.fromNow()}</p>
+            </div>
         </div>
         // </div>
     );

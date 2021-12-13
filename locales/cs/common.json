@@ -29,5 +29,8 @@
     "isActive": "Je aktivní:",
     "profile": "Profil",
     "logout": "Odhlásit se",
-    "wantToHelp": "Chcete pomáhat?"
+    "wantToHelp": "Chcete pomáhat?",
+    "waiting": "čeká na operátora",
+    "ongoing": "právě se řeší",
+    "done": "vyřešený"
 }

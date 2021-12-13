@@ -14,7 +14,23 @@ const login = async ({ email, password }: SignInValues) => {
 };
 
 const useLogin = ({ email, password }: SignInValues) => {
-    return useMutation("login", () => login({ email, password }));
+    return useMutation(
+        "login",
+        () => login({ email, password })
+        // , {
+        // onSuccess: async (data) => {
+        //     const { data: userData, error: userError } = await supabase
+        //         .from("users")
+        //         .select()
+        //         .single();
+
+        //     if (userError) {
+        //         throw userError;
+        //     }
+        //     return userData;
+        // },
+        // }
+    );
 };
 
 export default useLogin;

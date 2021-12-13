@@ -2,10 +2,18 @@ import { Container, Loading, Row } from "@nextui-org/react";
 import { useRouter } from "next/router";
 import useUser from "../../hooks/useUser";
 
-const ProtectedWrapper: React.FC = ({ children }: any) => {
-    const router = useRouter();
-    const { isLoading, isError } = useUser();
+type AuthProtectedWrapperProps = {
+    role: string;
+    childredn?: any;
+};
 
+const AuthProtectedWrapper: React.FC<AuthProtectedWrapperProps> = ({
+    children,
+    role,
+}) => {
+    const router = useRouter();
+    const { data, isLoading, isError } = useUser();
+    console.log(data?.roledata);
     if (isLoading) {
         return (
             <Container
@@ -31,6 +39,34 @@ const ProtectedWrapper: React.FC = ({ children }: any) => {
         );
     }
 
+    if (role === "operator") {
+        if (
+            data?.roledata.role !== "operator" &&
+            data?.roledata.role !== "admin"
+        ) {
+            router.push("/");
+            return (
+                <Container fluid justify="center">
+                    <Row justify="center">
+                        <Loading color="success" size={200} />
+                    </Row>
+                </Container>
+            );
+        }
+    }
+    if (role === "admin") {
+        if (data?.roledata.role !== "admin") {
+            router.push("/");
+            return (
+                <Container fluid justify="center">
+                    <Row justify="center">
+                        <Loading color="success" size={200} />
+                    </Row>
+                </Container>
+            );
+        }
+    }
+
     return <div>{children}</div>;
 };
-export default ProtectedWrapper;
+export default AuthProtectedWrapper;

@@ -11,11 +11,12 @@ const Home: NextPage = () => {
     const { t } = useTranslation("common");
 
     return (
-        <AuthProtectedWrapper role="user">
+        <AuthProtectedWrapper role="admin">
             <TopNav />
-
-            <div className="flex w-full h-full flex-wrap justify-center">
-                <TicketList />
+            <div className="text-center">
+                <Text className="text-sandy font-bold text-4xl" h1>
+                    ADMIN Page
+                </Text>
             </div>
         </AuthProtectedWrapper>
     );

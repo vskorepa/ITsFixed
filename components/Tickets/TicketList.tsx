@@ -45,7 +45,6 @@ const TicketList = () => {
                     //@ts-ignore
                     key={router.query.ticketId}
                     //@ts-ignore
-
                     id={router.query.ticketId ?? null}
                 />
 

@@ -3,15 +3,15 @@ import { useState } from "react";
 import { typeUser } from "../../types/supabaseTypes";
 import { useMutation } from "react-query";
 import { supabase } from "../../lib/supabaseClient";
-import { CreateTicketType } from "../../types/supabaseTypes";
+import { UpdateStateProps } from "../../types/supabaseTypes";
 import { definitions } from "../../types/supabase";
 // const userId = supabase.auth.user()!.id;
-const updateTicket = async (props: CreateTicketType) => {
+const updateTicket = async (props: UpdateStateProps) => {
     console.log(props);
     const { data, error } = await supabase
-        .from<CreateTicketType>("ticket")
+        .from<UpdateStateProps>("tickets")
         .update({
-            isalive: props.isalive,
+            state: props.state,
         })
         .eq("id", props.id);
     if (error) {
@@ -24,7 +24,7 @@ const updateTicket = async (props: CreateTicketType) => {
     return data;
 };
 
-const useUpdateTicket = (props: CreateTicketType) => {
+const useUpdateTicket = (props: UpdateStateProps) => {
     return useMutation(["UpdateTicketState", props.id], () =>
         updateTicket(props)
     );
