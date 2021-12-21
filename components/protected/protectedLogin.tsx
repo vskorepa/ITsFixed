@@ -18,7 +18,7 @@ const ProtectedLoginWrapper: React.FC = ({ children }: any) => {
     }
 
     if (!isError) {
-        router.push("/");
+        router.push("/profile");
         return (
             <Container fluid justify="center">
                 <Row justify="center">

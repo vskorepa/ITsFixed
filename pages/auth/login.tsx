@@ -33,7 +33,7 @@ const loginPage = () => {
                             color="primary"
                             onClick={() => router.push("/auth/register")}
                         >
-                            {t("alreadyAccount")}
+                            {t("noAccount")}
                         </Button>
                     </Row>
                 </div>

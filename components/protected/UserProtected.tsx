@@ -13,7 +13,6 @@ const AuthProtectedWrapper: React.FC<AuthProtectedWrapperProps> = ({
 }) => {
     const router = useRouter();
     const { data, isLoading, isError } = useUser();
-    console.log(data?.roledata);
     if (isLoading) {
         return (
             <Container

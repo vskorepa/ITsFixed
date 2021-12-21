@@ -10,14 +10,14 @@ import { ToolTipButton } from "../esential/Buttons";
 import useLogoutUser from "../../hooks/login/useLogoutUser";
 import { IoLogOutOutline } from "react-icons/io5";
 import { ToolTipDropDown } from "../esential/ToolTipDropDown";
-
+import { MdOutlineMenu } from "react-icons/md";
 const TopNav: React.FC = () => {
     const { t } = useTranslation("common");
     const { theme, setTheme } = useTheme();
     return (
-        <div className="mx-auto border-b-2 border-dark dark:bg-secondary w-full flex flex-wrap px-6 py-1 h-7.5vh flex-col md:flex-row items-center shadow-sm">
+        <div className="flex border-b-2 border-dark dark:bg-secondary w-full justify-between items-center sm:px-6 px-2 py-1  h-7.5vh shadow-sm">
             <Link href="/">
-                <a className="flex title-font font-medium items-center mb-4 md:mb-0">
+                <a className="flex title-font font-medium items-center">
                     <ReactLogo />
                 </a>
             </Link>
@@ -33,32 +33,44 @@ const TopNav: React.FC = () => {
                     </a>
                 </Link>
             </nav>
-
-            <div className="flex gap-2 items-center">
+            <div className="sm:hidden flex h-full items-center">
                 <Tooltip
                     trigger="click"
-                    color="#4F98CA"
-                    placement="bottom"
+                    initialVisible={false}
+                    placement="bottomEnd"
                     content={<ToolTipDropDown />}
                 >
-                    <Avatar
-                        src="/avatar1.png"
-                        pointer
-                        bordered
-                        color="success"
-                        size={50}
-                    />
+                    <MdOutlineMenu size={50} />
                 </Tooltip>
-                <Switch
-                    className="text-black"
-                    checked={theme === "dark" ? false : true}
-                    size="xlarge"
-                    iconOff={<BiSun />}
-                    iconOn={<BiMoon />}
-                    onChange={() =>
-                        setTheme(theme === "dark" ? "light" : "dark")
-                    }
-                />
+            </div>
+            <div className="sm:flex hidden h-full items-center">
+                <div className="flex gap-2 items-center">
+                    <Tooltip
+                        trigger="click"
+                        color="#4F98CA"
+                        placement="bottom"
+                        content={<ToolTipDropDown />}
+                    >
+                        <Avatar
+                            src="/avatar1.png"
+                            pointer
+                            bordered
+                            color="success"
+                            size="medium"
+                        />
+                    </Tooltip>
+                    <Switch
+                        className="text-white dark:text-dark"
+                        color="black"
+                        checked={theme === "dark" ? false : true}
+                        size="xlarge"
+                        iconOff={<BiSun />}
+                        iconOn={<BiMoon />}
+                        onChange={() =>
+                            setTheme(theme === "dark" ? "light" : "dark")
+                        }
+                    />
+                </div>
             </div>
         </div>
     );
