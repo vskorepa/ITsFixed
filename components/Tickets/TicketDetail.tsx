@@ -15,10 +15,35 @@ import useTicketDetail from "../../hooks/tickets/useTicketDetail";
 import { FaRegCircle, FaMinus } from "react-icons/fa";
 import useUpdateTicket from "../../hooks/tickets/useUpdateTicket";
 import { supabase } from "../../lib/supabaseClient";
+import Chat from "../messages/chat";
 type TicketDetailProps = {
     id: string;
     onClick: () => void;
 };
+
+const fakeData = [
+    {
+        content:
+            "Dobrý den, jmenuji se TEST OPERATOR a pokusím se vám pomoci s vaším problémem.",
+        state: "sent",
+    },
+    {
+        content: "Dobrý den.",
+        state: "recieved",
+    },
+    {
+        content: "Koukáš že máš nějaký problém s počítačem.",
+        state: "sent",
+    },
+    {
+        content: "Ano mám mohl by jsi se na to prosím podívat?",
+        state: "recieved",
+    },
+    {
+        content: "Jdu na to ;).",
+        state: "sent",
+    },
+];
 
 const TicketDetail: React.FC<TicketDetailProps> = ({ id, onClick }) => {
     const { t } = useTranslation("common");
@@ -63,7 +88,9 @@ const TicketDetail: React.FC<TicketDetailProps> = ({ id, onClick }) => {
 
                 <Text>{data?.description}</Text>
             </div>
-            <div className="h-2/3 w-full bg-gray-200 dark:bg-gray-800"></div>
+            <div className="h-2/3 w-full bg-gray-200 dark:bg-gray-800">
+                <Chat messages={fakeData} />
+            </div>
         </div>
     );
 };

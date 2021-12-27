@@ -30,14 +30,54 @@ import TicketsNav from "../Nav/TicketsNav";
 const TicketList = () => {
     const { t } = useTranslation("common");
     const [page, setPage] = useState(0);
-    const { data, isLoading, refetch } = useTickets(page + 1);
+    // const { data, isLoading, refetch } = useTickets(page + 1);
+    const [data, setTickets] = useState([]);
     const router = useRouter();
+
+    useEffect(() => {
+        fetchTickets();
+        const mySubscription = supabase
+            .from("tickets")
+            .on("*", () => {
+                console.log("something happened....");
+                fetchTickets();
+            })
+            .subscribe();
+        return () => supabase.removeSubscription(mySubscription);
+    }, []);
+    async function fetchTickets() {
+        const { data, error } = await supabase
+            .from<TicketBasicInfo>("tickets")
+            .select(
+                `
+        id,
+        state,
+        description,
+        created_at,
+        ticket_type(
+            name,
+            description
+        ),
+        users:user_id(
+            first_name,
+            email
+        )
+
+    `
+            )
+            .eq("state", "waiting")
+            // .order("state", { ascending: true })
+            .order("created_at");
+
+        setTickets(data);
+    }
+    console.log(data);
     return (
         <div className="flex flex-row w-screen h-full flex-wrap">
             <TicketsNav></TicketsNav>
             <div className="flex flex-row h-full w-full">
                 <SimpleBar className="w-1/3 overflow-y-auto h-80vh pr-3">
-                    {data?.ticketData.map((item) => (
+                    {data?.map((item) => (
                         <TicketInList key={item.id} ticketData={item} />
                     ))}
                 </SimpleBar>
