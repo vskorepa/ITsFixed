@@ -43,6 +43,69 @@ const fakeData = [
         content: "Jdu na to ;).",
         state: "sent",
     },
+    {
+        content:
+            "Dobrý den, jmenuji se TEST OPERATOR a pokusím se vám pomoci s vaším problémem.",
+        state: "sent",
+    },
+    {
+        content: "Dobrý den.",
+        state: "recieved",
+    },
+    {
+        content: "Koukáš že máš nějaký problém s počítačem.",
+        state: "sent",
+    },
+    {
+        content: "Ano mám mohl by jsi se na to prosím podívat?",
+        state: "recieved",
+    },
+    {
+        content: "Jdu na to ;).",
+        state: "sent",
+    },
+    {
+        content:
+            "Dobrý den, jmenuji se TEST OPERATOR a pokusím se vám pomoci s vaším problémem.",
+        state: "sent",
+    },
+    {
+        content: "Dobrý den.",
+        state: "recieved",
+    },
+    {
+        content: "Koukáš že máš nějaký problém s počítačem.",
+        state: "sent",
+    },
+    {
+        content: "Ano mám mohl by jsi se na to prosím podívat?",
+        state: "recieved",
+    },
+    {
+        content: "Jdu na to ;).",
+        state: "sent",
+    },
+    {
+        content:
+            "Dobrý den, jmenuji se TEST OPERATOR a pokusím se vám pomoci s vaším problémem.",
+        state: "sent",
+    },
+    {
+        content: "Dobrý den.",
+        state: "recieved",
+    },
+    {
+        content: "Koukáš že máš nějaký problém s počítačem.",
+        state: "sent",
+    },
+    {
+        content: "Ano mám mohl by jsi se na to prosím podívat?",
+        state: "recieved",
+    },
+    {
+        content: "Jdu na to ;).",
+        state: "sent",
+    },
 ];
 
 const TicketDetail: React.FC<TicketDetailProps> = ({ id, onClick }) => {

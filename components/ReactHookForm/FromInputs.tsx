@@ -54,7 +54,7 @@ export const BasicInput: React.FC<InputProps> = ({
                  text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline
                  `}
                 type={type ?? "text"}
-                placeholder={placeholder ?? "basic"}
+                placeholder={t(placeholder!) ?? "basic"}
                 {...register(name ?? "basic", {
                     required: {
                         value: required ?? false,
@@ -321,6 +321,50 @@ export const TextAreaInput: React.FC<InputProps> = ({
                     maxLength: {
                         value: maxLenght ?? 50,
                         message: `${t("maxLength")} ${maxLenght ?? 50}`,
+                    },
+                })}
+            />
+            {errors[name ?? "basic"] && (
+                <p className="text-red-500 text-md italic">
+                    {errors[name ?? "basic"].message}
+                </p>
+            )}
+        </div>
+    );
+};
+
+export const SendMessageInput: React.FC<InputProps> = ({
+    register,
+    errors,
+    name,
+    type,
+    placeholder,
+    maxLenght,
+    required,
+}) => {
+    const { t } = useTranslation("common");
+
+    return (
+        <div className="w-full flex items-center">
+            <input
+                id={name ?? "basic"}
+                className={` ${
+                    errors[name ?? "basic"] ? "border-red-500" : "border-dark"
+                }
+                focus:border-primary 
+                 shadow bg-light appearance-none border-2 rounded w-10/12 py-2 px-2 mx-1 
+                 text-gray-700  leading-tight focus:outline-none focus:shadow-outline
+                 `}
+                type={type ?? "text"}
+                placeholder={t(placeholder!) ?? "basic"}
+                {...register(name ?? "basic", {
+                    required: {
+                        value: required ?? false,
+                        message: t("required"),
+                    },
+                    maxLength: {
+                        value: maxLenght ?? 30,
+                        message: `${t("maxLength")} ${maxLenght ?? "30"}`,
                     },
                 })}
             />

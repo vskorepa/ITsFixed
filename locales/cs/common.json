@@ -32,5 +32,6 @@
     "wantToHelp": "Chcete pomáhat?",
     "waiting": "čeká na operátora",
     "ongoing": "právě se řeší",
-    "done": "vyřešený"
+    "done": "vyřešený",
+    "TypeYourMessage": "Napište svou zprávu..."
 }

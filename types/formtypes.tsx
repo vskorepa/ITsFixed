@@ -1,4 +1,5 @@
 import React from "react";
+import { SetFieldValue } from "react-hook-form";
 
 export type SignUpValues = {
     first_name: string;
@@ -14,4 +15,7 @@ export type SignInValues = {
 export type CreateTicketValues = {
     ticket_type_id: number;
     description: string;
+};
+export type MessageValuse = {
+    content: string;
 };

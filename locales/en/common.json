@@ -32,5 +32,6 @@
     "wantToHelp": "Want to help?",
     "waiting": "waiting for operator",
     "ongoing": "ongoing",
-    "done": "solved"
+    "done": "solved",
+    "TypeYourMessage": "Type your message..."
 }

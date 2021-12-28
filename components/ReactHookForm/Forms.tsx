@@ -8,15 +8,19 @@ import {
     BasicInput,
     SelectInput,
     TextAreaInput,
+    SendMessageInput,
 } from "./FromInputs";
 import {
     SignInValues,
     SignUpValues,
     CreateTicketValues,
+    MessageValuse,
 } from "../../types/formtypes";
 import { SubmitButton } from "../esential/Buttons";
 import useTranslation from "next-translate/useTranslation";
 import { Modal, Textarea } from "@nextui-org/react";
+import { AiOutlineSend } from "react-icons/ai";
+
 type SignInFormProps = {
     OnFormSubmit: (data: SignInValues) => void;
 };
@@ -171,6 +175,45 @@ export const CreateTicketModalForm: React.FC<CreateTicketFormProps> = ({
                     {t("submit")}
                 </button>
             </Modal.Footer>
+        </form>
+    );
+};
+
+type SendMassageFormProps = {
+    OnFormSubmit: (data: MessageValuse) => void;
+};
+export const SendMassageForm: React.FC<SendMassageFormProps> = ({
+    OnFormSubmit,
+}) => {
+    const { t } = useTranslation("common");
+
+    const {
+        register,
+        formState: { errors },
+        handleSubmit,
+        reset,
+    } = useForm();
+    const onSubmit = (data: MessageValuse) => {
+        OnFormSubmit(data);
+        console.log("reset");
+        reset();
+    };
+    return (
+        <form
+            className="flex flex-nowrap items-center shadow-md rounded w-full"
+            onSubmit={handleSubmit(onSubmit)}
+        >
+            <SendMessageInput
+                name="message"
+                placeholder="TypeYourMessage"
+                register={register}
+                errors={errors}
+                type="text"
+                maxLenght={1048}
+            />
+            <button className="pr-6 w-1/12 text-4xl" type="submit">
+                <AiOutlineSend />
+            </button>
         </form>
     );
 };
