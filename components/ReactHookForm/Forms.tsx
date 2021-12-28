@@ -67,7 +67,7 @@ export const SignUpForm: React.FC<SignUpFormProps> = ({ OnFormSubmit }) => {
         handleSubmit,
         setError,
         formState: { errors },
-    } = useForm<SignUpValues>();
+    } = useForm();
 
     const onSubmit: SubmitHandler<SignUpValues> = (data) => {
         if (data.password !== data.confirm_password) {

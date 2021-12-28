@@ -30,21 +30,23 @@ import TicketsNav from "../Nav/TicketsNav";
 const TicketList = () => {
     const { t } = useTranslation("common");
     const [page, setPage] = useState(0);
-    // const { data, isLoading, refetch } = useTickets(page + 1);
-    const [data, setTickets] = useState([]);
+    const [data, setTickets] = useState<TicketBasicInfo[]>();
     const router = useRouter();
 
     useEffect(() => {
         fetchTickets();
-        const mySubscription = supabase
+        const Subscription = supabase
             .from("tickets")
             .on("*", () => {
-                console.log("something happened....");
+                console.log("tralala");
                 fetchTickets();
             })
             .subscribe();
-        return () => supabase.removeSubscription(mySubscription);
+        return () => {
+            supabase.removeSubscription(Subscription);
+        };
     }, []);
+
     async function fetchTickets() {
         const { data, error } = await supabase
             .from<TicketBasicInfo>("tickets")
@@ -66,33 +68,28 @@ const TicketList = () => {
     `
             )
             .eq("state", "waiting")
-            // .order("state", { ascending: true })
             .order("created_at");
 
-        setTickets(data);
+        setTickets(data!);
     }
     console.log(data);
     return (
         <div className="flex flex-row w-screen h-full flex-wrap">
             <TicketsNav></TicketsNav>
-            <div className="flex flex-row h-full w-full">
-                <SimpleBar className="w-1/3 overflow-y-auto h-80vh pr-3">
-                    {data?.map((item) => (
-                        <TicketInList key={item.id} ticketData={item} />
-                    ))}
-                </SimpleBar>
+            <div className="flex flex-row w-full h-80vh">
+                <div className="w-1/3 h-80vh">
+                    <SimpleBar className="w-full overflow-y-auto h-full pr-3">
+                        {data?.map((item) => (
+                            <TicketInList key={item.id} ticketData={item} />
+                        ))}
+                    </SimpleBar>
+                </div>
                 <TicketDetail
                     //@ts-ignore
                     key={router.query.ticketId}
                     //@ts-ignore
                     id={router.query.ticketId ?? null}
                 />
-
-                {/* <div className="flex justify-center w-2/3">
-                    <Text key={ticketDetail?.id} h1 color="success">
-                        {ticketDetail?.id ?? "TICKET DETAIL:"}
-                    </Text>
-                </div> */}
             </div>
         </div>
     );
