@@ -20,6 +20,11 @@ const getTicketDetail = async (id: string) => {
             first_name,
             last_name,
             email
+        ),
+        messages(
+            insert_at,
+            message,
+            user_id
         )
 
     `

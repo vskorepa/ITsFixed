@@ -1,5 +1,4 @@
-import React from "react";
-import { SetFieldValue } from "react-hook-form";
+import { definitions } from "./supabase";
 
 export type SignUpValues = {
     first_name: string;
@@ -17,5 +16,5 @@ export type CreateTicketValues = {
     description: string;
 };
 export type MessageValuse = {
-    content: string;
+    messages: definitions["messages"];
 };

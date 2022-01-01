@@ -20,6 +20,7 @@ import { SubmitButton } from "../esential/Buttons";
 import useTranslation from "next-translate/useTranslation";
 import { Modal, Textarea } from "@nextui-org/react";
 import { AiOutlineSend } from "react-icons/ai";
+import { definitions } from "../../types/supabase";
 
 type SignInFormProps = {
     OnFormSubmit: (data: SignInValues) => void;
@@ -180,7 +181,7 @@ export const CreateTicketModalForm: React.FC<CreateTicketFormProps> = ({
 };
 
 type SendMassageFormProps = {
-    OnFormSubmit: (data: MessageValuse) => void;
+    OnFormSubmit: (data: definitions["messages"]) => void;
 };
 export const SendMassageForm: React.FC<SendMassageFormProps> = ({
     OnFormSubmit,
@@ -193,7 +194,7 @@ export const SendMassageForm: React.FC<SendMassageFormProps> = ({
         handleSubmit,
         reset,
     } = useForm();
-    const onSubmit = (data: MessageValuse) => {
+    const onSubmit = (data: definitions["messages"]) => {
         OnFormSubmit(data);
         console.log("reset");
         reset();
