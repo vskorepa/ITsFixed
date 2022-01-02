@@ -9,8 +9,9 @@ export type typeUser = {
 export type TicketBasicInfo = definitions["tickets"] & {
     users: definitions["users"];
     ticket_type: definitions["ticket_type"];
-    messages: definitions["messages"];
+    messages: definitions["messages"][];
 };
+
 export type CreateTicketProps = {
     ticket_type_id: number;
     description: string;
@@ -27,4 +28,7 @@ export type SendMessageProps = {
 };
 export type Messages = {
     messages: definitions["messages"][];
+};
+export type Message = {
+    messages: definitions["messages"];
 };

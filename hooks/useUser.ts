@@ -13,7 +13,6 @@ const getUser = async () => {
     if (!data) {
         throw new Error("User not found");
     }
-    console.log(roledata);
     return { data, roledata };
 };
 

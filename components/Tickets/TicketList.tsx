@@ -1,26 +1,9 @@
-import {
-    Container,
-    Row,
-    Input,
-    Loading,
-    Button,
-    Spacer,
-    Text,
-    Col,
-} from "@nextui-org/react";
 import React, { useEffect } from "react";
-import { useForm, SubmitHandler } from "react-hook-form";
 import { supabase } from "../../lib/supabaseClient";
 import { useState } from "react";
 import { useRouter } from "next/router";
-import useCreateUser from "../../hooks/login/useCreateUser";
 import useTranslation from "next-translate/useTranslation";
-import useTickets from "../../hooks/tickets/useTickets";
 import TicketInList from "./TicketInList";
-import {
-    MdOutlineArrowBackIosNew,
-    MdOutlineArrowForwardIos,
-} from "react-icons/md";
 import SimpleBar from "simplebar-react";
 import "simplebar/dist/simplebar.css";
 import TicketDetail from "./TicketDetail";
@@ -38,7 +21,6 @@ const TicketList = () => {
         const Subscription = supabase
             .from("tickets")
             .on("*", () => {
-                console.log("tralala");
                 fetchTickets();
             })
             .subscribe();
@@ -47,7 +29,7 @@ const TicketList = () => {
         };
     }, []);
 
-    async function fetchTickets() {
+    const fetchTickets = async () => {
         const { data, error } = await supabase
             .from<TicketBasicInfo>("tickets")
             .select(
@@ -71,8 +53,7 @@ const TicketList = () => {
             .order("created_at");
 
         setTickets(data!);
-    }
-    console.log(data);
+    };
     return (
         <div className="flex flex-row w-screen h-full flex-wrap">
             <TicketsNav></TicketsNav>

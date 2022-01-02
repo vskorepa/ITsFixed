@@ -30,7 +30,8 @@ const Home: NextPage = () => {
                                 {/* <h2>{data.first_name}</h2>
                                 <h2>{data.last_name}</h2> */}
                             </div>
-                            <div className="flex justify-evenly w-full">
+                            <div className="flex flex-col items-center w-full">
+                                <h2>{data?.roledata.role}</h2>
                                 <h2>{data?.data.email}</h2>
                             </div>
                         </div>

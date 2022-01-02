@@ -16,6 +16,9 @@ import { FaRegCircle, FaMinus } from "react-icons/fa";
 import useUpdateTicket from "../../hooks/tickets/useUpdateTicket";
 import { supabase } from "../../lib/supabaseClient";
 import Chat from "../messages/chat";
+import { Message, Messages, TicketBasicInfo } from "../../types/supabaseTypes";
+import { definitions } from "../../types/supabase";
+
 type TicketDetailProps = {
     id: string;
     onClick: () => void;
@@ -32,7 +35,6 @@ const TicketDetail: React.FC<TicketDetailProps> = ({ id, onClick }) => {
         id: id,
         state: "done",
     });
-    console.log(data);
     return (
         <div className="h-full flex flex-wrap w-2/3">
             <div className="h-1/3 w-full justify-center">
@@ -65,7 +67,7 @@ const TicketDetail: React.FC<TicketDetailProps> = ({ id, onClick }) => {
                 <Text>{data?.description}</Text>
             </div>
             <div className="h-2/3 w-full bg-gray-200 dark:bg-gray-800">
-                <Chat messages={data?.messages} />
+                <Chat id={id} />
             </div>
         </div>
     );
