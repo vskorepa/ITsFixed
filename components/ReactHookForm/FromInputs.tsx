@@ -1,29 +1,28 @@
-import React from "react";
-import { UseFormReturn, FieldErrors } from "react-hook-form";
-import useTranslation from "next-translate/useTranslation";
-import { Textarea } from "@nextui-org/react";
-import { MdKeyboardArrowDown } from "react-icons/md";
+import React from 'react'
+import { UseFormReturn, FieldErrors } from 'react-hook-form'
+import useTranslation from 'next-translate/useTranslation'
+import { Textarea } from '@nextui-org/react'
 type InputProps = {
-    register: UseFormReturn["register"];
-    errors: FieldErrors;
-    name?: string;
-    type?: "text" | "number" | "email" | "password";
-    placeholder?: string;
-    maxLenght?: number;
-    required?: boolean;
+    register: UseFormReturn['register']
+    errors: FieldErrors
+    name?: string
+    type?: 'text' | 'number' | 'email' | 'password'
+    placeholder?: string
+    maxLenght?: number
+    required?: boolean
     options?: {
-        value: number;
-        name: string;
-    }[];
-};
+        value: number
+        name: string
+    }[]
+}
 type SelectInputProps = {
-    register: UseFormReturn["register"];
-    name?: string;
+    register: UseFormReturn['register']
+    name?: string
     options?: {
-        id: number;
-        name: string;
-    }[];
-};
+        id: number
+        name: string
+    }[]
+}
 
 export const BasicInput: React.FC<InputProps> = ({
     register,
@@ -34,49 +33,49 @@ export const BasicInput: React.FC<InputProps> = ({
     maxLenght,
     required,
 }) => {
-    const { t } = useTranslation("common");
+    const { t } = useTranslation('common')
 
     return (
         <div className="mb-4 w-full">
             <label
                 className="block text-gray-700 text-sm font-bold mb-2"
-                id={name ?? "basic"}
+                id={name ?? 'basic'}
             >
-                {name ?? "basic"}
+                {name ?? 'basic'}
             </label>
             <input
-                id={name ?? "basic"}
+                id={name ?? 'basic'}
                 className={` ${
-                    errors[name ?? "basic"] ? "border-red-500" : "border-dark"
+                    errors[name ?? 'basic'] ? 'border-red-500' : 'border-dark'
                 }
                 focus:border-primary 
                  shadow bg-light appearance-none border-2 rounded w-full py-2 px-3
                  text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline
                  `}
-                type={type ?? "text"}
-                placeholder={t(placeholder!) ?? "basic"}
-                {...register(name ?? "basic", {
+                type={type ?? 'text'}
+                placeholder={t(placeholder ?? '') ?? 'basic'}
+                {...register(name ?? 'basic', {
                     required: {
                         value: required ?? false,
-                        message: t("required"),
+                        message: t('required'),
                     },
                     maxLength: {
                         value: maxLenght ?? 30,
-                        message: `${t("maxLength")} ${maxLenght ?? "30"}`,
+                        message: `${t('maxLength')} ${maxLenght ?? '30'}`,
                     },
                 })}
             />
-            {errors[name ?? "basic"] && (
+            {errors[name ?? 'basic'] && (
                 <p className="text-red-500 text-md italic">
-                    {errors[name ?? "basic"].message}
+                    {errors[name ?? 'basic'].message}
                 </p>
             )}
         </div>
-    );
-};
+    )
+}
 
 export const EmailInput: React.FC<InputProps> = ({ register, errors }) => {
-    const { t } = useTranslation("common");
+    const { t } = useTranslation('common')
 
     return (
         <div className="mb-4 w-full">
@@ -89,7 +88,7 @@ export const EmailInput: React.FC<InputProps> = ({ register, errors }) => {
             <input
                 id="email"
                 className={` ${
-                    errors.password ? "border-red-500" : "border-dark"
+                    errors.password ? 'border-red-500' : 'border-dark'
                 }
                 focus:border-primary 
                  shadow bg-light appearance-none border-2 rounded w-full py-2 px-3
@@ -97,17 +96,17 @@ export const EmailInput: React.FC<InputProps> = ({ register, errors }) => {
                  `}
                 type="text"
                 placeholder="example@email.com"
-                {...register("email", {
+                {...register('email', {
                     required: {
                         value: true,
-                        message: t("required"),
+                        message: t('required'),
                     },
                     pattern: {
                         value: RegExp(
                             "[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?"
                         ),
 
-                        message: t("validemail"),
+                        message: t('validemail'),
                     },
                 })}
             />
@@ -117,10 +116,10 @@ export const EmailInput: React.FC<InputProps> = ({ register, errors }) => {
                 </p>
             )}
         </div>
-    );
-};
+    )
+}
 export const PasswordInput: React.FC<InputProps> = ({ register, errors }) => {
-    const { t } = useTranslation("common");
+    const { t } = useTranslation('common')
 
     return (
         <div className="mb-4 w-full">
@@ -133,7 +132,7 @@ export const PasswordInput: React.FC<InputProps> = ({ register, errors }) => {
             <input
                 id="password"
                 className={` ${
-                    errors.password ? "border-red-500" : "border-dark"
+                    errors.password ? 'border-red-500' : 'border-dark'
                 }
                 focus:border-primary 
                  shadow bg-light appearance-none border-2 rounded w-full py-2 px-3
@@ -141,18 +140,18 @@ export const PasswordInput: React.FC<InputProps> = ({ register, errors }) => {
                  `}
                 type="password"
                 placeholder="password"
-                {...register("password", {
+                {...register('password', {
                     required: {
                         value: true,
-                        message: t("required"),
+                        message: t('required'),
                     },
                     maxLength: {
                         value: 30,
-                        message: `${t("maxLength")} 30`,
+                        message: `${t('maxLength')} 30`,
                     },
                 })}
             />
-            {errors.password?.type == "required" ? (
+            {errors.password?.type == 'required' ? (
                 <p className="text-red-500 text-md italic">
                     {errors.password.message}
                 </p>
@@ -160,13 +159,13 @@ export const PasswordInput: React.FC<InputProps> = ({ register, errors }) => {
                 <></>
             )}
         </div>
-    );
-};
+    )
+}
 export const RegexPasswordInput: React.FC<InputProps> = ({
     register,
     errors,
 }) => {
-    const { t } = useTranslation("common");
+    const { t } = useTranslation('common')
 
     return (
         <div className="mb-4 w-full">
@@ -179,7 +178,7 @@ export const RegexPasswordInput: React.FC<InputProps> = ({
             <input
                 id="password"
                 className={` ${
-                    errors.password ? "border-red-500" : "border-dark"
+                    errors.password ? 'border-red-500' : 'border-dark'
                 }
                 focus:border-primary 
                  shadow bg-light appearance-none border-2 rounded w-full py-2 px-3
@@ -187,42 +186,42 @@ export const RegexPasswordInput: React.FC<InputProps> = ({
                  `}
                 type="password"
                 placeholder="password"
-                {...register("password", {
+                {...register('password', {
                     required: {
                         value: true,
-                        message: t("required"),
+                        message: t('required'),
                     },
                     maxLength: {
                         value: 30,
-                        message: `${t("maxLength")} 30`,
+                        message: `${t('maxLength')} 30`,
                     },
                     pattern: {
                         value: RegExp(
-                            "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d]{8,}$"
+                            '^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d]{8,}$'
                         ),
-                        message: `${t("strongerPassword")}`,
+                        message: `${t('strongerPassword')}`,
                     },
                 })}
             />
-            {errors.password?.type == "required" && (
+            {errors.password?.type == 'required' && (
                 <p className="text-red-500 text-md">
                     {errors.password.message}
                 </p>
             )}
-            {errors.password?.type == "pattern" && (
+            {errors.password?.type == 'pattern' && (
                 <p className="text-red-500 text-md">
                     {errors.password.message}
                 </p>
             )}
         </div>
-    );
-};
+    )
+}
 
 export const ConfirmPasswordInput: React.FC<InputProps> = ({
     register,
     errors,
 }) => {
-    const { t } = useTranslation("common");
+    const { t } = useTranslation('common')
 
     return (
         <div className="mb-4 w-full">
@@ -235,7 +234,7 @@ export const ConfirmPasswordInput: React.FC<InputProps> = ({
             <input
                 id="confirm_password"
                 className={` ${
-                    errors.confirm_password ? "border-red-500" : "border-dark"
+                    errors.confirm_password ? 'border-red-500' : 'border-dark'
                 }
                 focus:border-primary 
                  shadow bg-light appearance-none border-2 rounded w-full py-2 px-3
@@ -243,18 +242,18 @@ export const ConfirmPasswordInput: React.FC<InputProps> = ({
                  `}
                 type="password"
                 placeholder="Confirm password"
-                {...register("confirm_password", {
+                {...register('confirm_password', {
                     required: {
                         value: true,
-                        message: t("required"),
+                        message: t('required'),
                     },
                     maxLength: {
                         value: 30,
-                        message: `${t("maxLength")} 30`,
+                        message: `${t('maxLength')} 30`,
                     },
                 })}
             />
-            {errors.confirm_password?.type == "required" ? (
+            {errors.confirm_password?.type == 'required' ? (
                 <p className="text-red-500 text-md italic">
                     {errors.confirm_password.message}
                 </p>
@@ -262,29 +261,27 @@ export const ConfirmPasswordInput: React.FC<InputProps> = ({
                 <></>
             )}
         </div>
-    );
-};
+    )
+}
 
 export const SelectInput: React.FC<SelectInputProps> = ({
     register,
     name,
     options,
 }) => {
-    const { t } = useTranslation("common");
-
     return (
         <div className="inline-block relative w-full">
             <label
                 className="block text-gray-700 text-sm font-bold mb-2"
-                id={name ?? "select"}
+                id={name ?? 'select'}
             >
-                {name ?? "select"}
+                {name ?? 'select'}
             </label>
             <div className="flex justify-between">
                 <select
-                    id={name ?? "select"}
+                    id={name ?? 'select'}
                     className="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline"
-                    {...register(name ?? "select")}
+                    {...register(name ?? 'select')}
                 >
                     {options?.map((option) => (
                         <option key={option.name} value={option.id}>
@@ -295,8 +292,8 @@ export const SelectInput: React.FC<SelectInputProps> = ({
                 {/* <MdKeyboardArrowDown /> */}
             </div>
         </div>
-    );
-};
+    )
+}
 
 export const TextAreaInput: React.FC<InputProps> = ({
     register,
@@ -306,32 +303,32 @@ export const TextAreaInput: React.FC<InputProps> = ({
     required,
     maxLenght,
 }) => {
-    const { t } = useTranslation("common");
+    const { t } = useTranslation('common')
 
     return (
         <div>
             <Textarea
-                placeholder={placeholder ?? "Type some text"}
+                placeholder={placeholder ?? 'Type some text'}
                 rows={5}
-                {...register(name ?? "TextArea", {
+                {...register(name ?? 'TextArea', {
                     required: {
                         value: required ?? false,
-                        message: t("required"),
+                        message: t('required'),
                     },
                     maxLength: {
                         value: maxLenght ?? 50,
-                        message: `${t("maxLength")} ${maxLenght ?? 50}`,
+                        message: `${t('maxLength')} ${maxLenght ?? 50}`,
                     },
                 })}
             />
-            {errors[name ?? "basic"] && (
+            {errors[name ?? 'basic'] && (
                 <p className="text-red-500 text-md italic">
-                    {errors[name ?? "basic"].message}
+                    {errors[name ?? 'basic'].message}
                 </p>
             )}
         </div>
-    );
-};
+    )
+}
 
 export const SendMessageInput: React.FC<InputProps> = ({
     register,
@@ -342,37 +339,37 @@ export const SendMessageInput: React.FC<InputProps> = ({
     maxLenght,
     required,
 }) => {
-    const { t } = useTranslation("common");
+    const { t } = useTranslation('common')
 
     return (
         <div className="w-full flex items-center">
             <input
-                id={name ?? "basic"}
+                id={name ?? 'basic'}
                 className={` ${
-                    errors[name ?? "basic"] ? "border-red-500" : "border-dark"
+                    errors[name ?? 'basic'] ? 'border-red-500' : 'border-dark'
                 }
                 focus:border-primary 
                  shadow bg-light appearance-none border-2 rounded w-10/12 py-2 px-2 mx-1 
                  text-gray-700  leading-tight focus:outline-none focus:shadow-outline
                  `}
-                type={type ?? "text"}
-                placeholder={t(placeholder!) ?? "basic"}
-                {...register(name ?? "basic", {
+                type={type ?? 'text'}
+                placeholder={t(placeholder ?? '') ?? 'basic'}
+                {...register(name ?? 'basic', {
                     required: {
                         value: required ?? false,
-                        message: t("required"),
+                        message: t('required'),
                     },
                     maxLength: {
                         value: maxLenght ?? 30,
-                        message: `${t("maxLength")} ${maxLenght ?? "30"}`,
+                        message: `${t('maxLength')} ${maxLenght ?? '30'}`,
                     },
                 })}
             />
-            {errors[name ?? "basic"] && (
+            {errors[name ?? 'basic'] && (
                 <p className="text-red-500 text-md italic">
-                    {errors[name ?? "basic"].message}
+                    {errors[name ?? 'basic'].message}
                 </p>
             )}
         </div>
-    );
-};
+    )
+}

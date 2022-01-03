@@ -1,40 +1,28 @@
-import {
-    Container,
-    Row,
-    Input,
-    Loading,
-    Button,
-    Spacer,
-    Text,
-    Col,
-    Switch,
-} from "@nextui-org/react";
-import React, { useEffect, useState } from "react";
-import useTranslation from "next-translate/useTranslation";
-import useTicketDetail from "../../hooks/tickets/useTicketDetail";
-import { FaRegCircle, FaMinus } from "react-icons/fa";
-import useUpdateTicket from "../../hooks/tickets/useUpdateTicket";
-import { supabase } from "../../lib/supabaseClient";
-import Chat from "../messages/chat";
-import { Message, Messages, TicketBasicInfo } from "../../types/supabaseTypes";
-import { definitions } from "../../types/supabase";
+import { Loading, Button, Text } from '@nextui-org/react'
+import React from 'react'
+import useTranslation from 'next-translate/useTranslation'
+import useTicketDetail from '../../hooks/tickets/useTicketDetail'
+import useUpdateTicket from '../../hooks/tickets/useUpdateTicket'
+import Chat from '../messages/chat'
 
 type TicketDetailProps = {
-    id: string;
-    onClick: () => void;
-};
+    id: string
+}
 
-const TicketDetail: React.FC<TicketDetailProps> = ({ id, onClick }) => {
-    const { t } = useTranslation("common");
+const TicketDetail: React.FC<TicketDetailProps> = ({ id }) => {
+    const { t } = useTranslation('common')
 
     const TicketFinish = () => {
-        TicketMutation.mutate();
-    };
-    const { data, isLoading, error } = useTicketDetail(id);
+        TicketMutation.mutate()
+    }
+    const { data, isLoading } = useTicketDetail(id)
     const TicketMutation = useUpdateTicket({
         id: id,
-        state: "done",
-    });
+        state: 'done',
+    })
+    if (id === null) {
+        return <div className="h-80vh w-2/3"></div>
+    }
     return (
         <div className="h-80vh w-2/3">
             <div className="h-30vh w-full justify-center">
@@ -43,7 +31,7 @@ const TicketDetail: React.FC<TicketDetailProps> = ({ id, onClick }) => {
                         <Loading />
                     ) : (
                         <Text color="success">
-                            {t("ticketNumber")} {data?.id ?? ""}
+                            {t('ticketNumber')} {data?.id ?? ''}
                         </Text>
                     )}
 
@@ -52,7 +40,7 @@ const TicketDetail: React.FC<TicketDetailProps> = ({ id, onClick }) => {
                             <Loading size="medium" />
                         ) : (
                             <Text weight="bold">
-                                {data ? t(`${data?.state}`) : "Ticket state:"}
+                                {data ? t(`${data?.state}`) : 'Ticket state:'}
                             </Text>
                         )}
                         <Button onClick={() => TicketFinish()} auto>
@@ -70,6 +58,6 @@ const TicketDetail: React.FC<TicketDetailProps> = ({ id, onClick }) => {
                 <Chat id={id} />
             </div>
         </div>
-    );
-};
-export default TicketDetail;
+    )
+}
+export default TicketDetail

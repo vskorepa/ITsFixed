@@ -1,12 +1,10 @@
-import React from "react";
-import { useRouter } from "next/router";
-import Link from "next/link";
-import { Container, Link as NextUiLink } from "@nextui-org/react";
-import useTranslation from "next-translate/useTranslation";
-import { BsTools } from "react-icons/bs";
-export const Foot = () => {
-    const { t } = useTranslation("common");
-    const router = useRouter();
+import React from 'react'
+import { useRouter } from 'next/router'
+import Link from 'next/link'
+import { Link as NextUiLink } from '@nextui-org/react'
+import { BsTools } from 'react-icons/bs'
+export const Foot: React.FC = () => {
+    const router = useRouter()
     return (
         <footer className="bottom-0 text-gray-400  bg-dark h-7.5vh body-font w-full items-center z-50">
             <div className="container h-full px-5 mx-auto flex items-center sm:flex-row flex-col">
@@ -41,5 +39,5 @@ export const Foot = () => {
                 </span>
             </div>
         </footer>
-    );
-};
+    )
+}

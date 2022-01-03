@@ -1,25 +1,26 @@
-import { useEffect, useState } from "react";
-import { typeUser } from "./../../types/supabaseTypes";
-import { useQuery } from "react-query";
-import { supabase } from "../../lib/supabaseClient";
-import { TicketBasicInfo } from "../../types/supabaseTypes";
-import { definitions } from "../../types/supabase";
+import { useEffect, useState } from 'react'
+import { typeUser } from './../../types/supabaseTypes'
+import { useQuery } from 'react-query'
+import { supabase } from '../../lib/supabaseClient'
+import { TicketBasicInfo } from '../../types/supabaseTypes'
+import { definitions } from '../../types/supabase'
 export const SubscribeTickets = async (page: number) => {
+    //@ts-ignore
     useEffect(() => {
-        fetchTickets();
+        fetchTickets()
         const mySubscription = supabase
-            .from("tickets")
-            .on("*", () => {
-                console.log("something happened....");
-                fetchTickets();
+            .from('tickets')
+            .on('*', () => {
+                console.log('something happened....')
+                fetchTickets()
             })
-            .subscribe();
-        return () => supabase.removeSubscription(mySubscription);
-    }, []);
+            .subscribe()
+        return () => supabase.removeSubscription(mySubscription)
+    }, [])
 
     async function fetchTickets() {
         const { data, error } = await supabase
-            .from<TicketBasicInfo>("tickets")
+            .from<TicketBasicInfo>('tickets')
             .select(
                 `
         id,
@@ -37,18 +38,18 @@ export const SubscribeTickets = async (page: number) => {
 
     `
             )
-            .eq("state", "waiting")
+            .eq('state', 'waiting')
             // .order("state", { ascending: true })
-            .order("created_at")
-            .range((page - 1) * 20, page * 20);
+            .order('created_at')
+            .range((page - 1) * 20, page * 20)
         if (error) {
-            throw new Error(error.message);
+            throw new Error(error.message)
         }
 
         if (!data) {
-            throw new Error("User has no Tickets");
+            throw new Error('User has no Tickets')
         }
 
-        return data;
+        return data
     }
-};
+}

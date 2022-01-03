@@ -1,9 +1,9 @@
-import { data } from "autoprefixer";
-import { useMutation } from "react-query";
-import { supabase } from "../../lib/supabaseClient";
-import { typeUser } from "../../types/supabaseTypes";
+import { data } from 'autoprefixer'
+import { useMutation } from 'react-query'
+import { supabase } from '../../lib/supabaseClient'
+import { typeUser } from '../../types/supabaseTypes'
 
-const createUser = async (user: typeUser) => {
+const createUser = async (myUser: typeUser) => {
     // const { data: userWithEmail } = await supabase
     //     .from("users")
     //     .select("*")
@@ -14,39 +14,39 @@ const createUser = async (user: typeUser) => {
     //     throw new Error("User with this email exists");
     // }
 
-    const { data, error: SighUpError } = await supabase.auth.signUp({
-        email: user.email,
-        password: user.password,
-    });
+    const { user, error: SighUpError } = await supabase.auth.signUp({
+        email: myUser.email,
+        password: myUser.password,
+    })
     // console.log(SighUpError?.code);
     // if (SighUpError?.code == "23505") {
     //     throw new Error("User with this email exists");
     // }
     if (SighUpError) {
-        throw SighUpError;
+        throw SighUpError
     }
 
-    return data;
-};
+    return user
+}
 
-const useCreateUser = (user: typeUser) => {
-    return useMutation(() => createUser(user), {
+const useCreateUser = (myUser: typeUser) => {
+    return useMutation(() => createUser(myUser), {
         onSuccess: async (data) => {
             const { data: insertData, error: insertError } = await supabase
-                .from("users")
+                .from('users')
                 .insert({
-                    first_name: user.first_name,
-                    last_name: user.last_name,
-                    email: user.email,
+                    first_name: myUser.first_name,
+                    last_name: myUser.last_name,
+                    email: myUser.email,
                     //@ts-ignore
                     id: data.id,
-                });
+                })
             if (insertError) {
-                throw insertError;
+                throw insertError
             }
-            return insertData;
+            return insertData
         },
-    });
-};
+    })
+}
 
-export default useCreateUser;
+export default useCreateUser

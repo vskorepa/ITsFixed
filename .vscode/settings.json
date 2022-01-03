@@ -4,5 +4,6 @@
     "javascript.format.placeOpenBraceOnNewLineForFunctions": true,
     "editor.defaultFormatter": "esbenp.prettier-vscode",
     "editor.formatOnSave": true,
-    "prettier.htmlWhitespaceSensitivity": "strict"
+    "prettier.htmlWhitespaceSensitivity": "strict",
+    "prettier.tabWidth": 4
 }

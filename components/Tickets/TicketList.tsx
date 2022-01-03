@@ -1,37 +1,34 @@
-import React, { useEffect } from "react";
-import { supabase } from "../../lib/supabaseClient";
-import { useState } from "react";
-import { useRouter } from "next/router";
-import useTranslation from "next-translate/useTranslation";
-import TicketInList from "./TicketInList";
-import SimpleBar from "simplebar-react";
-import "simplebar/dist/simplebar.css";
-import TicketDetail from "./TicketDetail";
-import { TicketBasicInfo } from "../../types/supabaseTypes";
-import TicketsNav from "../Nav/TicketsNav";
+import React, { useEffect, useState } from 'react'
+import { supabase } from '../../lib/supabaseClient'
 
-const TicketList = () => {
-    const { t } = useTranslation("common");
-    const [page, setPage] = useState(0);
-    const [data, setTickets] = useState<TicketBasicInfo[]>();
-    const router = useRouter();
+import { useRouter } from 'next/router'
+import TicketInList from './TicketInList'
+import SimpleBar from 'simplebar-react'
+import 'simplebar/dist/simplebar.css'
+import TicketDetail from './TicketDetail'
+import { TicketBasicInfo } from '../../types/supabaseTypes'
+import TicketsNav from '../Nav/TicketsNav'
+
+const TicketList: React.FC = () => {
+    const [data, setTickets] = useState<TicketBasicInfo[]>()
+    const router = useRouter()
 
     useEffect(() => {
-        fetchTickets();
+        fetchTickets()
         const Subscription = supabase
-            .from("tickets")
-            .on("*", () => {
-                fetchTickets();
+            .from('tickets')
+            .on('*', () => {
+                fetchTickets()
             })
-            .subscribe();
+            .subscribe()
         return () => {
-            supabase.removeSubscription(Subscription);
-        };
-    }, []);
+            supabase.removeSubscription(Subscription)
+        }
+    }, [])
 
     const fetchTickets = async () => {
-        const { data, error } = await supabase
-            .from<TicketBasicInfo>("tickets")
+        const { data } = await supabase
+            .from<TicketBasicInfo>('tickets')
             .select(
                 `
         id,
@@ -49,11 +46,11 @@ const TicketList = () => {
 
     `
             )
-            .eq("state", "waiting")
-            .order("created_at");
+            .eq('state', 'waiting')
+            .order('created_at')
 
-        setTickets(data!);
-    };
+        setTickets(data ?? [])
+    }
     return (
         <div className="flex flex-row w-screen h-full flex-wrap">
             <TicketsNav></TicketsNav>
@@ -67,12 +64,12 @@ const TicketList = () => {
                 </div>
                 <TicketDetail
                     //@ts-ignore
-                    key={router.query.ticketId}
+                    key={router.query.ticketId ?? ''}
                     //@ts-ignore
                     id={router.query.ticketId ?? null}
                 />
             </div>
         </div>
-    );
-};
-export default TicketList;
+    )
+}
+export default TicketList

@@ -1,19 +1,15 @@
-import { Link as NextUiLink, Avatar, Tooltip, Switch } from "@nextui-org/react";
-import Link from "next/link";
-import router, { useRouter } from "next/router";
-import React, { useState } from "react";
-import useTranslation from "next-translate/useTranslation";
-import { BiSun, BiMoon } from "react-icons/bi";
-import { useTheme } from "next-themes";
-import { ReactLogo } from "./logo";
-import { ToolTipButton } from "../esential/Buttons";
-import useLogoutUser from "../../hooks/login/useLogoutUser";
-import { IoLogOutOutline } from "react-icons/io5";
-import { ToolTipDropDown } from "../esential/ToolTipDropDown";
-import { MdOutlineMenu } from "react-icons/md";
+import { Avatar, Tooltip, Switch } from '@nextui-org/react'
+import Link from 'next/link'
+import React from 'react'
+import useTranslation from 'next-translate/useTranslation'
+import { BiSun, BiMoon } from 'react-icons/bi'
+import { useTheme } from 'next-themes'
+import { ReactLogo } from './logo'
+import { ToolTipDropDown } from '../esential/ToolTipDropDown'
+import { MdOutlineMenu } from 'react-icons/md'
 const TopNav: React.FC = () => {
-    const { t } = useTranslation("common");
-    const { theme, setTheme } = useTheme();
+    const { t } = useTranslation('common')
+    const { theme, setTheme } = useTheme()
     return (
         <div className="flex border-b-2 border-dark dark:bg-secondary w-full justify-between items-center sm:px-6 px-2 py-1  h-7.5vh shadow-sm">
             <Link href="/">
@@ -24,12 +20,12 @@ const TopNav: React.FC = () => {
             <nav className="md:ml-auto font-semibold text-xl flex flex-wrap items-center text-primary justify-center">
                 <Link href="/about">
                     <a className="mr-5 hover:text-black dark:hover:text-white ">
-                        {t("aboutus")}
+                        {t('aboutus')}
                     </a>
                 </Link>
                 <Link href="/tickets">
                     <a className="mr-5 hover:text-black dark:hover:text-white ">
-                        {t("tickets")}
+                        {t('tickets')}
                     </a>
                 </Link>
             </nav>
@@ -61,19 +57,20 @@ const TopNav: React.FC = () => {
                     </Tooltip>
                     <Switch
                         className="text-white dark:text-dark"
+                        //@ts-ignore
                         color="black"
-                        checked={theme === "dark" ? false : true}
+                        checked={theme === 'dark' ? false : true}
                         size="xlarge"
                         iconOff={<BiSun />}
                         iconOn={<BiMoon />}
                         onChange={() =>
-                            setTheme(theme === "dark" ? "light" : "dark")
+                            setTheme(theme === 'dark' ? 'light' : 'dark')
                         }
                     />
                 </div>
             </div>
         </div>
-    );
-};
+    )
+}
 
-export default TopNav;
+export default TopNav

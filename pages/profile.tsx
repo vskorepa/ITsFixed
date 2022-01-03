@@ -1,13 +1,12 @@
-import type { NextPage } from "next";
-import useTranslation from "next-translate/useTranslation";
-import { Avatar, Container, Loading, Row, Text } from "@nextui-org/react";
-import TopNav from "../components/Nav/topNav";
-import AuthProtectedWrapper from "../components/protected/UserProtected";
-import useUser from "../hooks/useUser";
+import React from 'react'
+import type { NextPage } from 'next'
+import { Avatar, Loading } from '@nextui-org/react'
+import TopNav from '../components/Nav/topNav'
+import AuthProtectedWrapper from '../components/protected/UserProtected'
+import useUser from '../hooks/useUser'
 
 const Home: NextPage = () => {
-    const { t } = useTranslation("common");
-    const { data, isLoading } = useUser();
+    const { data, isLoading } = useUser()
 
     return (
         <AuthProtectedWrapper role="user">
@@ -41,7 +40,7 @@ const Home: NextPage = () => {
                 <div className="w-2/3 "></div>
             </div>
         </AuthProtectedWrapper>
-    );
-};
+    )
+}
 
-export default Home;
+export default Home
