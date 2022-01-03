@@ -46,16 +46,16 @@ const TicketsNav: React.FC = () => {
                     />
                 </div>
             </div>
-            <div className="bg-secondary w-2/3 justify-end flex items-center px-3 text-2xl">
+            <div className="bg-secondary w-2/3 justify-end flex items-center px-3">
                 <Button
                     className=""
                     onClick={() => openModal()}
                     auto
                     rounded
+                    size="small"
                     // icon={<HiPlus className="justify-self-center" />}
                 >
-                    <Text size={20}>+</Text>
-
+                    +
                     <CreateTicket visible={visible} close={closeModal} />
                 </Button>
             </div>

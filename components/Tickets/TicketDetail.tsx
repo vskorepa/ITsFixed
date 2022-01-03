@@ -36,8 +36,8 @@ const TicketDetail: React.FC<TicketDetailProps> = ({ id, onClick }) => {
         state: "done",
     });
     return (
-        <div className="h-full flex flex-wrap w-2/3">
-            <div className="h-1/3 w-full justify-center">
+        <div className="h-80vh w-2/3">
+            <div className="h-30vh w-full justify-center">
                 <div className="flex flex-nowrap justify-between p-3 items-center">
                     {isLoading ? (
                         <Loading />
@@ -66,7 +66,7 @@ const TicketDetail: React.FC<TicketDetailProps> = ({ id, onClick }) => {
 
                 <Text>{data?.description}</Text>
             </div>
-            <div className="h-2/3 w-full bg-gray-200 dark:bg-gray-800">
+            <div className="w-full h-50vh bg-gray-200 dark:bg-gray-800">
                 <Chat id={id} />
             </div>
         </div>
