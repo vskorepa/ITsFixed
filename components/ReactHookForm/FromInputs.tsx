@@ -6,7 +6,7 @@ type InputProps = {
     register: UseFormReturn['register']
     errors: FieldErrors
     name?: string
-    type?: 'text' | 'number' | 'email' | 'password'
+    type?: 'text' | 'number' | 'email' | 'password' | 'textarea'
     placeholder?: string
     maxLenght?: number
     required?: boolean
@@ -343,7 +343,8 @@ export const SendMessageInput: React.FC<InputProps> = ({
 
     return (
         <div className="w-full flex items-center">
-            <input
+            <textarea
+                rows={1}
                 id={name ?? 'basic'}
                 className={` ${
                     errors[name ?? 'basic'] ? 'border-red-500' : 'border-dark'
@@ -352,7 +353,6 @@ export const SendMessageInput: React.FC<InputProps> = ({
                  shadow bg-light appearance-none border-2 rounded w-10/12 py-2 px-2 mx-1 
                  text-gray-700  leading-tight focus:outline-none focus:shadow-outline
                  `}
-                type={type ?? 'text'}
                 placeholder={t(placeholder ?? '') ?? 'basic'}
                 {...register(name ?? 'basic', {
                     required: {

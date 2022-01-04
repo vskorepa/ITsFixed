@@ -13,7 +13,6 @@ const TicketList: React.FC = () => {
     const [data, setTickets] = useState<TicketBasicInfo[]>()
     const router = useRouter()
     console.log(supabase.getSubscriptions())
-
     useEffect(() => {
         fetchTickets()
         const Subscription = supabase
@@ -65,9 +64,9 @@ const TicketList: React.FC = () => {
                 </div>
                 <TicketDetail
                     //@ts-ignore
-                    key={router.query.ticketId ?? ''}
+                    key={router.query.ticketId}
                     //@ts-ignore
-                    id={router.query.ticketId ?? null}
+                    id={router.query.ticketId}
                 />
             </div>
         </div>

@@ -8,6 +8,7 @@ import useSendMessage from '../../hooks/messages/sendMessage'
 import { supabase } from '../../lib/supabaseClient'
 import { definitions } from '../../types/supabase'
 import useMessages from '../../hooks/messages/useGetMessages'
+import { useRouter } from 'next/router'
 
 type chatProps = {
     id: string
@@ -15,27 +16,7 @@ type chatProps = {
 
 const Chat: React.FC<chatProps> = ({ id }) => {
     const [chatData, setChatData] = useState<definitions['messages'][]>()
-    // const { data: initialMessages } = useMessages(id)
-
-    // const setupMessagesSubscription = async () => {
-    //     const mySubscriptions = supabase
-    //         .from<definitions['messages']>('message')
-    //         .on('INSERT', ({ new: newMessage }) =>
-    //             setChatData(() => [].concat([newMessage], chatData))
-    //         )
-    //         .subscribe()
-    //     console.log(chatData)
-
-    //     return supabase.removeSubscription(mySubscriptions)
-    // }
-
-    // useEffect(() => {
-    //     setupMessagesSubscription()
-    // })
-
-    // useEffect(() => {
-    //     setChatData(initialMessages)
-    // })
+    const router = useRouter()
 
     useEffect(() => {
         getMessages(id)
@@ -46,6 +27,7 @@ const Chat: React.FC<chatProps> = ({ id }) => {
             })
             .subscribe()
         return () => {
+            console.log(supabase.getSubscriptions)
             supabase.removeSubscription(MessageSubscription)
         }
     }, [])
@@ -54,6 +36,7 @@ const Chat: React.FC<chatProps> = ({ id }) => {
             .from<definitions['messages']>('messages')
             .select(
                 `
+                id,
                 ticket_id,
                 insert_at,
                 message,
@@ -62,10 +45,16 @@ const Chat: React.FC<chatProps> = ({ id }) => {
             )
             .eq('ticket_id', id)
             .order('insert_at')
-
-        setChatData(data ?? [])
+        if (data?.length !== 0) {
+            setChatData(data ?? [])
+            router.push({
+                pathname: '/tickets',
+                query: { ticketId: id },
+                hash: data ? String(data[data.length - 1].id) : '',
+            })
+        }
     }
-
+    const [lastMessageId, setLastMessageId] = useState('')
     const [message, setMessage] = useState('')
     const [ticket_id, setTicket_id] = useState('')
 
@@ -86,11 +75,13 @@ const Chat: React.FC<chatProps> = ({ id }) => {
                     ? chatData.map((message) => {
                           return message.user_id == supabase.auth.user()?.id ? (
                               <SentMessage
+                                  id={String(message.id)}
                                   key={message.insert_at}
                                   content={message.message ?? ''}
                               />
                           ) : (
                               <RecievedMessage
+                                  id={String(message.id)}
                                   key={message.insert_at}
                                   content={message.message ?? ''}
                               />

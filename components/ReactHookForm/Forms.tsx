@@ -221,7 +221,6 @@ export const SendMassageForm: React.FC<SendMassageFormProps> = ({
     } = useForm()
     const onSubmit = (data: definitions['messages']) => {
         OnFormSubmit(data)
-        console.log('reset')
         reset()
     }
     return (
@@ -234,7 +233,6 @@ export const SendMassageForm: React.FC<SendMassageFormProps> = ({
                 placeholder="TypeYourMessage"
                 register={register}
                 errors={errors}
-                type="text"
                 maxLenght={1048}
             />
             <button className="pr-6 w-1/12 text-3xl" type="submit">

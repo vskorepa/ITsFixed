@@ -4,6 +4,7 @@ import useTranslation from 'next-translate/useTranslation'
 import useTicketDetail from '../../hooks/tickets/useTicketDetail'
 import useUpdateTicket from '../../hooks/tickets/useUpdateTicket'
 import Chat from '../messages/chat'
+import { supabase } from '../../lib/supabaseClient'
 
 type TicketDetailProps = {
     id: string
