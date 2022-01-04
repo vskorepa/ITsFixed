@@ -3,6 +3,7 @@ import { supabase } from '../../lib/supabaseClient'
 import { ResetPasswordValues } from '../../types/formtypes'
 
 const forgotPassword = async ({ email }: ResetPasswordValues) => {
+    //@ts-ignore
     const { data, error } = supabase.auth.api.resetPasswordForEmail(email)
     if (error) {
         throw new Error(error.message)
