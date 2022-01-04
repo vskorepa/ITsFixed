@@ -7,6 +7,7 @@ import { SubmitHandler } from 'react-hook-form'
 import useSendMessage from '../../hooks/messages/sendMessage'
 import { supabase } from '../../lib/supabaseClient'
 import { definitions } from '../../types/supabase'
+import useMessages from '../../hooks/messages/useGetMessages'
 
 type chatProps = {
     id: string
@@ -14,19 +15,40 @@ type chatProps = {
 
 const Chat: React.FC<chatProps> = ({ id }) => {
     const [chatData, setChatData] = useState<definitions['messages'][]>()
+    // const { data: initialMessages } = useMessages(id)
+
+    // const setupMessagesSubscription = async () => {
+    //     const mySubscriptions = supabase
+    //         .from<definitions['messages']>('message')
+    //         .on('INSERT', ({ new: newMessage }) =>
+    //             setChatData(() => [].concat([newMessage], chatData))
+    //         )
+    //         .subscribe()
+    //     console.log(chatData)
+
+    //     return supabase.removeSubscription(mySubscriptions)
+    // }
+
+    // useEffect(() => {
+    //     setupMessagesSubscription()
+    // })
+
+    // useEffect(() => {
+    //     setChatData(initialMessages)
+    // })
 
     useEffect(() => {
         getMessages(id)
         const MessageSubscription = supabase
             .from('messages')
-            .on('*', () => {
+            .on('INSERT', () => {
                 getMessages(id)
             })
             .subscribe()
         return () => {
             supabase.removeSubscription(MessageSubscription)
         }
-    })
+    }, [])
     const getMessages = async (id: string) => {
         const { data, error } = await supabase
             .from<definitions['messages']>('messages')
@@ -39,9 +61,8 @@ const Chat: React.FC<chatProps> = ({ id }) => {
                 `
             )
             .eq('ticket_id', id)
-        if (error) {
-            throw new Error(error.message)
-        }
+            .order('insert_at')
+
         setChatData(data ?? [])
     }
 

@@ -55,7 +55,7 @@ const TicketDetail: React.FC<TicketDetailProps> = ({ id }) => {
                 <Text>{data?.description}</Text>
             </div>
             <div className="w-full h-50vh bg-gray-200 dark:bg-gray-800">
-                <Chat id={id} />
+                <Chat key={id} id={id} />
             </div>
         </div>
     )

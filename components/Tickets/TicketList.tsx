@@ -12,6 +12,7 @@ import TicketsNav from '../Nav/TicketsNav'
 const TicketList: React.FC = () => {
     const [data, setTickets] = useState<TicketBasicInfo[]>()
     const router = useRouter()
+    console.log(supabase.getSubscriptions())
 
     useEffect(() => {
         fetchTickets()

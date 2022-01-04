@@ -1,20 +1,21 @@
-import { useMutation, useQueryClient } from "react-query";
-import { supabase } from "../../lib/supabaseClient";
+import { useMutation, useQueryClient } from 'react-query'
+import { supabase } from '../../lib/supabaseClient'
 
 const logout = async () => {
-    const { error } = await supabase.auth.signOut();
+    const { error } = await supabase.auth.signOut()
+    supabase.removeAllSubscriptions()
 
     if (error) {
-        throw new Error(error.message);
+        throw new Error(error.message)
     }
-};
+}
 
 const useLogoutUser = () => {
-    const QueryClient = useQueryClient();
+    const QueryClient = useQueryClient()
     return useMutation(() => logout(), {
         onSuccess: () => {
-            QueryClient.removeQueries();
+            QueryClient.removeQueries()
         },
-    });
-};
-export default useLogoutUser;
+    })
+}
+export default useLogoutUser

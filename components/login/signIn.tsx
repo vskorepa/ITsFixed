@@ -5,7 +5,7 @@ import { SignInValues } from '../../types/formtypes'
 import { useRouter } from 'next/router'
 import useLogin from '../../hooks/login/useLoginUser'
 import { SignInForm } from '../ReactHookForm/Forms'
-const SignIp: React.FC = () => {
+const SignIn: React.FC = () => {
     const onSubmit: SubmitHandler<SignInValues> = (data) => {
         setEmail(data.email)
         setPassword(data.password)
@@ -31,4 +31,4 @@ const SignIp: React.FC = () => {
     )
 }
 
-export default SignIp
+export default SignIn
