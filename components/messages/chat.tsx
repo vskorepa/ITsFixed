@@ -9,52 +9,59 @@ import { supabase } from '../../lib/supabaseClient'
 import { definitions } from '../../types/supabase'
 import useMessages from '../../hooks/messages/useGetMessages'
 import { useRouter } from 'next/router'
+import { data } from 'autoprefixer'
 
 type chatProps = {
     id: string
 }
+// const chatData: definitions['messages'][] = []
 
 const Chat: React.FC<chatProps> = ({ id }) => {
-    const [chatData, setChatData] = useState<definitions['messages'][]>()
+    const [chatData, setChatData] = useState<definitions['messages'][]>([])
+    // const { data: chatData, isLoading } = useMessages(id)
     const router = useRouter()
+    if (id !== '') {
+        useEffect(() => {
+            getMessages(id)
 
-    useEffect(() => {
-        getMessages(id)
-        const MessageSubscription = supabase
-            .from('messages')
-            .on('INSERT', () => {
-                getMessages(id)
-            })
-            .subscribe()
-        return () => {
-            console.log(supabase.getSubscriptions)
-            supabase.removeSubscription(MessageSubscription)
-        }
-    }, [])
-    const getMessages = async (id: string) => {
-        const { data, error } = await supabase
-            .from<definitions['messages']>('messages')
-            .select(
-                `
-                id,
-                ticket_id,
-                insert_at,
-                message,
-                user_id
-                `
-            )
-            .eq('ticket_id', id)
-            .order('insert_at')
-        if (data?.length !== 0) {
-            setChatData(data ?? [])
-            router.push({
-                pathname: '/tickets',
-                query: { ticketId: id },
-                hash: data ? String(data[data.length - 1].id) : '',
-            })
+            const MessageSubscription = supabase
+                .from<definitions['messages']>('messages')
+                .on('INSERT', (message) => {
+                    getMessages(id)
+                })
+                .subscribe()
+
+            async function removeMessageSubscription() {
+                await supabase.removeSubscription(MessageSubscription)
+            }
+            return () => {
+                removeMessageSubscription()
+            }
+        }, [])
+        const getMessages = async (id: string) => {
+            const { data } = await supabase
+                .from<definitions['messages']>('messages')
+                .select(
+                    `
+                    id,
+                    ticket_id,
+                    insert_at,
+                    message,
+                    user_id
+                    `
+                )
+                .eq('ticket_id', id)
+                .order('insert_at')
+            if (data?.length !== 0) {
+                setChatData(data!)
+                router.push({
+                    pathname: '/tickets',
+                    query: { ticketId: id },
+                    hash: data ? String(data[data.length - 1].id) : '',
+                })
+            }
         }
     }
-    const [lastMessageId, setLastMessageId] = useState('')
     const [message, setMessage] = useState('')
     const [ticket_id, setTicket_id] = useState('')
 
@@ -76,13 +83,13 @@ const Chat: React.FC<chatProps> = ({ id }) => {
                           return message.user_id == supabase.auth.user()?.id ? (
                               <SentMessage
                                   id={String(message.id)}
-                                  key={message.insert_at}
+                                  key={message.id}
                                   content={message.message ?? ''}
                               />
                           ) : (
                               <RecievedMessage
                                   id={String(message.id)}
-                                  key={message.insert_at}
+                                  key={message.id}
                                   content={message.message ?? ''}
                               />
                           )

@@ -12,8 +12,9 @@ import TicketsNav from '../Nav/TicketsNav'
 const TicketList: React.FC = () => {
     const [data, setTickets] = useState<TicketBasicInfo[]>()
     const router = useRouter()
-    console.log(supabase.getSubscriptions())
     useEffect(() => {
+        console.log('USE EFFECT CALL TO SUBSCRIBE TICKETS')
+
         fetchTickets()
         const Subscription = supabase
             .from('tickets')
@@ -21,8 +22,12 @@ const TicketList: React.FC = () => {
                 fetchTickets()
             })
             .subscribe()
+        console.log(supabase.getSubscriptions())
+
         return () => {
+            console.log('REMOVED TICKET SUBSCRIPTION')
             supabase.removeSubscription(Subscription)
+            console.log(supabase.getSubscriptions())
         }
     }, [])
 
@@ -64,9 +69,9 @@ const TicketList: React.FC = () => {
                 </div>
                 <TicketDetail
                     //@ts-ignore
-                    key={router.query.ticketId}
+                    key={router.query.ticketId ?? ''}
                     //@ts-ignore
-                    id={router.query.ticketId}
+                    id={router.query.ticketId ?? ''}
                 />
             </div>
         </div>
