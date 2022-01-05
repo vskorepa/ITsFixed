@@ -225,7 +225,7 @@ export const SendMassageForm: React.FC<SendMassageFormProps> = ({
     }
     return (
         <form
-            className="flex flex-nowrap items-center h-10vh shadow-md rounded w-full"
+            className="h-5vh rounded-t-3xl rounded w-full bottom-0"
             onSubmit={handleSubmit(onSubmit)}
         >
             <SendMessageInput
@@ -234,10 +234,14 @@ export const SendMassageForm: React.FC<SendMassageFormProps> = ({
                 register={register}
                 errors={errors}
                 maxLenght={1048}
-            />
-            <button className="pr-6 w-1/12 text-3xl" type="submit">
-                <AiOutlineSend />
-            </button>
+            >
+                <button
+                    className="text-3xl absolute right-8 bottom-4 text-secondary w-auto   "
+                    type="submit"
+                >
+                    <AiOutlineSend />
+                </button>
+            </SendMessageInput>
         </form>
     )
 }

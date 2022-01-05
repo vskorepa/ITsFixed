@@ -23,7 +23,8 @@ const TicketInList: React.FC<TicketInListProps> = (data) => {
                     query: { ticketId: data.ticketData.id },
                 })
             }}
-            className="border-b cursor-pointer odd:bg-white even:bg-light dark:odd:bg-black dark:even:bg-dark visited:bg-primary active:bg-secondary  border-gray-700 border-opacity-75 p-6 dark:hover:bg-gray-800 hover:bg-gray-100"
+            className="border-b cursor-pointer odd:bg-light even:bg-lightDarker hover:bg-white dark:odd:bg-darkDarker dark:even:bg-dark visited:bg-primary active:bg-secondary 
+              border-gray-700 border-opacity-75 p-6 dark:hover:bg-darkLighter "
         >
             <div className="w-full h-auto inline-flex items-center justify-between rounded-full mb-4">
                 <div

@@ -76,8 +76,8 @@ const Chat: React.FC<chatProps> = ({ id }) => {
         ticket_id: ticket_id,
     })
     return (
-        <div className="h-50vh flex flex-wrap justify-around items-center">
-            <SimpleBar className="w-full flex flex-col max-h-40vh overflow-y-auto mt-1 ">
+        <div className="h-49vh flex flex-col justify-end gap-2">
+            <SimpleBar className="w-full flex flex-col max-h-45vh overflow-y-auto">
                 {chatData
                     ? chatData.map((message) => {
                           return message.user_id == supabase.auth.user()?.id ? (

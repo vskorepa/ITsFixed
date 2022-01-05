@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Children } from 'react'
 import { UseFormReturn, FieldErrors } from 'react-hook-form'
 import useTranslation from 'next-translate/useTranslation'
 import { Textarea } from '@nextui-org/react'
@@ -14,6 +14,7 @@ type InputProps = {
         value: number
         name: string
     }[]
+    children?: React.ReactNode
 }
 type SelectInputProps = {
     register: UseFormReturn['register']
@@ -338,20 +339,21 @@ export const SendMessageInput: React.FC<InputProps> = ({
     placeholder,
     maxLenght,
     required,
+    children,
 }) => {
     const { t } = useTranslation('common')
 
     return (
-        <div className="w-full flex items-center">
+        <div className="w-full h-5vh relative items-end">
             <textarea
-                rows={1}
+                rows={2}
                 id={name ?? 'basic'}
                 className={` ${
                     errors[name ?? 'basic'] ? 'border-red-500' : 'border-dark'
                 }
-                focus:border-primary 
-                 shadow bg-light appearance-none border-2 rounded w-10/12 py-2 px-2 mx-1 
-                 text-gray-700  leading-tight focus:outline-none focus:shadow-outline
+                focus:border-primary px-4 text-xl pr-12
+                 bg-light appearance-none border-4 rounded-b-3xl w-full h-5vh 
+                 text-gray-700  leading-tight focus:outline-none scroll-smooth resize-none
                  `}
                 placeholder={t(placeholder ?? '') ?? 'basic'}
                 {...register(name ?? 'basic', {
@@ -364,7 +366,8 @@ export const SendMessageInput: React.FC<InputProps> = ({
                         message: `${t('maxLength')} ${maxLenght ?? '30'}`,
                     },
                 })}
-            />
+            ></textarea>
+            {children}
             {errors[name ?? 'basic'] && (
                 <p className="text-red-500 text-md italic">
                     {errors[name ?? 'basic'].message}
