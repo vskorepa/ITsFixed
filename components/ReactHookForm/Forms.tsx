@@ -225,7 +225,7 @@ export const SendMassageForm: React.FC<SendMassageFormProps> = ({
     }
     return (
         <form
-            className="h-5vh rounded-t-3xl rounded w-full bottom-0"
+            className="h-5vh short:h-10vh rounded-t-3xl rounded w-full bottom-0"
             onSubmit={handleSubmit(onSubmit)}
         >
             <SendMessageInput

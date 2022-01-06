@@ -344,7 +344,7 @@ export const SendMessageInput: React.FC<InputProps> = ({
     const { t } = useTranslation('common')
 
     return (
-        <div className="w-full h-5vh relative items-end">
+        <div className="w-full h-5vh short:h-10vh relative items-end">
             <textarea
                 rows={2}
                 id={name ?? 'basic'}
@@ -352,7 +352,7 @@ export const SendMessageInput: React.FC<InputProps> = ({
                     errors[name ?? 'basic'] ? 'border-red-500' : 'border-dark'
                 }
                 focus:border-primary px-4 text-xl pr-12
-                 bg-light appearance-none border-4 rounded-b-3xl w-full h-5vh 
+                 bg-light appearance-none border-4 rounded-b-3xl w-full h-5vh short:h-10vh
                  text-gray-700  leading-tight focus:outline-none scroll-smooth resize-none
                  `}
                 placeholder={t(placeholder ?? '') ?? 'basic'}

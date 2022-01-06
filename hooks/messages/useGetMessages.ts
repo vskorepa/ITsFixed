@@ -24,6 +24,7 @@ const getMessages = async (ticket_id: string) => {
         if (!data) {
             throw new Error('No messages')
         }
+        console.log(data)
 
         return data
     }

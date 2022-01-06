@@ -9,7 +9,7 @@ import { supabase } from '../../lib/supabaseClient'
 import { definitions } from '../../types/supabase'
 import useMessages from '../../hooks/messages/useGetMessages'
 import { useRouter } from 'next/router'
-import { data } from 'autoprefixer'
+import { RealtimeSubscription } from '@supabase/supabase-js'
 
 type chatProps = {
     id: string
@@ -20,20 +20,30 @@ const Chat: React.FC<chatProps> = ({ id }) => {
     const { data: chatData, isLoading, refetch } = useMessages(id)
     const messageBottom = useRef<HTMLDivElement>(null)
     const router = useRouter()
-    console.log(chatData)
     useEffect(() => {
+        // getMessages(id)
         const MessageSubscription = supabase
             .from<definitions['messages']>('messages')
-            .on('INSERT', () => {
+            .on('INSERT', (message) => {
                 refetch()
+                // const newArr = [...chatData, message.new]
+                // setChatData(newArr)
             })
-            .subscribe()
+        if (!supabase.getSubscriptions()) {
+            console.log('SUBSCRIBE to MESSAGES')
+            MessageSubscription.subscribe()
+        }
 
-        async function removeMessageSubscription() {
+        async function removeMessageSubscription(
+            MessageSubscription: RealtimeSubscription
+        ) {
             await supabase.removeSubscription(MessageSubscription)
         }
         return () => {
-            removeMessageSubscription()
+            console.log('Removed Subscription')
+            supabase.removeAllSubscriptions()
+            removeMessageSubscription(MessageSubscription.subscription)
+            console.log(supabase.getSubscriptions())
         }
     }, [])
     useEffect(() => {
@@ -54,7 +64,7 @@ const Chat: React.FC<chatProps> = ({ id }) => {
     //         .eq('ticket_id', id)
     //         .order('insert_at')
     //     setChatData(data!)
-    // }
+    //  }
 
     const [message, setMessage] = useState('')
     const [ticket_id, setTicket_id] = useState('')
@@ -64,6 +74,7 @@ const Chat: React.FC<chatProps> = ({ id }) => {
         setTicket_id(id)
         SendMessageMutation.mutate()
     }
+    console.log(supabase.getSubscriptions())
 
     const SendMessageMutation = useSendMessage({
         message: message,
@@ -71,7 +82,7 @@ const Chat: React.FC<chatProps> = ({ id }) => {
     })
     return (
         <div className="h-49vh flex flex-col justify-end gap-2">
-            <SimpleBar className="w-full flex flex-col max-h-45vh overflow-y-auto">
+            <SimpleBar className="w-full flex flex-col max-h-45vh short:max-h-40vh overflow-y-auto">
                 {chatData
                     ? chatData.map((message) => {
                           return message.user_id == supabase.auth.user()?.id ? (

@@ -77,6 +77,10 @@ module.exports = {
                     '100vw': '100vw',
                 },
             },
+            screens: {
+                short: { raw: '(max-height: 1280px)' },
+                // => @media (min-height: 800px) { ... }
+            },
         },
     },
 
