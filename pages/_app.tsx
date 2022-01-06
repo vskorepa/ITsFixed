@@ -9,7 +9,11 @@ import Foot from '../components/Foot'
 const queryClient = new QueryClient({
     defaultOptions: {
         queries: {
-            retry: 0,
+            refetchOnWindowFocus: false,
+            refetchOnMount: false,
+            refetchOnReconnect: false,
+            retry: 1,
+            staleTime: 3600000,
         },
     },
 })

@@ -6,22 +6,20 @@ import { TicketBasicInfo } from '../../types/supabaseTypes'
 import moment from 'moment-timezone'
 type TicketInListProps = {
     ticketData: TicketBasicInfo
+    ChangeTicketId: (ticket_id: string) => void
 }
 
-const TicketInList: React.FC<TicketInListProps> = (data) => {
+const TicketInList: React.FC<TicketInListProps> = ({
+    ticketData,
+    ChangeTicketId,
+}) => {
     const { t } = useTranslation('common')
-    const router = useRouter()
-    const createdAt = moment(data.ticketData.created_at).tz(
-        'Europe/Prague',
-        true
-    )
+    const createdAt = moment(ticketData.created_at).tz('Europe/Prague', true)
     return (
         <div
             onClick={() => {
-                router.push({
-                    pathname: '/tickets',
-                    query: { ticketId: data.ticketData.id },
-                })
+                console.log(ticketData.id)
+                ChangeTicketId(ticketData.id)
             }}
             className="border-b cursor-pointer odd:bg-light even:bg-lightDarker hover:bg-white dark:odd:bg-darkDarker dark:even:bg-dark visited:bg-primary active:bg-secondary 
               border-gray-700 border-opacity-75 p-6 dark:hover:bg-darkLighter "
@@ -30,29 +28,28 @@ const TicketInList: React.FC<TicketInListProps> = (data) => {
                 <div
                     className={`
                     flex gap-2
-                     ${data.ticketData.state == 'waiting' && 'text-brown'}
-                     ${data.ticketData.state == 'ongoing' && 'text-secondary'}
-                     ${data.ticketData.state == 'done' && 'text-primary'}
+                     ${ticketData.state == 'waiting' && 'text-brown'}
+                     ${ticketData.state == 'ongoing' && 'text-secondary'}
+                     ${ticketData.state == 'done' && 'text-primary'}
                      `}
                 >
-                    {t(data.ticketData.state ?? 'waiting')}
+                    {t(ticketData.state ?? 'waiting')}
                 </div>
 
                 <div className="flex-nowrap">
                     <Text>
-                        <strong>{t('user')}</strong>{' '}
-                        {data.ticketData.users.email}
+                        <strong>{t('user')}</strong> {ticketData.users.email}
                     </Text>
                 </div>
             </div>
 
             <h2 className="text-lg font-medium title-font mb-2">
-                {data.ticketData.ticket_type.name}
+                {ticketData.ticket_type.name}
             </h2>
             <div className="flex justify-between">
                 <p className="leading-relaxed text-base">
-                    {data.ticketData.description?.substr(0, 100)}
-                    {(data.ticketData.description?.length ?? 0 > 100) && '...'}
+                    {ticketData.description?.substr(0, 100)}
+                    {(ticketData.description?.length ?? 0 > 100) && '...'}
                 </p>
                 <p>{createdAt.fromNow()}</p>
             </div>

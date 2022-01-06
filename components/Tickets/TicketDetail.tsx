@@ -8,22 +8,25 @@ import { supabase } from '../../lib/supabaseClient'
 import { definitions } from '../../types/supabase'
 
 type TicketDetailProps = {
-    id: string
+    ticket_id: string
     messagesData: definitions['messages'][]
 }
 
-const TicketDetail: React.FC<TicketDetailProps> = ({ id, messagesData }) => {
+const TicketDetail: React.FC<TicketDetailProps> = ({
+    ticket_id,
+    messagesData,
+}) => {
     const { t } = useTranslation('common')
 
     const TicketFinish = () => {
         TicketMutation.mutate()
     }
-    const { data, isLoading } = useTicketDetail(id)
+    const { data, isLoading } = useTicketDetail(ticket_id)
     const TicketMutation = useUpdateTicket({
-        id: id,
+        id: ticket_id,
         state: 'done',
     })
-    if (id === null) {
+    if (ticket_id === null) {
         return <div className="h-80vh w-2/3"></div>
     }
     return (
@@ -60,10 +63,10 @@ const TicketDetail: React.FC<TicketDetailProps> = ({ id, messagesData }) => {
             <div className="w-auto h-auto bg-lightDarker border-white rounded-3xl mr-4 border-2 dark:border-darkLighter dark:bg-darkDarker ">
                 <Chat
                     MessagesData={messagesData.filter(
-                        (messages) => messages.ticket_id === id
+                        (messages) => messages.ticket_id === ticket_id
                     )}
-                    key={'TicketChat' + id}
-                    id={id}
+                    key={'TicketChat' + ticket_id}
+                    id={ticket_id}
                 />
             </div>
         </div>

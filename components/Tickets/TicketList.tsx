@@ -14,17 +14,30 @@ import { definitions } from '../../types/supabase'
 
 const TicketList: React.FC = () => {
     const [tickets, setTickets] = useState<TicketBasicInfo[]>()
+    const [messages, setMessages] = useState<definitions['messages'][]>()
+    const [ticketId, setTicketId] = useState('')
     const router = useRouter()
     const [requiredState, setRequiredState] = useState('waiting')
-    const { data, isLoading, refetch } = useTickets(router.query.ticketId ?? '')
+    const { data, isLoading, refetch } = useTickets()
+    router.query
+    useEffect(() => {
+        console.log('DATA REFETCH')
+        setTickets(data?.ticketData)
+        setMessages(data?.messageData)
+    }, [data])
 
     useEffect(() => {
+        if (!tickets) {
+            setTickets(data?.ticketData ?? [])
+        }
         const TicketSubscription = supabase
             .from<TicketBasicInfo>('tickets')
             .on('*', (payload) => {
                 // data?.push(payload.new)
-                console.log('NEW TICKET CALLBACK')
-
+                // console.log(tickets)
+                // const newTicket = [...tickets, payload.new]
+                // console.log('NEW TICKET CALLBACK')
+                // setTickets(newTicket)
                 refetch()
             })
             .subscribe()
@@ -38,7 +51,10 @@ const TicketList: React.FC = () => {
             .from<definitions['messages']>('messages')
             .on('INSERT', (payload) => {
                 // data?.push(payload.new)
-                console.log('NEW MESSAGE CALLBACK')
+                // const fullArr = [...messages, payload.new]
+                // setMessages(fullArr)
+                // console.log(messages)
+
                 refetch()
             })
             .subscribe()
@@ -78,20 +94,22 @@ const TicketList: React.FC = () => {
             <div className="flex flex-row w-full h-80vh">
                 <div className="w-1/3 h-80vh">
                     <SimpleBar className="w-full overflow-y-auto h-full pr-3">
-                        {data?.ticketData?.map((item) => (
+                        {tickets?.map((item) => (
                             <TicketInList
                                 key={'TicketInList' + item.id}
                                 ticketData={item}
+                                ChangeTicketId={(ticket_id) => {
+                                    setTicketId(ticket_id),
+                                        console.log(ticket_id)
+                                }}
                             />
                         ))}
                     </SimpleBar>
                 </div>
                 <TicketDetail
-                    messagesData={data?.messageData ?? []}
-                    //@ts-ignore
-                    // key={'TicketDetailList' + router.query.ticketId ?? ''}
-                    //@ts-ignore
-                    id={router.query.ticketId ?? ''}
+                    messagesData={messages ?? []}
+                    key={ticketId}
+                    ticket_id={ticketId}
                 />
             </div>
         </div>

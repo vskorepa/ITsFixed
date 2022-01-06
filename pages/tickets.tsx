@@ -5,12 +5,14 @@ import AuthProtectedWrapper from '../components/protected/UserProtected'
 import TicketList from '../components/Tickets/TicketList'
 const Home: NextPage = () => {
     return (
-        <AuthProtectedWrapper role="user">
+        // <AuthProtectedWrapper role="user">
+        <div>
             <TopNav />
             <div className="flex w-full h-full flex-wrap justify-center">
                 <TicketList />
             </div>
-        </AuthProtectedWrapper>
+        </div>
+        // </AuthProtectedWrapper>
     )
 }
 
