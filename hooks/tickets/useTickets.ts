@@ -34,7 +34,6 @@ const getTickets = async (requiredState: string) => {
     if (!data) {
         throw new Error('User has no Tickets')
     }
-    console.log(data)
 
     return data
 }

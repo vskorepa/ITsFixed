@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import SimpleBar from 'simplebar-react'
 import 'simplebar/dist/simplebar.css'
 import { SendMassageForm } from '../ReactHookForm/Forms'
@@ -14,20 +14,18 @@ import { data } from 'autoprefixer'
 type chatProps = {
     id: string
 }
-// const chatData: definitions['messages'][] = []
 
 const Chat: React.FC<chatProps> = ({ id }) => {
-    const [chatData, setChatData] = useState<definitions['messages'][]>([])
-    // const { data: chatData, isLoading } = useMessages(id)
+    // const [chatData, setChatData] = useState<definitions['messages'][]>([])
+    const { data: chatData, isLoading, refetch } = useMessages(id)
+    const messageBottom = useRef<HTMLDivElement>(null)
     const router = useRouter()
-
+    console.log(chatData)
     useEffect(() => {
-        getMessages(id)
-
         const MessageSubscription = supabase
             .from<definitions['messages']>('messages')
-            .on('INSERT', (message) => {
-                getMessages(id)
+            .on('INSERT', () => {
+                refetch()
             })
             .subscribe()
 
@@ -38,29 +36,25 @@ const Chat: React.FC<chatProps> = ({ id }) => {
             removeMessageSubscription()
         }
     }, [])
-    const getMessages = async (id: string) => {
-        const { data } = await supabase
-            .from<definitions['messages']>('messages')
-            .select(
-                `
-                    id,
-                    ticket_id,
-                    insert_at,
-                    message,
-                    user_id
-                    `
-            )
-            .eq('ticket_id', id)
-            .order('insert_at')
-        if (data?.length !== 0) {
-            setChatData(data!)
-            router.push({
-                pathname: '/tickets',
-                query: { ticketId: id },
-                hash: data ? String(data[data.length - 1].id) : '',
-            })
-        }
-    }
+    useEffect(() => {
+        messageBottom.current?.scrollIntoView({})
+    }, [chatData])
+    // const getMessages = async (id: string) => {
+    //     const { data } = await supabase
+    //         .from<definitions['messages']>('messages')
+    //         .select(
+    //             `
+    //                 id,
+    //                 ticket_id,
+    //                 insert_at,
+    //                 message,
+    //                 user_id
+    //                 `
+    //         )
+    //         .eq('ticket_id', id)
+    //         .order('insert_at')
+    //     setChatData(data!)
+    // }
 
     const [message, setMessage] = useState('')
     const [ticket_id, setTicket_id] = useState('')
@@ -95,6 +89,7 @@ const Chat: React.FC<chatProps> = ({ id }) => {
                           )
                       })
                     : ''}
+                <div ref={messageBottom}></div>
             </SimpleBar>
             <SendMassageForm OnFormSubmit={(data) => onSubmit(data)} />
         </div>
