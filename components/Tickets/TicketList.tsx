@@ -8,18 +8,23 @@ import 'simplebar/dist/simplebar.css'
 import TicketDetail from './TicketDetail'
 import { TicketBasicInfo } from '../../types/supabaseTypes'
 import TicketsNav from '../Nav/TicketsNav'
+import useTickets, { stateChanger } from '../../hooks/tickets/useTickets'
+import { Loading } from '@nextui-org/react'
 
 const TicketList: React.FC = () => {
-    const [data, setTickets] = useState<TicketBasicInfo[]>()
+    const [tickets, setTickets] = useState<TicketBasicInfo[]>()
     const router = useRouter()
+    const [requiredState, setRequiredState] = useState('waiting')
+    const { data, isLoading, refetch, isFetched } = useTickets()
+
     useEffect(() => {
         console.log('USE EFFECT CALL TO SUBSCRIBE TICKETS')
 
-        fetchTickets()
         const Subscription = supabase
-            .from('tickets')
-            .on('*', () => {
-                fetchTickets()
+            .from<TicketBasicInfo>('tickets')
+            .on('*', (payload) => {
+                // data?.push(payload.new)
+                refetch()
             })
             .subscribe()
         console.log(supabase.getSubscriptions())
@@ -31,34 +36,43 @@ const TicketList: React.FC = () => {
         }
     }, [])
 
-    const fetchTickets = async () => {
-        const { data } = await supabase
-            .from<TicketBasicInfo>('tickets')
-            .select(
-                `
-        id,
-        state,
-        description,
-        created_at,
-        ticket_type(
-            name,
-            description
-        ),
-        users:user_id(
-            first_name,
-            email
-        )
+    const fetchTickets = () => {
+        //     const { data } = await supabase
+        //         .from<TicketBasicInfo>('tickets')
+        //         .select(
+        //             `
+        //     id,
+        //     state,
+        //     description,
+        //     created_at,
+        //     ticket_type(
+        //         name,
+        //         description
+        //     ),
+        //     users:user_id(
+        //         first_name,
+        //         email
+        //     )
 
-    `
-            )
-            .eq('state', 'waiting')
-            .order('created_at')
+        // `
+        //         )
+        //         .eq('state', requiredState)
+        //         .order('created_at')
 
         setTickets(data ?? [])
     }
+
+    if (isLoading) {
+        return <Loading />
+    }
+
     return (
         <div className="flex flex-row w-screen h-full flex-wrap">
-            <TicketsNav></TicketsNav>
+            <TicketsNav
+                stateChange={(state) => {
+                    setRequiredState(state), stateChanger(state)
+                }}
+            ></TicketsNav>
             <div className="flex flex-row w-full h-80vh">
                 <div className="w-1/3 h-80vh">
                     <SimpleBar className="w-full overflow-y-auto h-full pr-3">

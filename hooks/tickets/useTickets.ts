@@ -1,56 +1,50 @@
-import { useState } from "react";
-import { typeUser } from "./../../types/supabaseTypes";
-import { useQuery } from "react-query";
-import { supabase } from "../../lib/supabaseClient";
-import { TicketBasicInfo } from "../../types/supabaseTypes";
-import { definitions } from "../../types/supabase";
-const getTickets = async (page: number) => {
+import { useState } from 'react'
+import { typeUser } from './../../types/supabaseTypes'
+import { useQuery } from 'react-query'
+import { supabase } from '../../lib/supabaseClient'
+import { TicketBasicInfo } from '../../types/supabaseTypes'
+import { definitions } from '../../types/supabase'
+const getTickets = async (requiredState: string) => {
     const { data, error } = await supabase
-        .from<TicketBasicInfo>("tickets")
+        .from<TicketBasicInfo>('tickets')
         .select(
             `
-        id,
-        state,
-        description,
-        created_at,
-        ticket_type(
-            name,
-            description
-        ),
-        users:user_id(
-            first_name,
-            email
+            id,
+            state,
+            description,
+            created_at,
+            ticket_type(
+                name,
+                description
+            ),
+            users:user_id(
+                first_name,
+                email
+            )
+    
+        `
         )
-
-    `
-        )
-        .eq("state", "waiting")
-        // .order("state", { ascending: true })
-        .order("created_at")
-        .range((page - 1) * 20, page * 20);
+        .eq('state', requiredState)
+        .order('created_at')
 
     if (error) {
-        throw new Error(error.message);
+        throw new Error(error.message)
     }
 
     if (!data) {
-        throw new Error("User has no Tickets");
+        throw new Error('User has no Tickets')
     }
+    console.log(data)
 
-    const response = {
-        meta: {
-            success: true,
-            totalCount: data.length,
-            pageCount: Math.ceil(data.length / 9),
-            currentPage: page,
-            perPage: 9,
-        },
-        ticketData: data,
-    };
-    return response;
-};
+    return data
+}
+const state = ['waiting']
+export const stateChanger = (newState: string) => {
+    state.length = 0
+    state.push(newState)
+}
 
-const useTickets = (page: number) => {
-    return useQuery("tickets", () => getTickets(page));
-};
-export default useTickets;
+const useTickets = () => {
+    return useQuery(['tickets', { state }], () => getTickets(state[0]))
+}
+export default useTickets
