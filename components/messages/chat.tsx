@@ -20,48 +20,48 @@ const Chat: React.FC<chatProps> = ({ id }) => {
     const [chatData, setChatData] = useState<definitions['messages'][]>([])
     // const { data: chatData, isLoading } = useMessages(id)
     const router = useRouter()
-    if (id !== '') {
-        useEffect(() => {
-            getMessages(id)
 
-            const MessageSubscription = supabase
-                .from<definitions['messages']>('messages')
-                .on('INSERT', (message) => {
-                    getMessages(id)
-                })
-                .subscribe()
+    useEffect(() => {
+        getMessages(id)
 
-            async function removeMessageSubscription() {
-                await supabase.removeSubscription(MessageSubscription)
-            }
-            return () => {
-                removeMessageSubscription()
-            }
-        }, [])
-        const getMessages = async (id: string) => {
-            const { data } = await supabase
-                .from<definitions['messages']>('messages')
-                .select(
-                    `
+        const MessageSubscription = supabase
+            .from<definitions['messages']>('messages')
+            .on('INSERT', (message) => {
+                getMessages(id)
+            })
+            .subscribe()
+
+        async function removeMessageSubscription() {
+            await supabase.removeSubscription(MessageSubscription)
+        }
+        return () => {
+            removeMessageSubscription()
+        }
+    }, [])
+    const getMessages = async (id: string) => {
+        const { data } = await supabase
+            .from<definitions['messages']>('messages')
+            .select(
+                `
                     id,
                     ticket_id,
                     insert_at,
                     message,
                     user_id
                     `
-                )
-                .eq('ticket_id', id)
-                .order('insert_at')
-            if (data?.length !== 0) {
-                setChatData(data!)
-                router.push({
-                    pathname: '/tickets',
-                    query: { ticketId: id },
-                    hash: data ? String(data[data.length - 1].id) : '',
-                })
-            }
+            )
+            .eq('ticket_id', id)
+            .order('insert_at')
+        if (data?.length !== 0) {
+            setChatData(data!)
+            router.push({
+                pathname: '/tickets',
+                query: { ticketId: id },
+                hash: data ? String(data[data.length - 1].id) : '',
+            })
         }
     }
+
     const [message, setMessage] = useState('')
     const [ticket_id, setTicket_id] = useState('')
 
