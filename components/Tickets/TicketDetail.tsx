@@ -5,12 +5,14 @@ import useTicketDetail from '../../hooks/tickets/useTicketDetail'
 import useUpdateTicket from '../../hooks/tickets/useUpdateTicket'
 import Chat from '../messages/chat'
 import { supabase } from '../../lib/supabaseClient'
+import { definitions } from '../../types/supabase'
 
 type TicketDetailProps = {
     id: string
+    messagesData: definitions['messages'][]
 }
 
-const TicketDetail: React.FC<TicketDetailProps> = ({ id }) => {
+const TicketDetail: React.FC<TicketDetailProps> = ({ id, messagesData }) => {
     const { t } = useTranslation('common')
 
     const TicketFinish = () => {
@@ -56,7 +58,13 @@ const TicketDetail: React.FC<TicketDetailProps> = ({ id }) => {
                 <Text>{data?.description}</Text>
             </div>
             <div className="w-auto h-auto bg-lightDarker border-white rounded-3xl mr-4 border-2 dark:border-darkLighter dark:bg-darkDarker ">
-                <Chat key={'TicketChat' + id} id={id} />
+                <Chat
+                    MessagesData={messagesData.filter(
+                        (messages) => messages.ticket_id === id
+                    )}
+                    key={'TicketChat' + id}
+                    id={id}
+                />
             </div>
         </div>
     )

@@ -18,10 +18,11 @@ import {
 } from '../../types/formtypes'
 import { SubmitButton } from '../esential/Buttons'
 import useTranslation from 'next-translate/useTranslation'
-import { Modal } from '@nextui-org/react'
+import { Loading, Modal } from '@nextui-org/react'
 import { AiOutlineSend } from 'react-icons/ai'
 import { definitions } from '../../types/supabase'
 import Link from 'next/link'
+import { UseMutationResult } from 'react-query'
 
 type ResetPasswordFormProps = {
     OnFormSubmit: (data: ResetPasswordValues) => void
@@ -209,11 +210,14 @@ export const CreateTicketModalForm: React.FC<CreateTicketFormProps> = ({
 
 type SendMassageFormProps = {
     OnFormSubmit: (data: definitions['messages']) => void
+    isSending: boolean
 }
 export const SendMassageForm: React.FC<SendMassageFormProps> = ({
     OnFormSubmit,
+    isSending,
 }) => {
     const {
+        setFocus,
         register,
         formState: { errors },
         handleSubmit,
@@ -222,6 +226,7 @@ export const SendMassageForm: React.FC<SendMassageFormProps> = ({
     const onSubmit = (data: definitions['messages']) => {
         OnFormSubmit(data)
         reset()
+        setFocus('message')
     }
     return (
         <form
@@ -235,12 +240,16 @@ export const SendMassageForm: React.FC<SendMassageFormProps> = ({
                 errors={errors}
                 maxLenght={1048}
             >
-                <button
-                    className="text-3xl absolute right-8 bottom-4 text-secondary w-auto   "
-                    type="submit"
-                >
-                    <AiOutlineSend />
-                </button>
+                {isSending ? (
+                    <Loading className="text-3xl absolute right-8 bottom-4 text-secondary w-auto   " />
+                ) : (
+                    <button
+                        className="text-3xl absolute right-8 bottom-4 text-secondary w-auto   "
+                        type="submit"
+                    >
+                        <AiOutlineSend />
+                    </button>
+                )}
             </SendMessageInput>
         </form>
     )

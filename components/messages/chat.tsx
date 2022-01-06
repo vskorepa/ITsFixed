@@ -10,45 +10,48 @@ import { definitions } from '../../types/supabase'
 import useMessages from '../../hooks/messages/useGetMessages'
 import { useRouter } from 'next/router'
 import { RealtimeSubscription } from '@supabase/supabase-js'
+import { Loading } from '@nextui-org/react'
 
 type chatProps = {
     id: string
+    MessagesData: definitions['messages'][]
 }
 
-const Chat: React.FC<chatProps> = ({ id }) => {
+const Chat: React.FC<chatProps> = ({ id, MessagesData }) => {
     // const [chatData, setChatData] = useState<definitions['messages'][]>([])
-    const { data: chatData, isLoading, refetch } = useMessages(id)
+    // const { data: chatData, isLoading, refetch } = useMessages(id)
     const messageBottom = useRef<HTMLDivElement>(null)
     const router = useRouter()
     useEffect(() => {
-        // getMessages(id)
-        const MessageSubscription = supabase
-            .from<definitions['messages']>('messages')
-            .on('INSERT', (message) => {
-                refetch()
-                // const newArr = [...chatData, message.new]
-                // setChatData(newArr)
-            })
-        if (!supabase.getSubscriptions()) {
-            console.log('SUBSCRIBE to MESSAGES')
-            MessageSubscription.subscribe()
-        }
-
-        async function removeMessageSubscription(
-            MessageSubscription: RealtimeSubscription
-        ) {
-            await supabase.removeSubscription(MessageSubscription)
-        }
-        return () => {
-            console.log('Removed Subscription')
-            supabase.removeAllSubscriptions()
-            removeMessageSubscription(MessageSubscription.subscription)
-            console.log(supabase.getSubscriptions())
-        }
-    }, [])
-    useEffect(() => {
         messageBottom.current?.scrollIntoView({})
-    }, [chatData])
+    }, [MessagesData])
+    // useEffect(() => {
+    //     // getMessages(id)
+    //     const MessageSubscription = supabase
+    //         .from<definitions['messages']>('messages')
+    //         .on('INSERT', (message) => {
+    //             refetch()
+    //             // const newArr = [...chatData, message.new]
+    //             // setChatData(newArr)
+    //         })
+    //     if (!supabase.getSubscriptions()) {
+    //         console.log('SUBSCRIBE to MESSAGES')
+    //         MessageSubscription.subscribe()
+    //     }
+
+    //     async function removeMessageSubscription(
+    //         MessageSubscription: RealtimeSubscription
+    //     ) {
+    //         await supabase.removeSubscription(MessageSubscription)
+    //     }
+    //     return () => {
+    //         console.log('Removed Subscription')
+    //         supabase.removeAllSubscriptions()
+    //         removeMessageSubscription(MessageSubscription.subscription)
+    //         console.log(supabase.getSubscriptions())
+    //     }
+    // }, [])
+
     // const getMessages = async (id: string) => {
     //     const { data } = await supabase
     //         .from<definitions['messages']>('messages')
@@ -74,7 +77,6 @@ const Chat: React.FC<chatProps> = ({ id }) => {
         setTicket_id(id)
         SendMessageMutation.mutate()
     }
-    console.log(supabase.getSubscriptions())
 
     const SendMessageMutation = useSendMessage({
         message: message,
@@ -83,8 +85,8 @@ const Chat: React.FC<chatProps> = ({ id }) => {
     return (
         <div className="h-49vh flex flex-col justify-end gap-2">
             <SimpleBar className="w-full flex flex-col max-h-45vh short:max-h-40vh overflow-y-auto">
-                {chatData
-                    ? chatData.map((message) => {
+                {MessagesData
+                    ? MessagesData.map((message) => {
                           return message.user_id == supabase.auth.user()?.id ? (
                               <SentMessage
                                   id={String(message.id)}
@@ -102,7 +104,10 @@ const Chat: React.FC<chatProps> = ({ id }) => {
                     : ''}
                 <div ref={messageBottom}></div>
             </SimpleBar>
-            <SendMassageForm OnFormSubmit={(data) => onSubmit(data)} />
+            <SendMassageForm
+                isSending={SendMessageMutation.isLoading ?? false}
+                OnFormSubmit={(data) => onSubmit(data)}
+            />
         </div>
     )
 }

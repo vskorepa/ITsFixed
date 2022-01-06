@@ -4,7 +4,7 @@ import { useQuery } from 'react-query'
 import { supabase } from '../../lib/supabaseClient'
 import { TicketBasicInfo } from '../../types/supabaseTypes'
 import { definitions } from '../../types/supabase'
-const getTickets = async (requiredState: string) => {
+const getTickets = async (requiredState: string, ticket_Id: string) => {
     const { data, error } = await supabase
         .from<TicketBasicInfo>('tickets')
         .select(
@@ -35,7 +35,22 @@ const getTickets = async (requiredState: string) => {
         throw new Error('User has no Tickets')
     }
 
-    return data
+    const { data: messagesData, error: messagesError } = await supabase
+        .from<definitions['messages']>('messages')
+        .select(
+            `
+
+                    id,
+                    ticket_id,
+                    insert_at,
+                    message,
+                    user_id
+    `
+        )
+        .order('insert_at')
+
+    console.log(messagesData)
+    return { ticketData: data, messageData: messagesData ?? [] }
 }
 const state = ['waiting']
 export const stateChanger = (newState: string) => {
@@ -43,7 +58,9 @@ export const stateChanger = (newState: string) => {
     state.push(newState)
 }
 
-const useTickets = () => {
-    return useQuery(['tickets', { state }], () => getTickets(state[0]))
+const useTickets = (ticket_id: string) => {
+    return useQuery(['tickets', { state }], () =>
+        getTickets(state[0], ticket_id)
+    )
 }
 export default useTickets
