@@ -20,9 +20,18 @@ type chatProps = {
 const Chat: React.FC<chatProps> = ({ id, MessagesData }) => {
     // const [chatData, setChatData] = useState<definitions['messages'][]>([])
     // const { data: chatData, isLoading, refetch } = useMessages(id)
+    const [isMounted, setIsMounted] = useState(false)
+    useEffect(() => {
+        console.log('MOUNT')
+        setIsMounted(true)
+        return () => {
+            setIsMounted(false), console.log('UNMOUNT')
+        }
+    }, [])
     const messageBottom = useRef<HTMLDivElement>(null)
     const router = useRouter()
     useEffect(() => {
+        console.log('SCROOOLLL')
         messageBottom.current?.scrollIntoView({})
     }, [MessagesData])
     // useEffect(() => {

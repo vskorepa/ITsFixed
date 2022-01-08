@@ -19,6 +19,7 @@ const TicketList: React.FC = () => {
     const router = useRouter()
     const [requiredState, setRequiredState] = useState('waiting')
     const { data, isLoading, refetch } = useTickets()
+    const [newMessage, setNewMessage] = useState<definitions['messages']>()
     router.query
     useEffect(() => {
         console.log('DATA REFETCH')
@@ -32,12 +33,7 @@ const TicketList: React.FC = () => {
         }
         const TicketSubscription = supabase
             .from<TicketBasicInfo>('tickets')
-            .on('*', (payload) => {
-                // data?.push(payload.new)
-                // console.log(tickets)
-                // const newTicket = [...tickets, payload.new]
-                // console.log('NEW TICKET CALLBACK')
-                // setTickets(newTicket)
+            .on('*', () => {
                 refetch()
             })
             .subscribe()
@@ -50,12 +46,7 @@ const TicketList: React.FC = () => {
         const MessageSubscription = supabase
             .from<definitions['messages']>('messages')
             .on('INSERT', (payload) => {
-                // data?.push(payload.new)
-                // const fullArr = [...messages, payload.new]
-                // setMessages(fullArr)
-                // console.log(messages)
-
-                refetch()
+                setNewMessage(payload.new)
             })
             .subscribe()
 
@@ -107,8 +98,9 @@ const TicketList: React.FC = () => {
                     </SimpleBar>
                 </div>
                 <TicketDetail
+                    newMessage={newMessage}
                     messagesData={messages ?? []}
-                    key={ticketId}
+                    key={'Ticket_detail' + ticketId}
                     ticket_id={ticketId}
                 />
             </div>

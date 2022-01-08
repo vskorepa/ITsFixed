@@ -1,23 +1,35 @@
 import { Loading, Button, Text } from '@nextui-org/react'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import useTranslation from 'next-translate/useTranslation'
 import useTicketDetail from '../../hooks/tickets/useTicketDetail'
 import useUpdateTicket from '../../hooks/tickets/useUpdateTicket'
 import Chat from '../messages/chat'
 import { supabase } from '../../lib/supabaseClient'
 import { definitions } from '../../types/supabase'
+import useMessages from '../../hooks/messages/useGetMessages'
 
 type TicketDetailProps = {
     ticket_id: string
     messagesData: definitions['messages'][]
+    newMessage?: definitions['messages']
 }
 
 const TicketDetail: React.FC<TicketDetailProps> = ({
     ticket_id,
     messagesData,
+    newMessage,
 }) => {
     const { t } = useTranslation('common')
+    const { data: message } = useMessages(ticket_id)
+    const [messages, setMessages] = useState<definitions['messages'][]>([])
 
+    useEffect(() => {
+        if (newMessage && newMessage.ticket_id == ticket_id) {
+            setMessages([...(message ?? []), newMessage])
+        } else {
+            setMessages(message ?? [])
+        }
+    }, [message, newMessage])
     const TicketFinish = () => {
         TicketMutation.mutate()
     }
@@ -29,6 +41,7 @@ const TicketDetail: React.FC<TicketDetailProps> = ({
     if (ticket_id === null) {
         return <div className="h-80vh w-2/3"></div>
     }
+
     return (
         <div className="h-80vh w-2/3">
             <div className="h-30vh w-full justify-center">
@@ -54,6 +67,7 @@ const TicketDetail: React.FC<TicketDetailProps> = ({
                         </Button>
                     </div>
                 </div>
+
                 <Text>{data?.users.first_name}</Text>
                 <Text>{data?.users.last_name}</Text>
                 <Text>{data?.users.email}</Text>
@@ -62,9 +76,10 @@ const TicketDetail: React.FC<TicketDetailProps> = ({
             </div>
             <div className="w-auto h-auto bg-lightDarker border-white rounded-3xl mr-4 border-2 dark:border-darkLighter dark:bg-darkDarker ">
                 <Chat
-                    MessagesData={messagesData.filter(
-                        (messages) => messages.ticket_id === ticket_id
-                    )}
+                    // MessagesData={messagesData.filter(
+                    //     (messages) => messages.ticket_id === ticket_id
+                    // )}
+                    MessagesData={messages ?? []}
                     key={'TicketChat' + ticket_id}
                     id={ticket_id}
                 />
