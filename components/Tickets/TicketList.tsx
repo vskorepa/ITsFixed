@@ -20,17 +20,12 @@ const TicketList: React.FC = () => {
     const [requiredState, setRequiredState] = useState('waiting')
     const { data, isLoading, refetch } = useTickets()
     const [newMessage, setNewMessage] = useState<definitions['messages']>()
-    router.query
-    useEffect(() => {
-        console.log('DATA REFETCH')
-        setTickets(data?.ticketData)
-        setMessages(data?.messageData)
-    }, [data])
 
+    console.log(data)
     useEffect(() => {
-        if (!tickets) {
-            setTickets(data?.ticketData ?? [])
-        }
+        // if (tickets) {
+
+        // }
         const TicketSubscription = supabase
             .from<TicketBasicInfo>('tickets')
             .on('*', () => {
@@ -42,6 +37,9 @@ const TicketList: React.FC = () => {
             supabase.removeSubscription(TicketSubscription)
         }
     }, [])
+    useEffect(() => {
+        setTickets(data ?? [])
+    }, [data])
     useEffect(() => {
         const MessageSubscription = supabase
             .from<definitions['messages']>('messages')
