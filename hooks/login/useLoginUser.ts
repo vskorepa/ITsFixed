@@ -4,8 +4,6 @@ import { SignInValues } from '../../types/formtypes'
 
 const login = async ({ email, password }: SignInValues) => {
     const { user, error } = await supabase.auth.signIn({ email, password })
-    console.log(email)
-    console.log(password)
     if (error) {
         throw new Error(error.message)
     }

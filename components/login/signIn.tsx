@@ -5,6 +5,8 @@ import { SignInValues } from '../../types/formtypes'
 import { useRouter } from 'next/router'
 import useLogin from '../../hooks/login/useLoginUser'
 import { SignInForm } from '../ReactHookForm/Forms'
+import { Button } from '@nextui-org/react'
+import { supabase } from '../../lib/supabaseClient'
 const SignIn: React.FC = () => {
     const onSubmit: SubmitHandler<SignInValues> = (data) => {
         setEmail(data.email)
@@ -19,7 +21,11 @@ const SignIn: React.FC = () => {
     if (loginMutation.isSuccess) {
         router.push('/')
     }
-
+    async function signInWithFacebook() {
+        const { user, session, error } = await supabase.auth.signIn({
+            provider: 'facebook',
+        })
+    }
     return (
         <div className="justify-center flex-wrap">
             <SignInForm OnFormSubmit={(data) => onSubmit(data)} />
@@ -27,6 +33,9 @@ const SignIn: React.FC = () => {
                 //@ts-ignore
                 <p className="text-red-500">{loginMutation.error.message}</p>
             )}
+            <Button onClick={() => signInWithFacebook()}>
+                LOGIN with Facebook
+            </Button>
         </div>
     )
 }

@@ -25,7 +25,11 @@ const TicketDetail: React.FC<TicketDetailProps> = ({
 
     useEffect(() => {
         if (newMessage && newMessage.ticket_id == ticket_id) {
-            setMessages([...(message ?? []), newMessage])
+            if (messages.length === 0) {
+                setMessages([...(message ?? []), newMessage])
+            } else {
+                setMessages([...(messages ?? []), newMessage])
+            }
         } else {
             setMessages(message ?? [])
         }

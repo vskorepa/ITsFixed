@@ -23,9 +23,6 @@ const TicketList: React.FC = () => {
 
     console.log(data)
     useEffect(() => {
-        // if (tickets) {
-
-        // }
         const TicketSubscription = supabase
             .from<TicketBasicInfo>('tickets')
             .on('*', () => {

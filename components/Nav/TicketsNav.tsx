@@ -51,20 +51,19 @@ const TicketsNav: React.FC<TicketsNavProps> = ({ stateChange }) => {
                     trigger="click"
                     onClick={() => setToolTipVisible(!toolTipVisible)}
                     color="#50D890"
-                    placement="rightEnd"
+                    placement="right"
                     visible={toolTipVisible}
                     content={
                         <ToolTipDropDownStateFilter
                             onClick={(state) => {
-                                logState(state),
-                                    setToolTipVisible(false),
-                                    console.log(toolTipVisible)
+                                stateChange(state), setToolTipVisible(false)
                             }}
                         />
                     }
                 >
-                    <div className="">
+                    <div className="items-center">
                         <Button
+                            size="small"
                             auto
                             flat
                             rounded

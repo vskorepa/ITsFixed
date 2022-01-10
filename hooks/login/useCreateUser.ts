@@ -3,7 +3,7 @@ import { useMutation } from 'react-query'
 import { supabase } from '../../lib/supabaseClient'
 import { typeUser } from '../../types/supabaseTypes'
 
-const createUser = async (myUser: typeUser) => {
+const createUser = async (myUser: typeUser, facebookAuth: boolean) => {
     // const { data: userWithEmail } = await supabase
     //     .from("users")
     //     .select("*")
@@ -13,24 +13,27 @@ const createUser = async (myUser: typeUser) => {
     // if (userWithEmail) {
     //     throw new Error("User with this email exists");
     // }
+    if (facebookAuth) {
+    } else {
+        const { user, error: SighUpError } = await supabase.auth.signUp({
+            email: myUser.email,
+            password: myUser.password,
+        })
+        if (SighUpError) {
+            throw SighUpError
+        }
 
-    const { user, error: SighUpError } = await supabase.auth.signUp({
-        email: myUser.email,
-        password: myUser.password,
-    })
-    // console.log(SighUpError?.code);
-    // if (SighUpError?.code == "23505") {
-    //     throw new Error("User with this email exists");
-    // }
-    if (SighUpError) {
-        throw SighUpError
+        return user
     }
-
-    return user
 }
 
-const useCreateUser = (myUser: typeUser) => {
-    return useMutation(() => createUser(myUser), {
+// console.log(SighUpError?.code);
+// if (SighUpError?.code == "23505") {
+//     throw new Error("User with this email exists");
+// }
+
+const useCreateUser = (myUser: typeUser, facebookAuth: boolean) => {
+    return useMutation(() => createUser(myUser, facebookAuth), {
         onSuccess: async (data) => {
             const { data: insertData, error: insertError } = await supabase
                 .from('users')

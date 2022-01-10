@@ -21,13 +21,17 @@ const SignUp: React.FC = () => {
     const [password, setPassword] = useState('')
     const [first_name, setFirst_name] = useState('')
     const [last_name, setLast_name] = useState('')
+    const [facebookAuth, setFacebookAuth] = useState(false)
 
-    const createUserMutation = useCreateUser({
-        email,
-        password,
-        first_name,
-        last_name,
-    })
+    const createUserMutation = useCreateUser(
+        {
+            email,
+            password,
+            first_name,
+            last_name,
+        },
+        facebookAuth
+    )
     if (createUserMutation.isSuccess) {
         router.push('/')
     }
