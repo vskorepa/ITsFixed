@@ -25,6 +25,8 @@ const SignIn: React.FC = () => {
         const { user, session, error } = await supabase.auth.signIn({
             provider: 'facebook',
         })
+        console.log(user)
+        console.log(error)
     }
     return (
         <div className="justify-center flex-wrap">

@@ -7,7 +7,7 @@ import useUser from '../hooks/useUser'
 
 const Home: NextPage = () => {
     const { data, isLoading } = useUser()
-
+    console.log(data)
     return (
         <AuthProtectedWrapper role="user">
             <TopNav />
@@ -16,7 +16,7 @@ const Home: NextPage = () => {
                     <Loading />
                 ) : (
                     <div className="w-1/3 ">
-                        <div className="flex h-1/4 w-full justify-center items-center">
+                        <div className="flex h-auto p-2 w-full justify-center items-center">
                             <Avatar
                                 src="/avatar1.png"
                                 color="#4F98CA"
@@ -24,13 +24,13 @@ const Home: NextPage = () => {
                                 size={250}
                             />
                         </div>
-                        <div className="w-full h-3/4 flex text-2xl flex-wrap gap-3">
+                        <div className="w-full h-auto flex text-2xl flex-wrap gap-3">
                             <div className="flex h-10 justify-evenly w-full">
-                                {/* <h2>{data.first_name}</h2>
-                                <h2>{data.last_name}</h2> */}
+                                <h2>{data?.userData?.first_name}</h2>
+                                <h2>{data?.userData?.last_name}</h2>
                             </div>
                             <div className="flex flex-col items-center w-full">
-                                <h2>{data?.roledata.role}</h2>
+                                <h2>{data?.roledata?.role}</h2>
                                 <h2>{data?.data.email}</h2>
                             </div>
                         </div>

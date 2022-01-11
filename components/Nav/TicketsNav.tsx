@@ -8,11 +8,16 @@ import {
     ToolTipDropDown,
     ToolTipDropDownStateFilter,
 } from '../esential/ToolTipDropDown'
+import { SearchFrom } from '../ReactHookForm/searhForm'
 type TicketsNavProps = {
     stateChange: (state: string) => void
+    searchChange: (search: string) => void
 }
 
-const TicketsNav: React.FC<TicketsNavProps> = ({ stateChange }) => {
+const TicketsNav: React.FC<TicketsNavProps> = ({
+    stateChange,
+    searchChange,
+}) => {
     const [toolTipVisible, setToolTipVisible] = useState(false)
     const [visible, setVisible] = useState(false)
     const openModal = () => {
@@ -26,27 +31,12 @@ const TicketsNav: React.FC<TicketsNavProps> = ({ stateChange }) => {
     }
     return (
         <div className="flex w-screen justify-between h-5vh">
-            <div className="flex items-center  bg-secondary w-1/3 justify-between px-3 text-2xl">
-                <div className="">
-                    <Input
-                        size="small"
-                        shadow={false}
-                        bordered
-                        className="pt-1"
-                        contentLeft={
-                            <HiSearch className="text-dark dark:text-white" />
-                        }
-                    />
-                    {/* <input></input>
-                    <input className="bg-white h-10 px-5 pr-10 rounded-full text-sm focus:outline-none">
-                        <button
-                            type="submit"
-                            className="absolute right-0 top-0 mt-3 mr-4"
-                        >
-                            <HiSearch />
-                        </button>
-                    </input> */}
-                </div>
+            <div className="flex items-center  bg-secondary w-1/3 justify-between px-3 text-xl">
+                <SearchFrom
+                    searchChange={(search) => {
+                        searchChange(search)
+                    }}
+                />
                 <Tooltip
                     trigger="click"
                     onClick={() => setToolTipVisible(!toolTipVisible)}

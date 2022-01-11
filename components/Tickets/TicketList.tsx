@@ -8,7 +8,7 @@ import 'simplebar/dist/simplebar.css'
 import TicketDetail from './TicketDetail'
 import { TicketBasicInfo } from '../../types/supabaseTypes'
 import TicketsNav from '../Nav/TicketsNav'
-import useTickets, { stateChanger } from '../../hooks/tickets/useTickets'
+import useTickets from '../../hooks/tickets/useTickets'
 import { Loading } from '@nextui-org/react'
 import { definitions } from '../../types/supabase'
 
@@ -18,10 +18,15 @@ const TicketList: React.FC = () => {
     const [ticketId, setTicketId] = useState('')
     const router = useRouter()
     const [requiredState, setRequiredState] = useState('waiting')
-    const { data, isLoading, refetch } = useTickets()
+    const [search, setSearch] = useState('')
+
+    const { data, isLoading, refetch } = useTickets(
+        requiredState,
+        undefined,
+        search
+    )
     const [newMessage, setNewMessage] = useState<definitions['messages']>()
 
-    console.log(data)
     useEffect(() => {
         const TicketSubscription = supabase
             .from<TicketBasicInfo>('tickets')
@@ -55,7 +60,10 @@ const TicketList: React.FC = () => {
             <div className="flex flex-row w-screen h-full flex-wrap">
                 <TicketsNav
                     stateChange={(state) => {
-                        setRequiredState(state), stateChanger(state)
+                        setRequiredState(state)
+                    }}
+                    searchChange={(search) => {
+                        setSearch(search)
                     }}
                 ></TicketsNav>
                 <div className="flex flex-row w-full h-80vh">
@@ -73,9 +81,8 @@ const TicketList: React.FC = () => {
     return (
         <div className="flex flex-row w-screen h-full flex-wrap">
             <TicketsNav
-                stateChange={(state) => {
-                    setRequiredState(state), stateChanger(state)
-                }}
+                searchChange={(search) => setSearch(search)}
+                stateChange={(state) => setRequiredState(state)}
             ></TicketsNav>
             <div className="flex flex-row w-full h-80vh">
                 <div className="w-1/3 h-80vh">

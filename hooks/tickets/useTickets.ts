@@ -36,7 +36,7 @@ const getTickets = async (
     }
     if (search !== '') {
         query = query.textSearch(
-            'description' || '' || 'users.first_name',
+            'description' || ' ' || 'users.first_name',
             search ?? ''
         )
     }
@@ -54,31 +54,38 @@ const getTickets = async (
 
     return data
 }
-const state = ['waiting']
-const problemFilter: number[] = []
-const search = ['']
-export const stateChanger = (
-    newState?: string,
-    newProblemFilter?: number,
-    newSearch?: string
-) => {
-    if (newState) {
-        state.length = 0
-        state.push(newState)
-    }
-    if (newProblemFilter) {
-        problemFilter.length = 0
-        problemFilter.push(newProblemFilter)
-    }
-    if (newSearch) {
-        search.length = 0
-        search.push(newSearch)
-    }
-}
+// const state = ['waiting']
+// const problemFilter: number[] = []
+// const search = ['']
+// export const stateChanger = (
+//     newState?: string,
+//     newProblemFilter?: number,
+//     newSearch?: string
+// ) => {
+//     if (newState) {
+//         state.length = 0
+//         state.push(newState)
+//     }
+//     if (newProblemFilter) {
+//         problemFilter.length = 0
+//         problemFilter.push(newProblemFilter)
+//     }
+//     if (newSearch) {
+//         search.length = 0
+//         search.push(newSearch)
+//     }
+// }
 
-const useTickets = () => {
-    return useQuery(['tickets', { state }], () =>
-        getTickets(state[0], problemFilter[0], search[0])
+const useTickets = (
+    requiredState: string,
+    problemFilter?: number,
+    search?: string
+) => {
+    // return useQuery(['tickets', { state }], () =>
+    //     getTickets(state[0], problemFilter[0], search[0])
+    // )
+    return useQuery(['tickets', { requiredState, problemFilter, search }], () =>
+        getTickets(requiredState, problemFilter, search)
     )
 }
 export default useTickets
