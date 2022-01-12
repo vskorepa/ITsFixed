@@ -1,6 +1,5 @@
 import { Text } from '@nextui-org/react'
 import React from 'react'
-import { useRouter } from 'next/router'
 import useTranslation from 'next-translate/useTranslation'
 import { TicketBasicInfo } from '../../types/supabaseTypes'
 import moment from 'moment-timezone'
@@ -18,7 +17,6 @@ const TicketInList: React.FC<TicketInListProps> = ({
     return (
         <div
             onClick={() => {
-                console.log(ticketData.id)
                 ChangeTicketId(ticketData.id)
             }}
             className="border-b cursor-pointer odd:bg-light even:bg-lightDarker hover:bg-white dark:odd:bg-darkDarker dark:even:bg-dark visited:bg-primary active:bg-secondary 

@@ -25,7 +25,8 @@
     },
     "plugins": ["react", "@typescript-eslint"],
     "rules": {
-        "@typescript-eslint/ban-ts-comment": "off"
+        "@typescript-eslint/ban-ts-comment": "off",
+        "@typescript-eslint/explicit-module-boundary-types": "off"
     },
     "settings": {
         "import/resolver": {

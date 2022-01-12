@@ -1,19 +1,40 @@
 import React from 'react'
-import type { NextPage } from 'next'
+import type { NextApiRequest, NextApiResponse, NextPage } from 'next'
 import { Text } from '@nextui-org/react'
-import TopNav from '../components/Nav/topNav'
-import AuthProtectedWrapper from '../components/protected/UserProtected'
+import { supabase } from '../lib/supabaseClient'
+import { definitions } from '../types/supabase'
 const Home: NextPage = () => {
     return (
-        <AuthProtectedWrapper role="admin">
-            <TopNav />
+        <div>
             <div className="text-center">
                 <Text className="text-sandy font-bold text-4xl" h1>
                     ADMIN Page
                 </Text>
             </div>
-        </AuthProtectedWrapper>
+        </div>
     )
+}
+
+export const getServerSideProps = async ({ req }: any) => {
+    const { user } = await supabase.auth.api.getUserByCookie(req)
+    const { data: userRole } = await supabase
+        .from<definitions['user_roles']>('user_roles')
+        .select(
+            `
+            role
+        `
+        )
+        .eq('user_id', user?.id)
+        .single()
+
+    if (!user) {
+        return { props: {}, redirect: { destination: '/auth/login' } }
+    }
+    if (userRole?.role !== 'admin') {
+        return { props: {}, redirect: { destination: '/' } }
+    }
+
+    return { props: { user } }
 }
 
 export default Home

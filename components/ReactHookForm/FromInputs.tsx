@@ -1,4 +1,4 @@
-import React, { Children } from 'react'
+import React from 'react'
 import { UseFormReturn, FieldErrors } from 'react-hook-form'
 import useTranslation from 'next-translate/useTranslation'
 import { Textarea } from '@nextui-org/react'
@@ -335,7 +335,6 @@ export const SendMessageInput: React.FC<InputProps> = ({
     register,
     errors,
     name,
-    type,
     placeholder,
     maxLenght,
     required,

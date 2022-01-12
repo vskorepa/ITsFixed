@@ -1,13 +1,9 @@
 import React, { useState } from 'react'
-import { HiSearch } from 'react-icons/hi'
 import { GrFilter } from 'react-icons/gr'
-import { Button, Input, Tooltip } from '@nextui-org/react'
+import { Button, Tooltip } from '@nextui-org/react'
 
 import CreateTicket from '../Tickets/CreateTicket/CreateTicket'
-import {
-    ToolTipDropDown,
-    ToolTipDropDownStateFilter,
-} from '../esential/ToolTipDropDown'
+import { ToolTipDropDownStateFilter } from '../esential/ToolTipDropDown'
 import { SearchFrom } from '../ReactHookForm/searhForm'
 type TicketsNavProps = {
     stateChange: (state: string) => void
@@ -26,9 +22,7 @@ const TicketsNav: React.FC<TicketsNavProps> = ({
     const closeModal = () => {
         setVisible(false)
     }
-    const logState = (state: string) => {
-        stateChange(state)
-    }
+
     return (
         <div className="flex w-screen justify-between h-5vh">
             <div className="flex items-center  bg-secondary w-1/3 justify-between px-3 text-xl">

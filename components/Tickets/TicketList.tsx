@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { supabase } from '../../lib/supabaseClient'
 
-import { useRouter } from 'next/router'
 import TicketInList from './TicketInList'
 import SimpleBar from 'simplebar-react'
 import 'simplebar/dist/simplebar.css'
@@ -16,7 +15,6 @@ const TicketList: React.FC = () => {
     const [tickets, setTickets] = useState<TicketBasicInfo[]>()
     const [messages, setMessages] = useState<definitions['messages'][]>()
     const [ticketId, setTicketId] = useState('')
-    const router = useRouter()
     const [requiredState, setRequiredState] = useState('waiting')
     const [search, setSearch] = useState('')
 
@@ -92,8 +90,7 @@ const TicketList: React.FC = () => {
                                 key={'TicketInList' + item.id}
                                 ticketData={item}
                                 ChangeTicketId={(ticket_id) => {
-                                    setTicketId(ticket_id),
-                                        console.log(ticket_id)
+                                    setTicketId(ticket_id)
                                 }}
                             />
                         ))}
@@ -101,7 +98,6 @@ const TicketList: React.FC = () => {
                 </div>
                 <TicketDetail
                     newMessage={newMessage}
-                    messagesData={messages ?? []}
                     key={'Ticket_detail' + ticketId}
                     ticket_id={ticketId}
                 />

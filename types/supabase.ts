@@ -649,6 +649,28 @@ export interface paths {
       };
     };
   };
+  "/rpc/ismyticket": {
+    post: {
+      parameters: {
+        body: {
+          args: {
+            /** Format: uuid */
+            v_user_id: string;
+            /** Format: uuid */
+            v_ticket_id: string;
+          };
+        };
+        header: {
+          /** Preference */
+          Prefer?: parameters["preferParams"];
+        };
+      };
+      responses: {
+        /** OK */
+        200: unknown;
+      };
+    };
+  };
 }
 
 export interface definitions {
@@ -713,7 +735,7 @@ export interface definitions {
      */
     id: number;
     /** Format: text */
-    name?: string;
+    name: string;
     /** Format: text */
     description?: string;
     /**

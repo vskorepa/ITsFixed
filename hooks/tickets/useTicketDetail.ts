@@ -5,8 +5,6 @@ import { supabase } from '../../lib/supabaseClient'
 import { TicketBasicInfo } from '../../types/supabaseTypes'
 const getTicketDetail = async (id: string) => {
     if (id) {
-        console.log(id)
-
         const { data, error } = await supabase
             .from<TicketBasicInfo>('tickets')
             .select(

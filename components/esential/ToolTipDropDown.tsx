@@ -4,11 +4,12 @@ import { IoLogOutOutline } from 'react-icons/io5'
 import useLogoutUser from '../../hooks/login/useLogoutUser'
 import { ToolTipActionButton, ToolTipButton } from './Buttons'
 import useTranslation from 'next-translate/useTranslation'
+import { supabase } from '../../lib/supabaseClient'
 export const ToolTipDropDown: React.FC = () => {
     const { t } = useTranslation('common')
     const LogoutMutation = useLogoutUser()
-    if (LogoutMutation.isSuccess) {
-        router.push('/auth/login')
+    const handleLogOut = () => {
+        LogoutMutation.mutate()
     }
     return (
         <div color="error" className="flex flex-wrap w-48">
@@ -21,7 +22,7 @@ export const ToolTipDropDown: React.FC = () => {
 
             <button
                 className="flex rounded-xl w-full h-full justify-start gap-3 items-center border-2 border-opacity-0 focus:border-opacity-100 focus:border-dark hover:bg-gray-100 hover:bg-opacity-10 text-xl"
-                onClick={() => LogoutMutation.mutate()}
+                onClick={() => handleLogOut()}
             >
                 <IoLogOutOutline />
                 {t('logout')}

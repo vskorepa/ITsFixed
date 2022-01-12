@@ -4,19 +4,16 @@ import useTranslation from 'next-translate/useTranslation'
 import useTicketDetail from '../../hooks/tickets/useTicketDetail'
 import useUpdateTicket from '../../hooks/tickets/useUpdateTicket'
 import Chat from '../messages/chat'
-import { supabase } from '../../lib/supabaseClient'
 import { definitions } from '../../types/supabase'
 import useMessages from '../../hooks/messages/useGetMessages'
 
 type TicketDetailProps = {
     ticket_id: string
-    messagesData: definitions['messages'][]
     newMessage?: definitions['messages']
 }
 
 const TicketDetail: React.FC<TicketDetailProps> = ({
     ticket_id,
-    messagesData,
     newMessage,
 }) => {
     const { t } = useTranslation('common')
@@ -28,12 +25,15 @@ const TicketDetail: React.FC<TicketDetailProps> = ({
             if (messages.length === 0) {
                 setMessages([...(message ?? []), newMessage])
             } else {
-                setMessages([...(messages ?? []), newMessage])
+                console.log(messages[messages.length - 1])
+                if (messages[messages.length - 1].id !== newMessage.id) {
+                    setMessages([...(messages ?? []), newMessage])
+                }
             }
         } else {
             setMessages(message ?? [])
         }
-    }, [message, newMessage])
+    }, [message, newMessage, ticket_id])
     const TicketFinish = () => {
         TicketMutation.mutate()
     }

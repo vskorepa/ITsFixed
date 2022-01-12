@@ -3,7 +3,6 @@ import Link from 'next/link'
 import React, { useState } from 'react'
 import { SubmitHandler } from 'react-hook-form'
 import useForgotPassword from '../../hooks/login/useForgotPassword'
-import { supabase } from '../../lib/supabaseClient'
 import { ResetPasswordValues } from '../../types/formtypes'
 
 import { ResetPasswordForm } from '../ReactHookForm/Forms'

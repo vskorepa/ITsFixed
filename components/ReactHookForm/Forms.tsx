@@ -22,7 +22,6 @@ import { Loading, Modal } from '@nextui-org/react'
 import { AiOutlineSend } from 'react-icons/ai'
 import { definitions } from '../../types/supabase'
 import Link from 'next/link'
-import { UseMutationResult } from 'react-query'
 
 type ResetPasswordFormProps = {
     OnFormSubmit: (data: ResetPasswordValues) => void
@@ -76,9 +75,9 @@ export const SignInForm: React.FC<SignInFormProps> = ({ OnFormSubmit }) => {
             <PasswordInput register={register} errors={errors} />
             <div className="flex items-center justify-between">
                 <SubmitButton text="SignIn" />{' '}
-                <a className="inline-block align-baseline font-bold text-sm text-primary hover:text-blue-800">
+                <div className="inline-block align-baseline font-bold text-sm text-primary hover:text-blue-800 cursor-pointer">
                     <Link href="/auth/forgotpassword">Forgot Password?</Link>
-                </a>
+                </div>
             </div>
         </form>
     )

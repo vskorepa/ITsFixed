@@ -50,7 +50,6 @@ const getTickets = async (
     if (!data) {
         throw new Error('User has no Tickets')
     }
-    console.log(data)
 
     return data
 }

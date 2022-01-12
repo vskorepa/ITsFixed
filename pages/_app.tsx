@@ -6,6 +6,9 @@ import { ThemeProvider } from 'next-themes'
 import React from 'react'
 import PageHead from '../components/Head'
 import Foot from '../components/Foot'
+import { useHandleAuthChange } from '../lib/handleAuthChange'
+import TopNav from '../components/Nav/topNav'
+
 const queryClient = new QueryClient({
     defaultOptions: {
         queries: {
@@ -22,8 +25,9 @@ function MyApp({ Component, pageProps }: AppProps): JSX.Element {
     return (
         <ThemeProvider attribute="class">
             <PageHead />
-
             <QueryClientProvider client={queryClient}>
+                <TopNav authRole={useHandleAuthChange()} />
+
                 <Component {...pageProps} />
                 <ReactQueryDevtools initialIsOpen={false} />
             </QueryClientProvider>

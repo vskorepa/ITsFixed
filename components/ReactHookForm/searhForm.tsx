@@ -1,25 +1,18 @@
 import React, { useEffect } from 'react'
-import { useForm, UseFormWatch } from 'react-hook-form'
+import { useForm } from 'react-hook-form'
 import { HiSearch } from 'react-icons/hi'
-import { BasicInput } from './FromInputs'
 
 type SearchFormProps = {
     searchChange: (search: string) => void
 }
 export const SearchFrom: React.FC<SearchFormProps> = ({ searchChange }) => {
-    const {
-        register,
-        watch,
-        formState: { errors },
-    } = useForm()
-    const watchSearch = watch('search', '')
+    const { register, watch } = useForm()
     useEffect(() => {
-        console.log('Subscribe')
         const searchSubscription = watch((value) => searchChange(value.search))
         return () => {
-            searchSubscription.unsubscribe(), console.log('UNSUBSCRIBE')
+            searchSubscription.unsubscribe()
         }
-    }, [watch])
+    }, [searchChange])
     return (
         <form className="">
             <div className="flex items-center gap-2  ">

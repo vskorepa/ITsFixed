@@ -7,7 +7,12 @@ import { useTheme } from 'next-themes'
 import { ReactLogo } from './logo'
 import { ToolTipDropDown } from '../esential/ToolTipDropDown'
 import { MdOutlineMenu } from 'react-icons/md'
-const TopNav: React.FC = () => {
+
+type navProps = {
+    authRole: string
+}
+
+const TopNav: React.FC<navProps> = ({ authRole }) => {
     const { t } = useTranslation('common')
     const { theme, setTheme } = useTheme()
     return (
@@ -23,11 +28,28 @@ const TopNav: React.FC = () => {
                         {t('aboutus')}
                     </a>
                 </Link>
-                <Link href="/tickets">
-                    <a className="mr-5 hover:text-black dark:hover:text-white ">
-                        {t('tickets')}
-                    </a>
-                </Link>
+
+                {authRole === 'authenticated-user' && (
+                    <Link href="/tickets">
+                        <a className="mr-5 hover:text-black dark:hover:text-white ">
+                            {t('tickets')}
+                        </a>
+                    </Link>
+                )}
+                {authRole === 'authenticated-operator' && (
+                    <Link href="/tickets">
+                        <a className="mr-5 hover:text-black dark:hover:text-white ">
+                            {t('tickets')}
+                        </a>
+                    </Link>
+                )}
+                {authRole === 'not-authenticated' && (
+                    <Link href="/auth/login">
+                        <a className="mr-5 hover:text-black dark:hover:text-white ">
+                            {t('SignIn')}
+                        </a>
+                    </Link>
+                )}
             </nav>
             <div className="sm:hidden flex h-full items-center">
                 <Tooltip
@@ -41,20 +63,23 @@ const TopNav: React.FC = () => {
             </div>
             <div className="sm:flex hidden h-full items-center">
                 <div className="flex gap-2 items-center">
-                    <Tooltip
-                        trigger="click"
-                        color="#4F98CA"
-                        placement="bottom"
-                        content={<ToolTipDropDown />}
-                    >
-                        <Avatar
-                            src="/avatar1.png"
-                            pointer
-                            bordered
-                            color="success"
-                            size="medium"
-                        />
-                    </Tooltip>
+                    {authRole !== 'not-authenticated' && (
+                        <Tooltip
+                            trigger="click"
+                            color="#4F98CA"
+                            placement="bottom"
+                            content={<ToolTipDropDown />}
+                        >
+                            <Avatar
+                                src="/avatar1.png"
+                                pointer
+                                bordered
+                                color="success"
+                                size="medium"
+                            />
+                        </Tooltip>
+                    )}
+
                     <Switch
                         className="text-white dark:text-dark"
                         //@ts-ignore

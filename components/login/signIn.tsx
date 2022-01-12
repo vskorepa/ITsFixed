@@ -22,7 +22,7 @@ const SignIn: React.FC = () => {
         router.push('/')
     }
     async function signInWithFacebook() {
-        const { user, session, error } = await supabase.auth.signIn({
+        const { user, error } = await supabase.auth.signIn({
             provider: 'facebook',
         })
         console.log(user)
