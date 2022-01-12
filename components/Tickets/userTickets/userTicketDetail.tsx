@@ -1,29 +1,44 @@
 import { Loading, Button, Text } from '@nextui-org/react'
 import React, { useEffect, useState } from 'react'
 import useTranslation from 'next-translate/useTranslation'
-import useTicketDetail from '../../hooks/tickets/useTicketDetail'
-import useUpdateTicket from '../../hooks/tickets/useUpdateTicket'
-import Chat from '../messages/chat'
-import { definitions } from '../../types/supabase'
-import useMessages from '../../hooks/messages/useGetMessages'
+import { definitions } from '../../../types/supabase'
+import useMessages from '../../../hooks/messages/useGetMessages'
+import useTicketDetail from '../../../hooks/tickets/useTicketDetail'
+import useUpdateTicket from '../../../hooks/tickets/useUpdateTicket'
+import Chat from '../../messages/chat'
+import { supabase } from '../../../lib/supabaseClient'
 
 type TicketDetailProps = {
-    ticket_id: string
-    newMessage?: definitions['messages']
+    ticket_id?: string
 }
 
-const TicketDetail: React.FC<TicketDetailProps> = ({
-    ticket_id,
-    newMessage,
-}) => {
+const UserTicketDetail: React.FC<TicketDetailProps> = ({ ticket_id }) => {
     const { t } = useTranslation('common')
-    const { data: message } = useMessages(ticket_id)
+    const { data: message } = useMessages(ticket_id ?? '')
     const [messages, setMessages] = useState<definitions['messages'][]>([])
+    const [newMessage, setNewMessage] = useState<definitions['messages']>()
+
+    useEffect(() => {
+        console.log('subscribe')
+
+        const MessageSubscription = supabase
+            .from<definitions['messages']>('messages')
+            .on('INSERT', (payload) => {
+                setNewMessage(payload.new)
+            })
+            .subscribe()
+
+        return () => {
+            supabase.removeSubscription(MessageSubscription)
+        }
+    }, [])
+
     useEffect(() => {
         if (newMessage && newMessage.ticket_id == ticket_id) {
             if (messages.length === 0) {
                 setMessages([...(message ?? []), newMessage])
             } else {
+                console.log(messages[messages.length - 1])
                 if (messages[messages.length - 1].id !== newMessage.id) {
                     setMessages([...(messages ?? []), newMessage])
                 }
@@ -32,16 +47,14 @@ const TicketDetail: React.FC<TicketDetailProps> = ({
             setMessages(message ?? [])
         }
     }, [message, newMessage, ticket_id])
-    const TicketFinish = () => {
-        TicketMutation.mutate()
-    }
-    const { data, isLoading } = useTicketDetail(ticket_id)
+
+    const { data, isLoading } = useTicketDetail(ticket_id ?? '')
     const TicketMutation = useUpdateTicket({
-        id: ticket_id,
+        id: ticket_id ?? '',
         state: 'done',
     })
     if (ticket_id === null) {
-        return <div className="h-80vh w-2/3"></div>
+        return <div className="h-80vh w-full"></div>
     }
 
     return (
@@ -64,9 +77,6 @@ const TicketDetail: React.FC<TicketDetailProps> = ({
                                 {data ? t(`${data?.state}`) : 'Ticket state:'}
                             </Text>
                         )}
-                        <Button onClick={() => TicketFinish()} auto>
-                            Finish
-                        </Button>
                     </div>
                 </div>
 
@@ -76,19 +86,14 @@ const TicketDetail: React.FC<TicketDetailProps> = ({
 
                 <Text>{data?.description}</Text>
             </div>
-            {data && (
-                <div className="w-auto h-auto bg-lightDarker border-white rounded-3xl mr-4 border-2 dark:border-darkLighter dark:bg-darkDarker ">
-                    <Chat
-                        // MessagesData={messagesData.filter(
-                        //     (messages) => messages.ticket_id === ticket_id
-                        // )}
-                        MessagesData={messages ?? []}
-                        key={'TicketChat' + ticket_id}
-                        id={ticket_id}
-                    />
-                </div>
-            )}
+            <div className="w-auto h-auto bg-lightDarker border-white rounded-3xl mr-4 border-2 dark:border-darkLighter dark:bg-darkDarker ">
+                <Chat
+                    MessagesData={messages ?? []}
+                    key={'TicketChat' + ticket_id}
+                    id={ticket_id ?? ''}
+                />
+            </div>
         </div>
     )
 }
-export default TicketDetail
+export default UserTicketDetail

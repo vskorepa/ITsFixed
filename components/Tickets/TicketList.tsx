@@ -37,10 +37,14 @@ const TicketList: React.FC = () => {
             supabase.removeSubscription(TicketSubscription)
         }
     }, [])
+
     useEffect(() => {
         setTickets(data ?? [])
     }, [data])
+
     useEffect(() => {
+        console.log('subscribe')
+
         const MessageSubscription = supabase
             .from<definitions['messages']>('messages')
             .on('INSERT', (payload) => {

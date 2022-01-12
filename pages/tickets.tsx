@@ -2,11 +2,26 @@ import React from 'react'
 import type { NextApiRequest, NextPage } from 'next'
 import TicketList from '../components/Tickets/TicketList'
 import { supabase } from '../lib/supabaseClient'
+import useUser from '../hooks/useUser'
+import UserTicketList from '../components/Tickets/userTickets/userTicketsList'
+import { Loading } from '@nextui-org/react'
 const Home: NextPage = () => {
+    const { data, isLoading } = useUser()
+    if (isLoading) {
+        return (
+            <div>
+                <Loading></Loading>
+            </div>
+        )
+    }
     return (
         <div>
             <div className="flex w-full h-full flex-wrap justify-center">
-                <TicketList />
+                {data?.roledata?.role === 'operator' ? (
+                    <TicketList />
+                ) : (
+                    <UserTicketList />
+                )}
             </div>
         </div>
     )
@@ -22,7 +37,6 @@ export const getServerSideProps = async ({ req }: any) => {
     //     )
     //     .eq('user_id', user?.id)
     //     .single()
-    console.log(user)
     if (!user) {
         return { props: {}, redirect: { destination: '/auth/login' } }
     }
