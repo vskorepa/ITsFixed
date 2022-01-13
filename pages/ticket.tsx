@@ -13,6 +13,7 @@ const Home: NextPage = () => {
     const [ticket_id, setTicket_id] = useState('')
     const [newMessage, setNewMessage] = useState<definitions['messages']>()
     useEffect(() => {
+        //@ts-ignore
         setTicket_id(router.query.TicketId ?? null)
     }, [router.query])
     return (
