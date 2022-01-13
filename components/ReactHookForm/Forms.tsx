@@ -15,6 +15,7 @@ import {
     SignUpValues,
     CreateTicketValues,
     ResetPasswordValues,
+    FilterTicketsValues,
 } from '../../types/formtypes'
 import { SubmitButton } from '../esential/Buttons'
 import useTranslation from 'next-translate/useTranslation'
@@ -250,6 +251,65 @@ export const SendMassageForm: React.FC<SendMassageFormProps> = ({
                     </button>
                 )}
             </SendMessageInput>
+        </form>
+    )
+}
+
+type FilterTicketsModalFormProps = {
+    OnFormSubmit: (data: FilterTicketsValues) => void
+    stateOptions: {
+        id: string
+        name: string
+    }[]
+    typeOptions: {
+        id: number
+        name: string
+    }[]
+    state: string
+    type: number
+}
+
+export const FilterTicketsModalForm: React.FC<FilterTicketsModalFormProps> = ({
+    OnFormSubmit,
+    stateOptions,
+    typeOptions,
+}) => {
+    const { t } = useTranslation('common')
+
+    const {
+        register,
+        formState: { errors },
+        handleSubmit,
+    } = useForm()
+    const onSubmit = (data: FilterTicketsValues) => {
+        OnFormSubmit(data)
+    }
+    return (
+        <form
+            className="flex flex-col items-center gap-5"
+            onSubmit={handleSubmit(onSubmit)}
+        >
+            <Modal.Header>
+                <h2 id="modal-title">Filter your tickets</h2>
+            </Modal.Header>
+
+            <Modal.Body>
+                <SelectInput
+                    register={register}
+                    name="ticketState"
+                    options={stateOptions}
+                />
+                <SelectInput
+                    register={register}
+                    name="ticketType"
+                    options={typeOptions}
+                />
+            </Modal.Body>
+            <Modal.Footer>
+                <button type="submit" onClick={close}>
+                    filter
+                </button>
+            </Modal.Footer>
         </form>
     )
 }

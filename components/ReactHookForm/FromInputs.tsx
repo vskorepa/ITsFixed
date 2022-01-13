@@ -20,7 +20,7 @@ type SelectInputProps = {
     register: UseFormReturn['register']
     name?: string
     options?: {
-        id: number
+        id: number | string
         name: string
     }[]
 }
@@ -281,7 +281,7 @@ export const SelectInput: React.FC<SelectInputProps> = ({
             <div className="flex justify-between">
                 <select
                     id={name ?? 'select'}
-                    className="block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline"
+                    className="px-4 py-3 w-full rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0 text-sm"
                     {...register(name ?? 'select')}
                 >
                     {options?.map((option) => (

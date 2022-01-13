@@ -15,6 +15,10 @@ export type CreateTicketValues = {
     ticket_type_id: number
     description: string
 }
+export type FilterTicketsValues = {
+    ticketState: string
+    ticketType: number
+}
 export type ResetPasswordValues = {
     email: string
 }

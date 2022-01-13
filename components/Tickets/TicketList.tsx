@@ -17,14 +17,14 @@ const TicketList: React.FC = () => {
     const [ticketId, setTicketId] = useState('')
     const [requiredState, setRequiredState] = useState('waiting')
     const [search, setSearch] = useState('')
+    const [type, setType] = useState(0)
 
-    const { data, isLoading, refetch } = useTickets(
-        requiredState,
-        undefined,
-        search
-    )
+    const { data, isLoading, refetch } = useTickets(requiredState, type, search)
     const [newMessage, setNewMessage] = useState<definitions['messages']>()
-
+    const clearFilters = () => {
+        setType(0)
+        setRequiredState('waiting')
+    }
     useEffect(() => {
         const TicketSubscription = supabase
             .from<TicketBasicInfo>('tickets')
@@ -61,12 +61,18 @@ const TicketList: React.FC = () => {
         return (
             <div className="flex flex-row w-screen h-full flex-wrap">
                 <TicketsNav
+                    filterClear={() => clearFilters()}
                     stateChange={(state) => {
-                        setRequiredState(state)
+                        setRequiredState(state), console.log(state)
                     }}
                     searchChange={(search) => {
-                        setSearch(search)
+                        setSearch(search), console.log(search)
                     }}
+                    typeChange={(type) => {
+                        setType(type), console.log(type)
+                    }}
+                    type={type}
+                    state={requiredState}
                 ></TicketsNav>
                 <div className="flex flex-row w-full h-80vh">
                     <div className="w-1/3 h-80vh justify-around items-center">
@@ -83,8 +89,12 @@ const TicketList: React.FC = () => {
     return (
         <div className="flex flex-row w-screen h-full flex-wrap">
             <TicketsNav
+                filterClear={() => clearFilters()}
                 searchChange={(search) => setSearch(search)}
                 stateChange={(state) => setRequiredState(state)}
+                typeChange={(type) => setType(type)}
+                type={type}
+                state={requiredState}
             ></TicketsNav>
             <div className="flex flex-row w-full h-80vh">
                 <div className="w-1/3 h-80vh">
