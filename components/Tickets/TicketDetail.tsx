@@ -19,6 +19,7 @@ const TicketDetail: React.FC<TicketDetailProps> = ({
     const { t } = useTranslation('common')
     const { data: message } = useMessages(ticket_id)
     const [messages, setMessages] = useState<definitions['messages'][]>([])
+    const [ticketState, setTicketState] = useState('')
     useEffect(() => {
         if (newMessage && newMessage.ticket_id == ticket_id) {
             if (messages.length === 0) {
@@ -32,18 +33,24 @@ const TicketDetail: React.FC<TicketDetailProps> = ({
             setMessages(message ?? [])
         }
     }, [message, newMessage, ticket_id])
-    const TicketFinish = () => {
+    useEffect(() => {
+        if (ticketState) {
+            console.log('Change State')
+            TicketStateChange()
+        }
+    }, [ticketState])
+    const TicketStateChange = () => {
         TicketMutation.mutate()
     }
-    const { data, isLoading } = useTicketDetail(ticket_id)
+    const { data, isLoading, isError } = useTicketDetail(ticket_id)
+
     const TicketMutation = useUpdateTicket({
         id: ticket_id,
-        state: 'done',
+        state: ticketState,
     })
     if (ticket_id === null) {
         return <div className="h-80vh w-2/3"></div>
     }
-
     return (
         <div className="h-80vh w-2/3">
             <div className="h-30vh w-full justify-center">
@@ -51,23 +58,42 @@ const TicketDetail: React.FC<TicketDetailProps> = ({
                     {isLoading ? (
                         <Loading />
                     ) : (
-                        <Text color="success">
-                            {t('ticketNumber')} {data?.id ?? ''}
-                        </Text>
+                        <div
+                            className={`flex flex-nowrap gap-2 ${
+                                isError && 'text-warning'
+                            } text-primary`}
+                        >
+                            <p className="font-bold">Ticket Number:</p>
+                            <p>{data?.id ?? 'Invalid ticket id'}</p>
+                        </div>
                     )}
-
-                    <div className="flex-wrap flex gap-2 items-center">
-                        {isLoading ? (
-                            <Loading size="medium" />
-                        ) : (
-                            <Text weight="bold">
-                                {data ? t(`${data?.state}`) : 'Ticket state:'}
-                            </Text>
-                        )}
-                        <Button onClick={() => TicketFinish()} auto>
-                            Finish
-                        </Button>
-                    </div>
+                    {!isError && (
+                        <div className="flex-wrap flex gap-2 items-center">
+                            {isLoading ? (
+                                <Loading size="medium" />
+                            ) : (
+                                <div className="flex flex-nowrap gap-2">
+                                    <select
+                                        onChange={(e) => {
+                                            setTicketState(e.target.value)
+                                        }}
+                                        defaultValue={data?.state}
+                                        className="px-4 py-3 rounded-md  border-transparent focus:border-gray-500 focus:ring-0 text-sm"
+                                    >
+                                        <option id="waiting" value="waiting">
+                                            waiting
+                                        </option>
+                                        <option id="ongoing" value="ongoing">
+                                            ongoing
+                                        </option>
+                                        <option id="done" value="done">
+                                            done
+                                        </option>
+                                    </select>
+                                </div>
+                            )}
+                        </div>
+                    )}
                 </div>
 
                 <Text>{data?.users.first_name}</Text>

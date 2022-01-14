@@ -3,6 +3,8 @@ import React from 'react'
 import useTranslation from 'next-translate/useTranslation'
 import { TicketBasicInfo } from '../../types/supabaseTypes'
 import moment from 'moment-timezone'
+import { useRouter } from 'next/router'
+import { data } from 'autoprefixer'
 type TicketInListProps = {
     ticketData: TicketBasicInfo
     ChangeTicketId: (ticket_id: string) => void
@@ -12,11 +14,16 @@ const TicketInList: React.FC<TicketInListProps> = ({
     ticketData,
     ChangeTicketId,
 }) => {
+    const router = useRouter()
     const { t } = useTranslation('common')
     const createdAt = moment(ticketData.created_at).tz('Europe/Prague', true)
     return (
         <div
             onClick={() => {
+                router.push({
+                    pathname: '/tickets',
+                    query: 'ticket_id=' + ticketData.id,
+                })
                 ChangeTicketId(ticketData.id)
             }}
             className="border-b cursor-pointer odd:bg-light even:bg-lightDarker hover:bg-white dark:odd:bg-darkDarker dark:even:bg-dark visited:bg-primary active:bg-secondary 

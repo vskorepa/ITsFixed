@@ -60,16 +60,18 @@ const UserTicketList: React.FC = () => {
     }
 
     return (
-        <div className="flex flex-col w-screen h-full flex-wrap">
-            <div className="flex flex-col w-full h-80vh">
+        <div className="flex flex-col w-screen h-full flex-wrap justify-around items-center">
+            <div className="flex flex-col w-full h-85vh overflow-auto justify-evenly items-center">
                 <div className=" flex w-full justify-items-center justify-around">
-                    <Button onClick={() => setVisible(!visible)} />
+                    <Button onClick={() => setVisible(!visible)}>
+                        Create ticket
+                    </Button>
                     <CreateTicket
                         visible={visible}
                         close={() => setVisible(false)}
                     />
                 </div>
-                <div className="p-10 grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-5 items-center">
+                <div className="p-10 grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-14 items-center">
                     {tickets?.map((item) => (
                         <UserTicketCard key={item.id} data={item} />
                     ))}

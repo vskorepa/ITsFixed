@@ -10,8 +10,10 @@ import TicketsNav from '../Nav/TicketsNav'
 import useTickets from '../../hooks/tickets/useTickets'
 import { Loading } from '@nextui-org/react'
 import { definitions } from '../../types/supabase'
+import { useRouter } from 'next/router'
 
 const TicketList: React.FC = () => {
+    const router = useRouter()
     const [tickets, setTickets] = useState<TicketBasicInfo[]>()
     const [messages, setMessages] = useState<definitions['messages'][]>()
     const [ticketId, setTicketId] = useState('')
@@ -21,11 +23,15 @@ const TicketList: React.FC = () => {
 
     const { data, isLoading, refetch } = useTickets(requiredState, type, search)
     const [newMessage, setNewMessage] = useState<definitions['messages']>()
+
     const clearFilters = () => {
         setType(0)
         setRequiredState('waiting')
     }
     useEffect(() => {
+        if (router.query.ticket_id !== undefined) {
+            setTicketId(String(router.query.ticket_id))
+        }
         const TicketSubscription = supabase
             .from<TicketBasicInfo>('tickets')
             .on('*', () => {
@@ -103,9 +109,9 @@ const TicketList: React.FC = () => {
                             <TicketInList
                                 key={'TicketInList' + item.id}
                                 ticketData={item}
-                                ChangeTicketId={(ticket_id) => {
+                                ChangeTicketId={(ticket_id) =>
                                     setTicketId(ticket_id)
-                                }}
+                                }
                             />
                         ))}
                     </SimpleBar>

@@ -69,7 +69,7 @@ const TicketsNav: React.FC<TicketsNavProps> = ({
                         </button>
                     </div>
                     <span
-                        className="absolute top-0 right-0 font-bold text-sm leading-none text-red-100 transform  bg-red-600 rounded-full cursor-pointer"
+                        className="absolute top-0 right-0 font-bold text-sm leading-none transfor rounded-full cursor-pointer hover:bg-secondaryLighter mouse shadow transition ease-in duration-200"
                         onClick={() => filterClear()}
                     >
                         <MdOutlineClear />

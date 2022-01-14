@@ -304,12 +304,11 @@ export const FilterTicketsModalForm: React.FC<FilterTicketsModalFormProps> = ({
                     name="ticketType"
                     options={typeOptions}
                 />
-            </Modal.Body>
-            <Modal.Footer>
                 <button type="submit" onClick={close}>
                     filter
                 </button>
-            </Modal.Footer>
+            </Modal.Body>
+            <Modal.Footer></Modal.Footer>
         </form>
     )
 }
