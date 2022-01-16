@@ -1,5 +1,5 @@
 {
-    "greeting": "Vítejte",
+    "greeting": "Vítejte na:",
     "powered": "Vyvíjeno",
     "metadescription": "Webová aplikace vyvinutá pro pomoc lidem, kteří se nachází v potížích se svám počítačem",
     "loginRedirect": "Na přihlašovací stránku",
@@ -33,5 +33,7 @@
     "waiting": "čeká na operátora",
     "ongoing": "právě se řeší",
     "done": "vyřešený",
-    "TypeYourMessage": "Napište svou zprávu..."
+    "TypeYourMessage": "Napište svou zprávu...",
+    "whatIsITsFixed": "IT'sFixed je internetový helpesk určený k pomoci s každodennímy problémy lidí co si se svým počítačem úplně nerozumí.",
+    "readThrough": "Projděte si základní informace k aplikace pročtením konvezace níže:"
 }

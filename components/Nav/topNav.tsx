@@ -4,7 +4,7 @@ import React from 'react'
 import useTranslation from 'next-translate/useTranslation'
 import { BiSun, BiMoon } from 'react-icons/bi'
 import { useTheme } from 'next-themes'
-import { ReactLogo } from './logo'
+import { SiteLogo } from './logo'
 import { ToolTipDropDown } from '../esential/ToolTipDropDown'
 import { MdOutlineMenu } from 'react-icons/md'
 
@@ -19,7 +19,7 @@ const TopNav: React.FC<navProps> = ({ authRole }) => {
         <div className="flex border-b-2 border-dark dark:bg-secondary w-full justify-between items-center sm:px-6 px-2 py-1  h-7.5vh shadow-sm">
             <Link href="/">
                 <a className="flex title-font font-medium items-center">
-                    <ReactLogo />
+                    <SiteLogo height={35} />
                 </a>
             </Link>
             <nav className="md:ml-auto font-semibold text-xl flex flex-wrap items-center text-primary justify-center">

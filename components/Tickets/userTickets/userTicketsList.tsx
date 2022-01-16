@@ -15,8 +15,8 @@ const UserTicketList: React.FC = () => {
 
     const { data, isLoading, refetch } = useUsersTickets()
     const [newMessage, setNewMessage] = useState<definitions['messages']>()
-    console.log(data)
     useEffect(() => {
+        console.log('SUBSCRIBE USERS TICKETS')
         const TicketSubscription = supabase
             .from<TicketBasicInfo>('tickets')
             .on('*', () => {
@@ -25,33 +25,38 @@ const UserTicketList: React.FC = () => {
             .subscribe()
 
         return () => {
+            console.log('UNSUBSCRIBE USERS TICKETS')
+
             supabase.removeSubscription(TicketSubscription)
         }
     }, [])
     useEffect(() => {
         setTickets(data ?? [])
     }, [data])
-    useEffect(() => {
-        const MessageSubscription = supabase
-            .from<definitions['messages']>('messages')
-            .on('INSERT', (payload) => {
-                setNewMessage(payload.new)
-            })
-            .subscribe()
+    // useEffect(() => {
+    //     console.log('SUBSCRIBE USERS MESSAGES')
 
-        return () => {
-            supabase.removeSubscription(MessageSubscription)
-        }
-    }, [])
+    //     const MessageSubscription = supabase
+    //         .from<definitions['messages']>('messages')
+    //         .on('INSERT', (payload) => {
+    //             setNewMessage(payload.new)
+    //         })
+    //         .subscribe()
+
+    //     return () => {
+    //         console.log('UNSUBSCRIBE USERS MESSAGES')
+    //         supabase.removeSubscription(MessageSubscription)
+    //     }
+    // }, [])
 
     if (isLoading) {
         return (
-            <div className="flex flex-row w-screen h-full flex-wrap">
-                <div className="flex flex-row w-full h-80vh">
-                    <div className="w-1/3 h-80vh justify-around items-center">
+            <div className="flex flex-row w-screen h-85vh flex-wrap">
+                <div className="flex flex-row w-full h-85vhh">
+                    <div className="w-1/3 h-85vh justify-around items-center">
                         <Loading size={50} color="succes" />
                     </div>
-                    <div className="flex w-2/3 h-80vh justify-around items-center">
+                    <div className="flex w-2/3 h-85vh justify-around items-center">
                         <Loading color="succes" size={100} />
                     </div>
                 </div>
@@ -60,9 +65,9 @@ const UserTicketList: React.FC = () => {
     }
 
     return (
-        <div className="flex flex-col w-screen h-full flex-wrap justify-around items-center">
-            <div className="flex flex-col w-full h-85vh overflow-auto justify-evenly items-center">
-                <div className=" flex w-full justify-items-center justify-around">
+        <div className="flex flex-col w-screen h-85vh flex-wrap items-center">
+            <div className="flex flex-col w-full h-85vh overflow-auto items-center">
+                <div className=" flex w-full justify-items-center justify-center">
                     <Button onClick={() => setVisible(!visible)}>
                         Create ticket
                     </Button>

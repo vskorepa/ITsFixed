@@ -1,5 +1,5 @@
 {
-    "greeting": "Welcome",
+    "greeting": "Welcome to:",
     "powered": "Powered by",
     "metadescription": "Web application designed to help people that have ran into problems with their computer",
     "loginRedirect": "To the login page",
@@ -33,5 +33,6 @@
     "waiting": "waiting for operator",
     "ongoing": "ongoing",
     "done": "solved",
-    "TypeYourMessage": "Type your message..."
+    "TypeYourMessage": "Type your message...",
+    "readThrough": "Read through the basic information for using this app in the chat mock up below:"
 }

@@ -7,22 +7,33 @@ type MessageProps = {
 
 export const SentMessage: React.FC<MessageProps> = ({ content, id }) => {
     return (
-        <div
+        // <div
+        //     id={id}
+        //     className="max-w-2/5 w-fit z-0 ml-auto mt-2 mb-1 p-2 rounded-br-none bg-primary rounded-2xl text-dark text-left mr-5 whitespace-pre"
+        // >
+        <p
             id={id}
-            className="w-max z-0 ml-auto break-all mt-2 mb-1 p-2 rounded-br-none max-w-md bg-primary rounded-2xl text-dark text-left mr-5 whitespace-pre"
+            className="break-words max-w-2/5 w-fit z-0 ml-auto mt-2 mb-1 p-2 rounded-br-none bg-primary rounded-2xl text-dark text-left mr-5 whitespace-pre-wrap"
         >
-            <p>{content}</p>
-        </div>
+            {content}
+        </p>
+        //     <p className="break-words ">{content}</p>
+
+        // </div>
     )
 }
 
 export const RecievedMessage: React.FC<MessageProps> = ({ content, id }) => {
     return (
-        <div
-            id={id}
-            className="w-max z-0 break-all mt-2 ml-5 rounded-bl-none float-none max-w-md bg-secondary mr-auto rounded-2xl p-2 whitespace-pre"
-        >
-            <p>{content}</p>
-        </div>
+        // <div
+        //     id={id}
+        //     className="flex flex-wrap ax-w-2/5 w-fit z-0 break-all mt-2 ml-5 rounded-bl-none float-none bg-secondary mr-auto rounded-2xl p-2 whitespace-pre"
+        // >
+        //                 <p className="">{content}</p>
+
+        <p className="max-w-2/5 w-fit z-0 break-words mt-2 ml-5 rounded-bl-none float-none bg-secondary mr-auto rounded-2xl p-2 whitespace-pre-wrap">
+            {content}
+        </p>
+        // </div>
     )
 }

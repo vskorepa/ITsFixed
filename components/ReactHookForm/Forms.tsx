@@ -209,10 +209,12 @@ export const CreateTicketModalForm: React.FC<CreateTicketFormProps> = ({
 }
 
 type SendMassageFormProps = {
+    disabled?: boolean
     OnFormSubmit: (data: definitions['messages']) => void
     isSending: boolean
 }
 export const SendMassageForm: React.FC<SendMassageFormProps> = ({
+    disabled,
     OnFormSubmit,
     isSending,
 }) => {
@@ -243,12 +245,14 @@ export const SendMassageForm: React.FC<SendMassageFormProps> = ({
                 {isSending ? (
                     <Loading className="text-3xl absolute right-8 bottom-4 text-secondary w-auto   " />
                 ) : (
-                    <button
-                        className="text-3xl absolute right-8 bottom-4 text-secondary w-auto   "
-                        type="submit"
-                    >
-                        <AiOutlineSend />
-                    </button>
+                    !disabled && (
+                        <button
+                            className="text-3xl absolute right-8 bottom-4 text-secondary w-auto   "
+                            type="submit"
+                        >
+                            <AiOutlineSend />
+                        </button>
+                    )
                 )}
             </SendMessageInput>
         </form>

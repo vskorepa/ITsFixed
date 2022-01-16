@@ -12,7 +12,7 @@ const Home: NextPage = () => {
             {isLoading ? (
                 <Loading />
             ) : (
-                <div className="w-1/3 ">
+                <div className="w-full">
                     <div className="flex h-auto p-2 w-full justify-center items-center">
                         <Avatar
                             src="/avatar1.png"
@@ -33,8 +33,6 @@ const Home: NextPage = () => {
                     </div>
                 </div>
             )}
-
-            <div className="w-2/3 "></div>
         </div>
     )
 }

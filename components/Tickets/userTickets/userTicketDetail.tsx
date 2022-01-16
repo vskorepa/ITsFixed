@@ -21,15 +21,17 @@ const UserTicketDetail: React.FC<TicketDetailProps> = ({ ticket_id }) => {
     useEffect(() => {
         console.log('subscribe')
 
-        const MessageSubscription = supabase
+        const UserMessageSubscription = supabase
             .from<definitions['messages']>('messages')
             .on('INSERT', (payload) => {
+                console.log('USER MESSAGE CALLBACK')
                 setNewMessage(payload.new)
             })
             .subscribe()
 
         return () => {
-            supabase.removeSubscription(MessageSubscription)
+            console.log('unsubscribe')
+            supabase.removeSubscription(UserMessageSubscription)
         }
     }, [])
 
@@ -38,7 +40,6 @@ const UserTicketDetail: React.FC<TicketDetailProps> = ({ ticket_id }) => {
             if (messages.length === 0) {
                 setMessages([...(message ?? []), newMessage])
             } else {
-                console.log(messages[messages.length - 1])
                 if (messages[messages.length - 1].id !== newMessage.id) {
                     setMessages([...(messages ?? []), newMessage])
                 }
@@ -86,7 +87,7 @@ const UserTicketDetail: React.FC<TicketDetailProps> = ({ ticket_id }) => {
 
                 <Text>{data?.description}</Text>
             </div>
-            <div className="w-auto h-auto bg-lightDarker border-white rounded-3xl mr-4 border-2 dark:border-darkLighter dark:bg-darkDarker ">
+            <div className="container h-auto bg-lightDarker border-white rounded-3xl mr-4 border-2 dark:border-darkLighter dark:bg-darkDarker ">
                 <Chat
                     MessagesData={messages ?? []}
                     key={'TicketChat' + ticket_id}

@@ -4,9 +4,7 @@ import { useQuery } from 'react-query'
 import { supabase } from '../../lib/supabaseClient'
 import { TicketBasicInfo } from '../../types/supabaseTypes'
 const getTicketDetail = async (id: string) => {
-    console.log(id)
     if (id) {
-        console.log('FETCH')
         const { data, error } = await supabase
             .from<TicketBasicInfo>('tickets')
             .select(

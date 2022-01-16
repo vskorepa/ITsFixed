@@ -8,7 +8,6 @@ export const useHandleAuthChange = () => {
     const [authenticatedState, setAuthenticatedState] =
         useState('not-authenticated')
     useEffect(() => {
-        console.log('CHANGE')
         const { data: authListener } = supabase.auth.onAuthStateChange(
             (event, session) => {
                 handleAuthChange(event, session!)
@@ -55,7 +54,6 @@ export const useHandleAuthChange = () => {
         }
     }
     async function handleAuthChange(event: AuthChangeEvent, session: Session) {
-        console.log(event)
         await fetch('/api/auth', {
             method: 'POST',
             headers: new Headers({ 'Content-Type': 'application/json' }),

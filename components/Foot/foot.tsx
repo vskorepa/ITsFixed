@@ -10,10 +10,10 @@ export const Foot: React.FC = () => {
             <div className="container h-full px-5 mx-auto flex items-center sm:flex-row flex-col">
                 <a className="flex title-font font-medium items-center md:justify-start justify-center text-white">
                     <BsTools />
-                    <span className="ml-3 text-xl">FixedIT</span>
+                    <span className="ml-3 text-xl">ITsFixed</span>
                 </a>
                 <p className="text-sm text-gray-400 sm:ml-4 sm:pl-4 sm:border-l-2 sm:border-gray-800 sm:py-2 sm:mt-0 mt-4">
-                    © 2021 FixedIT —
+                    © 2022 ITsFixed —
                     <a
                         href="https://github.com/vskorepa"
                         className="text-gray-500 ml-1"

@@ -54,6 +54,7 @@ const TicketList: React.FC = () => {
         const MessageSubscription = supabase
             .from<definitions['messages']>('messages')
             .on('INSERT', (payload) => {
+                console.log('OPERATOR MESSAGES CALLBACK')
                 setNewMessage(payload.new)
             })
             .subscribe()
