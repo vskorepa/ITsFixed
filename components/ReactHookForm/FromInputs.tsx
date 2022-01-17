@@ -15,6 +15,7 @@ type InputProps = {
         name: string
     }[]
     children?: React.ReactNode
+    disabled?: boolean
 }
 type SelectInputProps = {
     register: UseFormReturn['register']
@@ -339,12 +340,14 @@ export const SendMessageInput: React.FC<InputProps> = ({
     maxLenght,
     required,
     children,
+    disabled,
 }) => {
     const { t } = useTranslation('common')
 
     return (
         <div className="w-full h-5vh short:h-10vh relative items-end">
             <textarea
+                disabled={disabled ?? false}
                 rows={2}
                 id={name ?? 'basic'}
                 className={` ${

@@ -21,11 +21,12 @@ export const getServerSideProps = async ({ req }: any) => {
         .from<definitions['user_roles']>('user_roles')
         .select(
             `
-            role
-        `
+        role
+    `
         )
         .eq('user_id', user?.id)
         .single()
+    console.log(userRole)
 
     if (!user) {
         return { props: {}, redirect: { destination: '/auth/login' } }

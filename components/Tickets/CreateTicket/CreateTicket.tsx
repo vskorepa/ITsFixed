@@ -5,6 +5,7 @@ import useCreateTicket from '../../../hooks/tickets/useCreateTicket'
 import { CreateTicketModalForm } from '../../ReactHookForm/Forms'
 import { CreateTicketValues } from '../../../types/formtypes'
 import useTicketType from '../../../hooks/tickets/useTicketType'
+import { useRouter } from 'next/router'
 
 type createTicketProps = {
     visible: boolean

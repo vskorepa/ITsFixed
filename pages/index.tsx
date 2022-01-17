@@ -1,5 +1,5 @@
 import React from 'react'
-import type { NextPage } from 'next'
+import type { GetStaticProps, NextPage } from 'next'
 import useTranslation from 'next-translate/useTranslation'
 import { Text } from '@nextui-org/react'
 import { SiteLogo } from '../components/Nav/logo'
@@ -10,7 +10,7 @@ import { RecievedMessage, SentMessage } from '../components/messages/message'
 
 const Home: NextPage = () => {
     const { t } = useTranslation('common')
-    const data = [
+    const chatData = [
         {
             id: '0',
             sent: true,
@@ -72,7 +72,7 @@ const Home: NextPage = () => {
             id: '10',
             sent: true,
             message:
-                'That makes a lot of sence. After all we are just people. ',
+                'That makes a lot of sence. Not everything can be delt with over the internet.',
         },
         {
             id: '11',
@@ -83,34 +83,42 @@ const Home: NextPage = () => {
         {
             id: '12',
             sent: false,
-            message: "We couldn't ask for more.",
+            message:
+                "That is exactly right. Thank you, We couldn't ask for more.",
+        },
+        {
+            id: '13',
+            sent: false,
+            message:
+                "That is exactly right. Thank you, We couldn't ask for more.",
         },
     ]
+
     return (
         <div className="w-full h-85vh flex justify-around">
-            <div className="flex flex-col items-center gap-4 w-full">
-                <Text className="font-bold text-4xl" h1>
-                    {t('greeting')}
-                </Text>
-                <SiteLogo height={45} />
-                <Text className="y font-bold text-3xl" h3>
-                    {t('readThrough')}
-                </Text>
+            <div className="flex flex-col items-center gap-2 w-full">
+                <div className="flex flex-row gap-4 p-4">
+                    <Text className="font-bold text-5xl" h1>
+                        {t('greeting')}
+                    </Text>
+                    <SiteLogo height={50} />
+                </div>
+
                 <div className=" w-4/5 h-auto bg-lightDarker border-white m-auto rounded-3xl border-2 dark:border-darkLighter dark:bg-darkDarker ">
                     <div className="flex flex-col justify-end gap-2">
-                        <SimpleBar className="w-full flex flex-col max-h-60vh text-2xl short:max-h-40vh overflow-y-auto">
-                            {data.map((message) => {
+                        <SimpleBar className="w-full flex flex-col max-h-60vh 0vh text-3xl  overflow-y-auto">
+                            {chatData.map((message) => {
                                 return message.sent ? (
                                     <SentMessage
                                         id={message.id}
                                         key={message.id}
-                                        content={message.message}
+                                        content={t('message_' + message.id)}
                                     />
                                 ) : (
                                     <RecievedMessage
                                         id={message.id}
                                         key={message.id}
-                                        content={message.message}
+                                        content={t('message_' + message.id)}
                                     />
                                 )
                             })}

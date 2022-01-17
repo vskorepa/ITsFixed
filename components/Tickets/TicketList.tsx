@@ -82,10 +82,10 @@ const TicketList: React.FC = () => {
                     state={requiredState}
                 ></TicketsNav>
                 <div className="flex flex-row w-full h-80vh">
-                    <div className="w-1/3 h-80vh justify-around items-center">
+                    <div className="w-1/3 xl:w-2/4 h-80vh justify-around items-center">
                         <Loading size={50} color="succes" />
                     </div>
-                    <div className="flex w-2/3 h-80vh justify-around items-center">
+                    <div className="flex w-2/3 xl:w-2/4 h-80vh justify-around items-center">
                         <Loading color="succes" size={100} />
                     </div>
                 </div>
@@ -104,7 +104,7 @@ const TicketList: React.FC = () => {
                 state={requiredState}
             ></TicketsNav>
             <div className="flex flex-row w-full h-80vh">
-                <div className="w-1/3 h-80vh">
+                <div className="xl:w-1/3 w-2/4 h-80vh">
                     <SimpleBar className="w-full overflow-y-auto h-full pr-3">
                         {tickets?.map((item) => (
                             <TicketInList

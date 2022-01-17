@@ -49,7 +49,7 @@ const UserTicketDetail: React.FC<TicketDetailProps> = ({ ticket_id }) => {
         }
     }, [message, newMessage, ticket_id])
 
-    const { data, isLoading } = useTicketDetail(ticket_id ?? '')
+    const { data, isLoading, isError } = useTicketDetail(ticket_id ?? '')
     const TicketMutation = useUpdateTicket({
         id: ticket_id ?? '',
         state: 'done',
@@ -59,34 +59,45 @@ const UserTicketDetail: React.FC<TicketDetailProps> = ({ ticket_id }) => {
     }
 
     return (
-        <div className="h-80vh w-2/3">
-            <div className="h-30vh w-full justify-center">
-                <div className="flex flex-nowrap justify-between p-3 items-center">
-                    {isLoading ? (
-                        <Loading />
-                    ) : (
-                        <Text color="success">
-                            {t('ticketNumber')} {data?.id ?? ''}
-                        </Text>
-                    )}
-
-                    <div className="flex-wrap flex gap-2 items-center">
+        <div className="h-85vh w-2/3">
+            {!isError ? (
+                <div className="h-30vh w-full justify-center">
+                    <div className="flex flex-nowrap justify-between p-3 items-center">
                         {isLoading ? (
-                            <Loading size="medium" />
+                            <Loading />
                         ) : (
-                            <Text weight="bold">
-                                {data ? t(`${data?.state}`) : 'Ticket state:'}
+                            <Text color="success">
+                                {t('ticketNumber')} {data?.id ?? ''}
                             </Text>
                         )}
+
+                        <div className="flex-wrap flex gap-2 items-center">
+                            {isLoading ? (
+                                <Loading size="medium" />
+                            ) : (
+                                <Text weight="bold">
+                                    {data
+                                        ? t(`${data?.state}`)
+                                        : 'Ticket state:'}
+                                </Text>
+                            )}
+                        </div>
                     </div>
+
+                    <Text>{data?.users.first_name}</Text>
+                    <Text>{data?.users.last_name}</Text>
+                    <Text>{data?.users.email}</Text>
+
+                    <Text>{data?.description}</Text>
                 </div>
+            ) : (
+                <div className="h-30vh w-full justify-center">
+                    <Text color="warning">
+                        {t('ticketNumber')} {'invalid ticket id'}
+                    </Text>
+                </div>
+            )}
 
-                <Text>{data?.users.first_name}</Text>
-                <Text>{data?.users.last_name}</Text>
-                <Text>{data?.users.email}</Text>
-
-                <Text>{data?.description}</Text>
-            </div>
             <div className="container h-auto bg-lightDarker border-white rounded-3xl mr-4 border-2 dark:border-darkLighter dark:bg-darkDarker ">
                 <Chat
                     MessagesData={messages ?? []}

@@ -5,6 +5,7 @@ import { supabase } from '../lib/supabaseClient'
 import useUser from '../hooks/useUser'
 import UserTicketList from '../components/Tickets/userTickets/userTicketsList'
 import { Loading } from '@nextui-org/react'
+import { definitions } from '../types/supabase'
 const Home: NextPage = () => {
     const { data, isLoading } = useUser()
     if (isLoading) {
@@ -28,21 +29,21 @@ const Home: NextPage = () => {
 }
 export const getServerSideProps = async ({ req }: any) => {
     const { user } = await supabase.auth.api.getUserByCookie(req)
-    // const { data: userRole, error: roleError } = await supabase
-    //     .from<definitions['user_roles']>('user_roles')
-    //     .select(
-    //         `
-    //         role
-    //     `
-    //     )
-    //     .eq('user_id', user?.id)
-    //     .single()
+    const { data: userRole } = await supabase
+        .from<definitions['user_roles']>('user_roles')
+        .select(
+            `
+            role
+        `
+        )
+        .eq('user_id', user?.id)
+        .single()
     if (!user) {
         return { props: {}, redirect: { destination: '/auth/login' } }
     }
-    // if (userRole?.role !== 'operator') {
-    //     return { props: {}, redirect: { destination: '/' } }
-    // }
+    if (userRole?.role !== 'operator' && userRole?.role !== 'user') {
+        return { props: {}, redirect: { destination: '/' } }
+    }
 
     return { props: { user } }
 }

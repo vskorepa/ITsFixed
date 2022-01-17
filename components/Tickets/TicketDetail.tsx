@@ -23,11 +23,14 @@ const TicketDetail: React.FC<TicketDetailProps> = ({
     useEffect(() => {
         if (newMessage && newMessage.ticket_id == ticket_id) {
             if (messages.length === 0) {
-                setMessages([...(message ?? []), newMessage])
+                setMessages([...(message ?? [])])
             } else {
                 if (messages[messages.length - 1].id !== newMessage.id) {
                     setMessages([...(messages ?? []), newMessage])
                 }
+            }
+            if (message?.length === 0) {
+                setMessages([...(messages ?? []), newMessage])
             }
         } else {
             setMessages(message ?? [])
@@ -52,7 +55,7 @@ const TicketDetail: React.FC<TicketDetailProps> = ({
         return <div className="h-80vh w-2/3"></div>
     }
     return (
-        <div className="h-80vh w-2/3">
+        <div className="h-80vh w-2/4 xl:w-2/3">
             <div className="h-30vh w-full justify-center">
                 <div className="flex flex-nowrap justify-between p-3 items-center">
                     {isLoading ? (

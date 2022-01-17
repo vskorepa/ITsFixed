@@ -237,10 +237,11 @@ export const SendMassageForm: React.FC<SendMassageFormProps> = ({
         >
             <SendMessageInput
                 name="message"
-                placeholder="TypeYourMessage"
+                placeholder={disabled ? ' ' : 'TypeYourMessage'}
                 register={register}
                 errors={errors}
                 maxLenght={1048}
+                disabled={disabled}
             >
                 {isSending ? (
                     <Loading className="text-3xl absolute right-8 bottom-4 text-secondary w-auto   " />

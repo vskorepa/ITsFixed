@@ -1,4 +1,5 @@
 import { Button, Loading } from '@nextui-org/react'
+import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
 import useTickets from '../../../hooks/tickets/useTickets'
 import useUsersTickets from '../../../hooks/tickets/useUsersTickets'
@@ -12,21 +13,24 @@ const UserTicketList: React.FC = () => {
     const [messages, setMessages] = useState<definitions['messages'][]>()
     const [ticketId, setTicketId] = useState('')
     const [visible, setVisible] = useState(false)
-
+    const router = useRouter()
     const { data, isLoading, refetch } = useUsersTickets()
     const [newMessage, setNewMessage] = useState<definitions['messages']>()
     useEffect(() => {
-        console.log('SUBSCRIBE USERS TICKETS')
         const TicketSubscription = supabase
             .from<TicketBasicInfo>('tickets')
-            .on('*', () => {
+            .on('INSERT', (payload) => {
+                router.push({
+                    pathname: '/ticket',
+                    query: 'TicketId=' + payload.new.id,
+                })
+            })
+            .on('UPDATE', () => {
                 refetch()
             })
             .subscribe()
 
         return () => {
-            console.log('UNSUBSCRIBE USERS TICKETS')
-
             supabase.removeSubscription(TicketSubscription)
         }
     }, [])
@@ -67,7 +71,7 @@ const UserTicketList: React.FC = () => {
     return (
         <div className="flex flex-col w-screen h-85vh flex-wrap items-center">
             <div className="flex flex-col w-full h-85vh overflow-auto items-center">
-                <div className=" flex w-full justify-items-center justify-center">
+                <div className=" flex w-full justify-items-center justify-center p-4">
                     <Button onClick={() => setVisible(!visible)}>
                         Create ticket
                     </Button>
