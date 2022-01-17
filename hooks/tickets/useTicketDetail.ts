@@ -36,36 +36,6 @@ const getTicketDetail = async (id: string) => {
     }
 }
 
-// export const fetchTickets = async () => {
-//     const { data, error } = await supabase
-//         .from<TicketBasicInfo>('tickets')
-//         .select(
-//             `
-//     id,
-//     state,
-//     description,
-//     created_at,
-//     ticket_type(
-//         name,
-//         description
-//     ),
-//     users:user_id(
-//         first_name,
-//         email
-//     )
-
-// `
-//         )
-//         .eq('state', 'waiting')
-//         .order('created_at')
-
-//     if (error) {
-//         throw new Error(error.message)
-//     }
-
-//     return data
-// }
-
 const useTicketDetail = (id: string) => {
     return useQuery(['ticketDetail', id], () => getTicketDetail(id))
 }

@@ -92,8 +92,8 @@ const Home: NextPage = () => {
                 <Text className="font-bold text-4xl" h1>
                     {t('greeting')}
                 </Text>
-                <SiteLogo height={70} />
-                <Text className="y font-bold text-3xl" h2>
+                <SiteLogo height={45} />
+                <Text className="y font-bold text-3xl" h3>
                     {t('readThrough')}
                 </Text>
                 <div className=" w-4/5 h-auto bg-lightDarker border-white m-auto rounded-3xl border-2 dark:border-darkLighter dark:bg-darkDarker ">
@@ -116,8 +116,10 @@ const Home: NextPage = () => {
                             })}
                         </SimpleBar>
                         <SendMassageForm
+                            OnFormSubmit={() => {
+                                console.log()
+                            }}
                             isSending={false}
-                            OnFormSubmit={() => {}}
                             disabled={true}
                         />
                     </div>

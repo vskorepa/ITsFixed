@@ -22,7 +22,7 @@ const Home: NextPage = () => {
                         />
                     </div>
                     <div className="w-full h-auto flex text-2xl flex-wrap gap-3">
-                        <div className="flex h-10 justify-evenly w-full">
+                        <div className="flex h-10 justify-center gap-4 w-full">
                             <h2>{data?.userData?.first_name}</h2>
                             <h2>{data?.userData?.last_name}</h2>
                         </div>
