@@ -5,3 +5,5 @@ node_modules
 /out/
 
 /build
+.txt
+types-fetch.txt

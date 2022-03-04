@@ -1,20 +1,24 @@
-import { useMutation, useQueryClient } from "react-query";
-import { supabase } from "../../lib/supabaseClient";
+import { useRouter } from 'next/router'
+import { useEffect } from 'react'
+import { useMutation, useQueryClient } from 'react-query'
+import { supabase } from '../../lib/supabaseClient'
 
-const logout = async () => {
-    const { error } = await supabase.auth.signOut();
+const useLogout = async () => {
+    const { error } = await supabase.auth.signOut()
 
     if (error) {
-        throw new Error(error.message);
+        throw new Error(error.message)
     }
-};
+}
 
 const useLogoutUser = () => {
-    const QueryClient = useQueryClient();
-    return useMutation(() => logout(), {
+    const router = useRouter()
+    const QueryClient = useQueryClient()
+    return useMutation(() => useLogout(), {
         onSuccess: () => {
-            QueryClient.removeQueries();
+            QueryClient.removeQueries()
+            router.push('/auth/login')
         },
-    });
-};
-export default useLogoutUser;
+    })
+}
+export default useLogoutUser

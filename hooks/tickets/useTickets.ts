@@ -1,57 +1,90 @@
-import { useState } from "react";
-import { typeUser } from "./../../types/supabaseTypes";
-import { useQuery } from "react-query";
-import { supabase } from "../../lib/supabaseClient";
-import { TicketBasicInfo } from "../../types/supabaseTypes";
-import { definitions } from "../../types/supabase";
-const getTickets = async (page: number) => {
-    const { data, error } = await supabase
-        .from<TicketBasicInfo>("ticket")
+import { useState } from 'react'
+import { typeUser } from './../../types/supabaseTypes'
+import { Query, useQuery } from 'react-query'
+import { supabase } from '../../lib/supabaseClient'
+import { TicketBasicInfo } from '../../types/supabaseTypes'
+import { definitions } from '../../types/supabase'
+const getTickets = async (
+    requiredState: string,
+    problemFilter?: number,
+    search?: string
+) => {
+    let query = supabase
+        .from<TicketBasicInfo>('tickets')
         .select(
             `
-        id,
-        isalive,
-        description,
-        created_at,
-        tickettype(
-            name,
-            description
-        ),
-        users:user_id(
-            name,
-            email
+            id,
+            state,
+            description,
+            created_at,
+            ticket_type(
+                name,
+                description
+            ),
+            users:user_id(
+                first_name,
+                email
+            )
+    
+        `
         )
+        .eq('state', requiredState)
+        .order('created_at')
 
-    `
+    if (problemFilter) {
+        query = query.eq('ticket_type_id', problemFilter)
+    }
+    if (search !== '') {
+        query = query.textSearch(
+            'description' || ' ' || 'users.first_name',
+            search ?? ''
         )
-        .order("isalive", { ascending: false })
-        .order("created_at")
-        // .eq("isalive", true)
-        .range((page - 1) * 20, page * 20);
+    }
 
-    console.log(data);
+    const { data, error } = await query
+
     if (error) {
-        throw new Error(error.message);
+        throw new Error(error.message)
     }
 
     if (!data) {
-        throw new Error("User has no Tickets");
+        throw new Error('User has no Tickets')
     }
 
-    const response = {
-        meta: {
-            success: true,
-            totalCount: data.length,
-            pageCount: Math.ceil(data.length / 9),
-            currentPage: page,
-            perPage: 9,
-        },
-        ticketData: data,
-    };
-    return response;
-};
+    return data
+}
+// const state = ['waiting']
+// const problemFilter: number[] = []
+// const search = ['']
+// export const stateChanger = (
+//     newState?: string,
+//     newProblemFilter?: number,
+//     newSearch?: string
+// ) => {
+//     if (newState) {
+//         state.length = 0
+//         state.push(newState)
+//     }
+//     if (newProblemFilter) {
+//         problemFilter.length = 0
+//         problemFilter.push(newProblemFilter)
+//     }
+//     if (newSearch) {
+//         search.length = 0
+//         search.push(newSearch)
+//     }
+// }
 
-const useTickets = (page: number) => {
-    return useQuery("tickets", () => getTickets(page));
-};
-export default useTickets;
+const useTickets = (
+    requiredState: string,
+    problemFilter?: number,
+    search?: string
+) => {
+    // return useQuery(['tickets', { state }], () =>
+    //     getTickets(state[0], problemFilter[0], search[0])
+    // )
+    return useQuery(['tickets', { requiredState, problemFilter, search }], () =>
+        getTickets(requiredState, problemFilter, search)
+    )
+}
+export default useTickets

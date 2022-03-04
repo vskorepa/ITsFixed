@@ -1,44 +1,42 @@
-import { useState } from "react";
-import { typeUser } from "./../../types/supabaseTypes";
-import { useQuery } from "react-query";
-import { supabase } from "../../lib/supabaseClient";
-import { TicketBasicInfo } from "../../types/supabaseTypes";
-import { definitions } from "../../types/supabase";
+import { useState } from 'react'
+import { typeUser } from './../../types/supabaseTypes'
+import { useQuery } from 'react-query'
+import { supabase } from '../../lib/supabaseClient'
+import { TicketBasicInfo } from '../../types/supabaseTypes'
 const getTicketDetail = async (id: string) => {
-    if (id !== null) {
+    if (id) {
         const { data, error } = await supabase
-            .from<TicketBasicInfo>("ticket")
+            .from<TicketBasicInfo>('tickets')
             .select(
                 `
+                id,
         description,
-        isalive,
-        
-        tickettype(
+        state,
+        ticket_type(
             name,
             description
         ),
-        users(
-            name,
-            surname,
+        users:user_id(
+            first_name,
+            last_name,
             email
         )
-
     `
             )
-            .eq("id", id)
-            .single();
+            .eq('id', id)
+            .single()
 
         if (error) {
-            throw new Error(error.message);
+            throw new Error(error.message)
         }
 
-        return data;
+        return data
     } else {
-        return null;
+        return null
     }
-};
+}
 
 const useTicketDetail = (id: string) => {
-    return useQuery(["ticketDetail", id], () => getTicketDetail(id));
-};
-export default useTicketDetail;
+    return useQuery(['ticketDetail', id], () => getTicketDetail(id))
+}
+export default useTicketDetail

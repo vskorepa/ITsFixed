@@ -1,48 +1,55 @@
-import { data } from "autoprefixer";
-import { useMutation } from "react-query";
-import { supabase } from "../../lib/supabaseClient";
-import { typeUser } from "../../types/supabaseTypes";
+import { data } from 'autoprefixer'
+import { useMutation } from 'react-query'
+import { supabase } from '../../lib/supabaseClient'
+import { typeUser } from '../../types/supabaseTypes'
 
-const createUser = async (user: typeUser) => {
-    const { data: userWithEmail } = await supabase
-        .from("users")
-        .select("*")
-        .eq("email", user.email)
-        .single();
+const createUser = async (myUser: typeUser, facebookAuth: boolean) => {
+    // const { data: userWithEmail } = await supabase
+    //     .from("users")
+    //     .select("*")
+    //     .eq("email", user.email)
+    //     .single();
 
-    if (userWithEmail) {
-        throw new Error("User with this email exists");
+    // if (userWithEmail) {
+    //     throw new Error("User with this email exists");
+    // }
+    if (facebookAuth) {
+    } else {
+        const { user, error: SighUpError } = await supabase.auth.signUp({
+            email: myUser.email,
+            password: myUser.password,
+        })
+        if (SighUpError) {
+            throw SighUpError
+        }
+
+        return user
     }
+}
 
-    const { data, error: SighUpError } = await supabase.auth.signUp({
-        email: user.email,
-        password: user.password,
-    });
-    if (SighUpError) {
-        throw SighUpError;
-    }
+// console.log(SighUpError?.code);
+// if (SighUpError?.code == "23505") {
+//     throw new Error("User with this email exists");
+// }
 
-    return data;
-};
-
-const useCreateUser = (user: typeUser) => {
-    return useMutation(() => createUser(user), {
+const useCreateUser = (myUser: typeUser, facebookAuth: boolean) => {
+    return useMutation(() => createUser(myUser, facebookAuth), {
         onSuccess: async (data) => {
             const { data: insertData, error: insertError } = await supabase
-                .from("users")
+                .from('users')
                 .insert({
-                    name: user.name,
-                    surname: user.surname,
-                    email: user.email,
+                    first_name: myUser.first_name,
+                    last_name: myUser.last_name,
+                    email: myUser.email,
                     //@ts-ignore
                     id: data.id,
-                });
+                })
             if (insertError) {
-                throw insertError;
+                throw insertError
             }
-            return insertData;
+            return insertData
         },
-    });
-};
+    })
+}
 
-export default useCreateUser;
+export default useCreateUser

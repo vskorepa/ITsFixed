@@ -1,2 +1,2 @@
 import { Foot } from "./foot";
-export default Foot
+export default Foot;

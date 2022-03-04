@@ -1,19 +1,20 @@
+import { CreateTicketValues } from "./../../types/formtypes";
 import { data } from "autoprefixer";
 import { useState } from "react";
 import { typeUser } from "./../../types/supabaseTypes";
 import { useMutation } from "react-query";
 import { supabase } from "../../lib/supabaseClient";
-import { CreateTicketType } from "../../types/supabaseTypes";
+import { CreateTicketProps } from "../../types/supabaseTypes";
+
 import { definitions } from "../../types/supabase";
 // const userId = supabase.auth.user()!.id;
-const insertTicket = async (props: CreateTicketType) => {
-    console.log(props);
+const insertTicket = async (props: CreateTicketValues) => {
     const { data, error } = await supabase
-        .from<CreateTicketType>("ticket")
+        .from<CreateTicketProps>("tickets")
         .insert([
             {
                 ticket_type_id: props.ticket_type_id,
-                user_id: props.id,
+                user_id: supabase.auth.user()?.id,
                 description: props.description,
             },
         ]);
@@ -27,7 +28,9 @@ const insertTicket = async (props: CreateTicketType) => {
     return data;
 };
 
-const useCreateTicket = (props: CreateTicketType) => {
-    return useMutation(["CreateTicket", props.id], () => insertTicket(props));
+const useCreateTicket = (props: CreateTicketValues) => {
+    return useMutation(["CreateTicket", props.description], () =>
+        insertTicket(props)
+    );
 };
 export default useCreateTicket;

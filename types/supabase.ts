@@ -12,12 +12,15 @@ export interface paths {
       };
     };
   };
-  "/admins": {
+  "/messages": {
     get: {
       parameters: {
         query: {
-          id?: parameters["rowFilter.admins.id"];
-          user_id?: parameters["rowFilter.admins.user_id"];
+          id?: parameters["rowFilter.messages.id"];
+          insert_at?: parameters["rowFilter.messages.insert_at"];
+          message?: parameters["rowFilter.messages.message"];
+          user_id?: parameters["rowFilter.messages.user_id"];
+          ticket_id?: parameters["rowFilter.messages.ticket_id"];
           /** Filtering Columns */
           select?: parameters["select"];
           /** Ordering */
@@ -39,7 +42,7 @@ export interface paths {
       responses: {
         /** OK */
         200: {
-          schema: definitions["admins"][];
+          schema: definitions["messages"][];
         };
         /** Partial Content */
         206: unknown;
@@ -48,8 +51,8 @@ export interface paths {
     post: {
       parameters: {
         body: {
-          /** admins */
-          admins?: definitions["admins"];
+          /** messages */
+          messages?: definitions["messages"];
         };
         query: {
           /** Filtering Columns */
@@ -68,8 +71,11 @@ export interface paths {
     delete: {
       parameters: {
         query: {
-          id?: parameters["rowFilter.admins.id"];
-          user_id?: parameters["rowFilter.admins.user_id"];
+          id?: parameters["rowFilter.messages.id"];
+          insert_at?: parameters["rowFilter.messages.insert_at"];
+          message?: parameters["rowFilter.messages.message"];
+          user_id?: parameters["rowFilter.messages.user_id"];
+          ticket_id?: parameters["rowFilter.messages.ticket_id"];
         };
         header: {
           /** Preference */
@@ -84,12 +90,15 @@ export interface paths {
     patch: {
       parameters: {
         query: {
-          id?: parameters["rowFilter.admins.id"];
-          user_id?: parameters["rowFilter.admins.user_id"];
+          id?: parameters["rowFilter.messages.id"];
+          insert_at?: parameters["rowFilter.messages.insert_at"];
+          message?: parameters["rowFilter.messages.message"];
+          user_id?: parameters["rowFilter.messages.user_id"];
+          ticket_id?: parameters["rowFilter.messages.ticket_id"];
         };
         body: {
-          /** admins */
-          admins?: definitions["admins"];
+          /** messages */
+          messages?: definitions["messages"];
         };
         header: {
           /** Preference */
@@ -102,12 +111,13 @@ export interface paths {
       };
     };
   };
-  "/operator_specializations": {
+  "/role_permissions": {
     get: {
       parameters: {
         query: {
-          operator_id?: parameters["rowFilter.operator_specializations.operator_id"];
-          tickettype_id?: parameters["rowFilter.operator_specializations.tickettype_id"];
+          permissions_id?: parameters["rowFilter.role_permissions.permissions_id"];
+          role?: parameters["rowFilter.role_permissions.role"];
+          permission?: parameters["rowFilter.role_permissions.permission"];
           /** Filtering Columns */
           select?: parameters["select"];
           /** Ordering */
@@ -129,7 +139,7 @@ export interface paths {
       responses: {
         /** OK */
         200: {
-          schema: definitions["operator_specializations"][];
+          schema: definitions["role_permissions"][];
         };
         /** Partial Content */
         206: unknown;
@@ -138,8 +148,8 @@ export interface paths {
     post: {
       parameters: {
         body: {
-          /** operator_specializations */
-          operator_specializations?: definitions["operator_specializations"];
+          /** role_permissions */
+          role_permissions?: definitions["role_permissions"];
         };
         query: {
           /** Filtering Columns */
@@ -158,8 +168,9 @@ export interface paths {
     delete: {
       parameters: {
         query: {
-          operator_id?: parameters["rowFilter.operator_specializations.operator_id"];
-          tickettype_id?: parameters["rowFilter.operator_specializations.tickettype_id"];
+          permissions_id?: parameters["rowFilter.role_permissions.permissions_id"];
+          role?: parameters["rowFilter.role_permissions.role"];
+          permission?: parameters["rowFilter.role_permissions.permission"];
         };
         header: {
           /** Preference */
@@ -174,12 +185,13 @@ export interface paths {
     patch: {
       parameters: {
         query: {
-          operator_id?: parameters["rowFilter.operator_specializations.operator_id"];
-          tickettype_id?: parameters["rowFilter.operator_specializations.tickettype_id"];
+          permissions_id?: parameters["rowFilter.role_permissions.permissions_id"];
+          role?: parameters["rowFilter.role_permissions.role"];
+          permission?: parameters["rowFilter.role_permissions.permission"];
         };
         body: {
-          /** operator_specializations */
-          operator_specializations?: definitions["operator_specializations"];
+          /** role_permissions */
+          role_permissions?: definitions["role_permissions"];
         };
         header: {
           /** Preference */
@@ -192,14 +204,14 @@ export interface paths {
       };
     };
   };
-  "/operators": {
+  "/ticket_type": {
     get: {
       parameters: {
         query: {
-          id?: parameters["rowFilter.operators.id"];
-          user_id?: parameters["rowFilter.operators.user_id"];
-          rating?: parameters["rowFilter.operators.rating"];
-          specializations?: parameters["rowFilter.operators.specializations"];
+          id?: parameters["rowFilter.ticket_type.id"];
+          name?: parameters["rowFilter.ticket_type.name"];
+          description?: parameters["rowFilter.ticket_type.description"];
+          created_by?: parameters["rowFilter.ticket_type.created_by"];
           /** Filtering Columns */
           select?: parameters["select"];
           /** Ordering */
@@ -221,7 +233,7 @@ export interface paths {
       responses: {
         /** OK */
         200: {
-          schema: definitions["operators"][];
+          schema: definitions["ticket_type"][];
         };
         /** Partial Content */
         206: unknown;
@@ -230,8 +242,8 @@ export interface paths {
     post: {
       parameters: {
         body: {
-          /** operators */
-          operators?: definitions["operators"];
+          /** ticket_type */
+          ticket_type?: definitions["ticket_type"];
         };
         query: {
           /** Filtering Columns */
@@ -250,10 +262,10 @@ export interface paths {
     delete: {
       parameters: {
         query: {
-          id?: parameters["rowFilter.operators.id"];
-          user_id?: parameters["rowFilter.operators.user_id"];
-          rating?: parameters["rowFilter.operators.rating"];
-          specializations?: parameters["rowFilter.operators.specializations"];
+          id?: parameters["rowFilter.ticket_type.id"];
+          name?: parameters["rowFilter.ticket_type.name"];
+          description?: parameters["rowFilter.ticket_type.description"];
+          created_by?: parameters["rowFilter.ticket_type.created_by"];
         };
         header: {
           /** Preference */
@@ -268,14 +280,14 @@ export interface paths {
     patch: {
       parameters: {
         query: {
-          id?: parameters["rowFilter.operators.id"];
-          user_id?: parameters["rowFilter.operators.user_id"];
-          rating?: parameters["rowFilter.operators.rating"];
-          specializations?: parameters["rowFilter.operators.specializations"];
+          id?: parameters["rowFilter.ticket_type.id"];
+          name?: parameters["rowFilter.ticket_type.name"];
+          description?: parameters["rowFilter.ticket_type.description"];
+          created_by?: parameters["rowFilter.ticket_type.created_by"];
         };
         body: {
-          /** operators */
-          operators?: definitions["operators"];
+          /** ticket_type */
+          ticket_type?: definitions["ticket_type"];
         };
         header: {
           /** Preference */
@@ -288,16 +300,16 @@ export interface paths {
       };
     };
   };
-  "/ticket": {
+  "/tickets": {
     get: {
       parameters: {
         query: {
-          id?: parameters["rowFilter.ticket.id"];
-          isalive?: parameters["rowFilter.ticket.isalive"];
-          ticket_type_id?: parameters["rowFilter.ticket.ticket_type_id"];
-          user_id?: parameters["rowFilter.ticket.user_id"];
-          description?: parameters["rowFilter.ticket.description"];
-          created_at?: parameters["rowFilter.ticket.created_at"];
+          id?: parameters["rowFilter.tickets.id"];
+          user_id?: parameters["rowFilter.tickets.user_id"];
+          created_at?: parameters["rowFilter.tickets.created_at"];
+          ticket_type_id?: parameters["rowFilter.tickets.ticket_type_id"];
+          description?: parameters["rowFilter.tickets.description"];
+          state?: parameters["rowFilter.tickets.state"];
           /** Filtering Columns */
           select?: parameters["select"];
           /** Ordering */
@@ -319,7 +331,7 @@ export interface paths {
       responses: {
         /** OK */
         200: {
-          schema: definitions["ticket"][];
+          schema: definitions["tickets"][];
         };
         /** Partial Content */
         206: unknown;
@@ -328,8 +340,8 @@ export interface paths {
     post: {
       parameters: {
         body: {
-          /** ticket */
-          ticket?: definitions["ticket"];
+          /** tickets */
+          tickets?: definitions["tickets"];
         };
         query: {
           /** Filtering Columns */
@@ -348,12 +360,12 @@ export interface paths {
     delete: {
       parameters: {
         query: {
-          id?: parameters["rowFilter.ticket.id"];
-          isalive?: parameters["rowFilter.ticket.isalive"];
-          ticket_type_id?: parameters["rowFilter.ticket.ticket_type_id"];
-          user_id?: parameters["rowFilter.ticket.user_id"];
-          description?: parameters["rowFilter.ticket.description"];
-          created_at?: parameters["rowFilter.ticket.created_at"];
+          id?: parameters["rowFilter.tickets.id"];
+          user_id?: parameters["rowFilter.tickets.user_id"];
+          created_at?: parameters["rowFilter.tickets.created_at"];
+          ticket_type_id?: parameters["rowFilter.tickets.ticket_type_id"];
+          description?: parameters["rowFilter.tickets.description"];
+          state?: parameters["rowFilter.tickets.state"];
         };
         header: {
           /** Preference */
@@ -368,16 +380,16 @@ export interface paths {
     patch: {
       parameters: {
         query: {
-          id?: parameters["rowFilter.ticket.id"];
-          isalive?: parameters["rowFilter.ticket.isalive"];
-          ticket_type_id?: parameters["rowFilter.ticket.ticket_type_id"];
-          user_id?: parameters["rowFilter.ticket.user_id"];
-          description?: parameters["rowFilter.ticket.description"];
-          created_at?: parameters["rowFilter.ticket.created_at"];
+          id?: parameters["rowFilter.tickets.id"];
+          user_id?: parameters["rowFilter.tickets.user_id"];
+          created_at?: parameters["rowFilter.tickets.created_at"];
+          ticket_type_id?: parameters["rowFilter.tickets.ticket_type_id"];
+          description?: parameters["rowFilter.tickets.description"];
+          state?: parameters["rowFilter.tickets.state"];
         };
         body: {
-          /** ticket */
-          ticket?: definitions["ticket"];
+          /** tickets */
+          tickets?: definitions["tickets"];
         };
         header: {
           /** Preference */
@@ -390,13 +402,12 @@ export interface paths {
       };
     };
   };
-  "/tickettype": {
+  "/user_roles": {
     get: {
       parameters: {
         query: {
-          id?: parameters["rowFilter.tickettype.id"];
-          name?: parameters["rowFilter.tickettype.name"];
-          description?: parameters["rowFilter.tickettype.description"];
+          user_id?: parameters["rowFilter.user_roles.user_id"];
+          role?: parameters["rowFilter.user_roles.role"];
           /** Filtering Columns */
           select?: parameters["select"];
           /** Ordering */
@@ -418,7 +429,7 @@ export interface paths {
       responses: {
         /** OK */
         200: {
-          schema: definitions["tickettype"][];
+          schema: definitions["user_roles"][];
         };
         /** Partial Content */
         206: unknown;
@@ -427,8 +438,8 @@ export interface paths {
     post: {
       parameters: {
         body: {
-          /** tickettype */
-          tickettype?: definitions["tickettype"];
+          /** user_roles */
+          user_roles?: definitions["user_roles"];
         };
         query: {
           /** Filtering Columns */
@@ -447,9 +458,8 @@ export interface paths {
     delete: {
       parameters: {
         query: {
-          id?: parameters["rowFilter.tickettype.id"];
-          name?: parameters["rowFilter.tickettype.name"];
-          description?: parameters["rowFilter.tickettype.description"];
+          user_id?: parameters["rowFilter.user_roles.user_id"];
+          role?: parameters["rowFilter.user_roles.role"];
         };
         header: {
           /** Preference */
@@ -464,13 +474,12 @@ export interface paths {
     patch: {
       parameters: {
         query: {
-          id?: parameters["rowFilter.tickettype.id"];
-          name?: parameters["rowFilter.tickettype.name"];
-          description?: parameters["rowFilter.tickettype.description"];
+          user_id?: parameters["rowFilter.user_roles.user_id"];
+          role?: parameters["rowFilter.user_roles.role"];
         };
         body: {
-          /** tickettype */
-          tickettype?: definitions["tickettype"];
+          /** user_roles */
+          user_roles?: definitions["user_roles"];
         };
         header: {
           /** Preference */
@@ -488,8 +497,8 @@ export interface paths {
       parameters: {
         query: {
           id?: parameters["rowFilter.users.id"];
-          name?: parameters["rowFilter.users.name"];
-          surname?: parameters["rowFilter.users.surname"];
+          first_name?: parameters["rowFilter.users.first_name"];
+          last_name?: parameters["rowFilter.users.last_name"];
           email?: parameters["rowFilter.users.email"];
           /** Filtering Columns */
           select?: parameters["select"];
@@ -542,8 +551,8 @@ export interface paths {
       parameters: {
         query: {
           id?: parameters["rowFilter.users.id"];
-          name?: parameters["rowFilter.users.name"];
-          surname?: parameters["rowFilter.users.surname"];
+          first_name?: parameters["rowFilter.users.first_name"];
+          last_name?: parameters["rowFilter.users.last_name"];
           email?: parameters["rowFilter.users.email"];
         };
         header: {
@@ -560,8 +569,8 @@ export interface paths {
       parameters: {
         query: {
           id?: parameters["rowFilter.users.id"];
-          name?: parameters["rowFilter.users.name"];
-          surname?: parameters["rowFilter.users.surname"];
+          first_name?: parameters["rowFilter.users.first_name"];
+          last_name?: parameters["rowFilter.users.last_name"];
           email?: parameters["rowFilter.users.email"];
         };
         body: {
@@ -579,141 +588,305 @@ export interface paths {
       };
     };
   };
+  "/rpc/handle_new_user": {
+    post: {
+      parameters: {
+        body: {
+          args: { [key: string]: unknown };
+        };
+        header: {
+          /** Preference */
+          Prefer?: parameters["preferParams"];
+        };
+      };
+      responses: {
+        /** OK */
+        200: unknown;
+      };
+    };
+  };
+  "/rpc/authorize": {
+    post: {
+      parameters: {
+        body: {
+          args: {
+            /** Format: uuid */
+            user_id: string;
+            /** Format: public.app_permission */
+            request_permission: string;
+          };
+        };
+        header: {
+          /** Preference */
+          Prefer?: parameters["preferParams"];
+        };
+      };
+      responses: {
+        /** OK */
+        200: unknown;
+      };
+    };
+  };
+  "/rpc/issenttome": {
+    post: {
+      parameters: {
+        body: {
+          args: {
+            /** Format: uuid */
+            v_user_id: string;
+            /** Format: uuid */
+            v_ticket_id: string;
+          };
+        };
+        header: {
+          /** Preference */
+          Prefer?: parameters["preferParams"];
+        };
+      };
+      responses: {
+        /** OK */
+        200: unknown;
+      };
+    };
+  };
+  "/rpc/ismyticket": {
+    post: {
+      parameters: {
+        body: {
+          args: {
+            /** Format: uuid */
+            v_user_id: string;
+            /** Format: uuid */
+            v_ticket_id: string;
+          };
+        };
+        header: {
+          /** Preference */
+          Prefer?: parameters["preferParams"];
+        };
+      };
+      responses: {
+        /** OK */
+        200: unknown;
+      };
+    };
+  };
 }
 
 export interface definitions {
-  admins: {
+  messages: {
     /**
-     * Note:
-     * This is a Primary Key.<pk/>
-     */
-    id: string;
-    /**
-     * Note:
-     * This is a Foreign Key to `users.id`.<fk table='users' column='id'/>
-     */
-    user_id?: string;
-  };
-  operator_specializations: {
-    /**
-     * Note:
-     * This is a Foreign Key to `operators.id`.<fk table='operators' column='id'/>
-     */
-    operator_id: string;
-    /**
-     * Note:
-     * This is a Foreign Key to `tickettype.id`.<fk table='tickettype' column='id'/>
-     */
-    tickettype_id: number;
-  };
-  operators: {
-    /**
-     * Note:
-     * This is a Primary Key.<pk/>
-     */
-    id: string;
-    /**
-     * Note:
-     * This is a Foreign Key to `users.id`.<fk table='users' column='id'/>
-     */
-    user_id?: string;
-    rating?: number;
-    specializations?: number;
-  };
-  ticket: {
-    /**
-     * Note:
-     * This is a Primary Key.<pk/>
-     */
-    id: string;
-    isalive?: boolean;
-    /**
-     * Note:
-     * This is a Foreign Key to `tickettype.id`.<fk table='tickettype' column='id'/>
-     */
-    ticket_type_id?: number;
-    /**
-     * Note:
-     * This is a Foreign Key to `users.id`.<fk table='users' column='id'/>
-     */
-    user_id?: string;
-    description?: string;
-    created_at?: string;
-  };
-  tickettype: {
-    /**
-     * Note:
+     * Format: bigint
+     * @description Note:
      * This is a Primary Key.<pk/>
      */
     id: number;
-    name?: string;
+    /**
+     * Format: timestamp with time zone
+     * @default now()
+     */
+    insert_at: string;
+    /** Format: text */
+    message?: string;
+    /**
+     * Format: uuid
+     * @description Note:
+     * This is a Foreign Key to `users.id`.<fk table='users' column='id'/>
+     */
+    user_id: string;
+    /**
+     * Format: uuid
+     * @description Note:
+     * This is a Foreign Key to `tickets.id`.<fk table='tickets' column='id'/>
+     */
+    ticket_id: string;
+  };
+  role_permissions: {
+    /**
+     * Format: bigint
+     * @description Note:
+     * This is a Primary Key.<pk/>
+     */
+    permissions_id: number;
+    /** Format: public.app_role */
+    role: "admin" | "operator" | "user";
+    /** Format: public.app_permission */
+    permission:
+      | "tickets.select"
+      | "tickets.delete"
+      | "tickets.update"
+      | "user_roles.update"
+      | "users.delete"
+      | "users.update"
+      | "users.select"
+      | "users.insert"
+      | "ticket_type.insert"
+      | "ticket_type.update"
+      | "ticket_type.select"
+      | "ticket_type.delete"
+      | "messages.delete"
+      | "messages.select";
+  };
+  ticket_type: {
+    /**
+     * Format: bigint
+     * @description Note:
+     * This is a Primary Key.<pk/>
+     */
+    id: number;
+    /** Format: text */
+    name: string;
+    /** Format: text */
     description?: string;
+    /**
+     * Format: uuid
+     * @description Note:
+     * This is a Foreign Key to `users.id`.<fk table='users' column='id'/>
+     */
+    created_by?: string;
+  };
+  tickets: {
+    /**
+     * Format: uuid
+     * @description Note:
+     * This is a Primary Key.<pk/>
+     * @default extensions.uuid_generate_v4()
+     */
+    id: string;
+    /**
+     * Format: uuid
+     * @description Note:
+     * This is a Foreign Key to `users.id`.<fk table='users' column='id'/>
+     */
+    user_id: string;
+    /**
+     * Format: timestamp with time zone
+     * @default now()
+     */
+    created_at: string;
+    /**
+     * Format: bigint
+     * @description Note:
+     * This is a Foreign Key to `ticket_type.id`.<fk table='ticket_type' column='id'/>
+     */
+    ticket_type_id: number;
+    /** Format: text */
+    description?: string;
+    /**
+     * Format: public.ticket_state
+     * @default waiting
+     */
+    state: "waiting" | "ongoing" | "done";
+  };
+  user_roles: {
+    /**
+     * Format: uuid
+     * @description Note:
+     * This is a Primary Key.<pk/>
+     */
+    user_id: string;
+    /** Format: public.app_role */
+    role?: "admin" | "operator" | "user";
   };
   users: {
     /**
-     * Note:
+     * Format: uuid
+     * @description Note:
      * This is a Primary Key.<pk/>
      */
     id: string;
-    name?: string;
-    surname?: string;
-    email: string;
+    /** Format: text */
+    first_name?: string;
+    /** Format: text */
+    last_name?: string;
+    /** Format: text */
+    email?: string;
   };
 }
 
 export interface parameters {
-  /** Preference */
+  /** @description Preference */
   preferParams: "params=single-object";
-  /** Preference */
+  /** @description Preference */
   preferReturn: "return=representation" | "return=minimal" | "return=none";
-  /** Preference */
+  /** @description Preference */
   preferCount: "count=none";
-  /** Filtering Columns */
+  /** @description Filtering Columns */
   select: string;
-  /** On Conflict */
+  /** @description On Conflict */
   on_conflict: string;
-  /** Ordering */
+  /** @description Ordering */
   order: string;
-  /** Limiting and Pagination */
+  /** @description Limiting and Pagination */
   range: string;
-  /** Limiting and Pagination */
+  /**
+   * @description Limiting and Pagination
+   * @default items
+   */
   rangeUnit: string;
-  /** Limiting and Pagination */
+  /** @description Limiting and Pagination */
   offset: string;
-  /** Limiting and Pagination */
+  /** @description Limiting and Pagination */
   limit: string;
-  /** admins */
-  "body.admins": definitions["admins"];
-  "rowFilter.admins.id": string;
-  "rowFilter.admins.user_id": string;
-  /** operator_specializations */
-  "body.operator_specializations": definitions["operator_specializations"];
-  "rowFilter.operator_specializations.operator_id": string;
-  "rowFilter.operator_specializations.tickettype_id": string;
-  /** operators */
-  "body.operators": definitions["operators"];
-  "rowFilter.operators.id": string;
-  "rowFilter.operators.user_id": string;
-  "rowFilter.operators.rating": string;
-  "rowFilter.operators.specializations": string;
-  /** ticket */
-  "body.ticket": definitions["ticket"];
-  "rowFilter.ticket.id": string;
-  "rowFilter.ticket.isalive": string;
-  "rowFilter.ticket.ticket_type_id": string;
-  "rowFilter.ticket.user_id": string;
-  "rowFilter.ticket.description": string;
-  "rowFilter.ticket.created_at": string;
-  /** tickettype */
-  "body.tickettype": definitions["tickettype"];
-  "rowFilter.tickettype.id": string;
-  "rowFilter.tickettype.name": string;
-  "rowFilter.tickettype.description": string;
-  /** users */
+  /** @description messages */
+  "body.messages": definitions["messages"];
+  /** Format: bigint */
+  "rowFilter.messages.id": string;
+  /** Format: timestamp with time zone */
+  "rowFilter.messages.insert_at": string;
+  /** Format: text */
+  "rowFilter.messages.message": string;
+  /** Format: uuid */
+  "rowFilter.messages.user_id": string;
+  /** Format: uuid */
+  "rowFilter.messages.ticket_id": string;
+  /** @description role_permissions */
+  "body.role_permissions": definitions["role_permissions"];
+  /** Format: bigint */
+  "rowFilter.role_permissions.permissions_id": string;
+  /** Format: public.app_role */
+  "rowFilter.role_permissions.role": string;
+  /** Format: public.app_permission */
+  "rowFilter.role_permissions.permission": string;
+  /** @description ticket_type */
+  "body.ticket_type": definitions["ticket_type"];
+  /** Format: bigint */
+  "rowFilter.ticket_type.id": string;
+  /** Format: text */
+  "rowFilter.ticket_type.name": string;
+  /** Format: text */
+  "rowFilter.ticket_type.description": string;
+  /** Format: uuid */
+  "rowFilter.ticket_type.created_by": string;
+  /** @description tickets */
+  "body.tickets": definitions["tickets"];
+  /** Format: uuid */
+  "rowFilter.tickets.id": string;
+  /** Format: uuid */
+  "rowFilter.tickets.user_id": string;
+  /** Format: timestamp with time zone */
+  "rowFilter.tickets.created_at": string;
+  /** Format: bigint */
+  "rowFilter.tickets.ticket_type_id": string;
+  /** Format: text */
+  "rowFilter.tickets.description": string;
+  /** Format: public.ticket_state */
+  "rowFilter.tickets.state": string;
+  /** @description user_roles */
+  "body.user_roles": definitions["user_roles"];
+  /** Format: uuid */
+  "rowFilter.user_roles.user_id": string;
+  /** Format: public.app_role */
+  "rowFilter.user_roles.role": string;
+  /** @description users */
   "body.users": definitions["users"];
+  /** Format: uuid */
   "rowFilter.users.id": string;
-  "rowFilter.users.name": string;
-  "rowFilter.users.surname": string;
+  /** Format: text */
+  "rowFilter.users.first_name": string;
+  /** Format: text */
+  "rowFilter.users.last_name": string;
+  /** Format: text */
   "rowFilter.users.email": string;
 }
 

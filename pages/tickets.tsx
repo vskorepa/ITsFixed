@@ -1,24 +1,50 @@
-import type { NextPage } from "next";
-import Image from "next/image";
-import useTranslation from "next-translate/useTranslation";
-import { Container, Row, Text } from "@nextui-org/react";
-import PageHead from "../components/Head/";
-import Foot from "../components/Foot";
-import TopNav from "../components/Nav/topNav";
-import ProtectedWrapper from "../components/protected/protected";
-import TicketList from "../components/Tickets/TicketList";
+import React from 'react'
+import type { NextApiRequest, NextPage } from 'next'
+import TicketList from '../components/Tickets/TicketList'
+import { supabase } from '../lib/supabaseClient'
+import useUser from '../hooks/useUser'
+import UserTicketList from '../components/Tickets/userTickets/userTicketsList'
+import { Loading } from '@nextui-org/react'
+import { definitions } from '../types/supabase'
 const Home: NextPage = () => {
-    const { t } = useTranslation("common");
-
-    return (
-        <ProtectedWrapper>
-            <TopNav />
-
-            <div className="flex w-full h-full flex-wrap justify-center">
-                <TicketList />
+    const { data, isLoading } = useUser()
+    if (isLoading) {
+        return (
+            <div>
+                <Loading></Loading>
             </div>
-        </ProtectedWrapper>
-    );
-};
+        )
+    }
+    return (
+        <div>
+            <div className="flex w-full h-full flex-wrap justify-center">
+                {data?.roledata?.role === 'operator' ? (
+                    <TicketList />
+                ) : (
+                    <UserTicketList />
+                )}
+            </div>
+        </div>
+    )
+}
+export const getServerSideProps = async ({ req }: any) => {
+    const { user } = await supabase.auth.api.getUserByCookie(req)
+    const { data: userRole } = await supabase
+        .from<definitions['user_roles']>('user_roles')
+        .select(
+            `
+            role
+        `
+        )
+        .eq('user_id', user?.id)
+        .single()
+    if (!user) {
+        return { props: {}, redirect: { destination: '/auth/login' } }
+    }
+    if (userRole?.role !== 'operator' && userRole?.role !== 'user') {
+        return { props: {}, redirect: { destination: '/' } }
+    }
 
-export default Home;
+    return { props: { user } }
+}
+export default Home

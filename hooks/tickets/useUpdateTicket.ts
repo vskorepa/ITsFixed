@@ -1,32 +1,31 @@
-import { data } from "autoprefixer";
-import { useState } from "react";
-import { typeUser } from "../../types/supabaseTypes";
-import { useMutation } from "react-query";
-import { supabase } from "../../lib/supabaseClient";
-import { CreateTicketType } from "../../types/supabaseTypes";
-import { definitions } from "../../types/supabase";
+import { data } from 'autoprefixer'
+import { useState } from 'react'
+import { typeUser } from '../../types/supabaseTypes'
+import { useMutation } from 'react-query'
+import { supabase } from '../../lib/supabaseClient'
+import { UpdateStateProps } from '../../types/supabaseTypes'
+import { definitions } from '../../types/supabase'
 // const userId = supabase.auth.user()!.id;
-const updateTicket = async (props: CreateTicketType) => {
-    console.log(props);
+const updateTicket = async (props: UpdateStateProps) => {
+    console.log(props)
     const { data, error } = await supabase
-        .from<CreateTicketType>("ticket")
+        .from<UpdateStateProps>('tickets')
         .update({
-            isalive: props.isalive,
+            state: props.state,
         })
-        .eq("id", props.id);
+        .eq('id', props.id)
     if (error) {
-        throw new Error(error.message);
+        throw new Error(error.message)
     }
     if (!data) {
-        throw new Error("Updating ticket did not succeed");
+        throw new Error('Updating ticket did not succeed')
     }
-    console.log(data);
-    return data;
-};
+    return data
+}
 
-const useUpdateTicket = (props: CreateTicketType) => {
-    return useMutation(["UpdateTicketState", props.id], () =>
+const useUpdateTicket = (props: UpdateStateProps) => {
+    return useMutation(['UpdateTicketState', props.id], () =>
         updateTicket(props)
-    );
-};
-export default useUpdateTicket;
+    )
+}
+export default useUpdateTicket

@@ -1,14 +1,17 @@
-import React from "react";
-import { useRouter } from "next/router";
-import useLogoutUser from "../../hooks/login/useLogoutUser";
+import React from 'react'
+import { useRouter } from 'next/router'
+import useLogoutUser from '../../hooks/login/useLogoutUser'
 
-const SignOut = () => {
-    const router = useRouter();
-    const LogoutMutation = useLogoutUser();
+const SignOut: React.FC = () => {
+    const router = useRouter()
+    const LogoutMutation = useLogoutUser()
+    console.log(LogoutMutation.error)
+    console.log(LogoutMutation.data)
+
     if (LogoutMutation.isSuccess) {
-        router.push("/");
+        router.push('/')
     }
-    return <div></div>;
-};
+    return <div></div>
+}
 
-export default SignOut;
+export default SignOut

@@ -1,26 +1,38 @@
-import { useQuery } from "react-query";
-import { supabase } from "../lib/supabaseClient";
+import { definitions } from './../types/supabase'
+import { data } from 'autoprefixer'
+import { useQuery } from 'react-query'
+import { supabase } from '../lib/supabaseClient'
 
-const getUser = async (userId: string) => {
-    const { data, error } = await supabase
-        .from("users")
-        .select()
-        .eq("id", userId)
-        .single();
-
-    if (error) {
-        throw new Error(error.message);
-    }
+const getUser = async () => {
+    // const { data, error } = await supabase.from("users").select().single();
+    const data = await supabase.auth.user()
+    const { data: roledata, error: roleError } = await supabase
+        .from<definitions['user_roles']>('user_roles')
+        .select(
+            `
+            role
+        `
+        )
+        .eq('user_id', data?.id)
+        .single()
+    const { data: userData, error: userError } = await supabase
+        .from<definitions['users']>('users')
+        .select(
+            `
+            first_name,
+            last_name
+        `
+        )
+        .eq('id', data?.id)
+        .single()
     if (!data) {
-        throw new Error("User not found");
+        throw new Error('User not found')
     }
-
-    return data;
-};
+    return { data, roledata, userData }
+}
 
 const useUser = () => {
-    const user = supabase.auth.user();
-    return useQuery("user", () => getUser(user!.id));
-};
+    return useQuery('user', () => getUser())
+}
 
-export default useUser;
+export default useUser
