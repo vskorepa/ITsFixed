@@ -30,8 +30,8 @@ const TicketsNav: React.FC<TicketsNavProps> = ({
     const [ticketsVisible, setTicketsVisible] = useState(true)
     const [visible, setVisible] = useState(false)
     return (
-        <div className="flex w-screen justify-between h-5vh">
-            <div className="flex items-center  bg-secondary sm:w-1/3 justify-between px-3 text-xl w-full">
+        <div className="flex w-screen justify-between sm:h-5vh  h-max">
+            <div className="flex items-center sm:py-0 py-1 bg-secondary sm:w-1/3 justify-between px-3 text-xl w-full">
                 <SearchFrom
                     searchChange={(search) => {
                         searchChange(search)
@@ -65,7 +65,7 @@ const TicketsNav: React.FC<TicketsNavProps> = ({
                         <MdOutlineClear />
                     </span>
                 </span>
-                <div className="bg-secondary justify-end items-center flex px-3 ">
+                <div className="justify-end items-center flex px-3 ">
                     <button
                         onClick={() => {
                             ticketsToggle(), setTicketsVisible(!ticketsVisible)
