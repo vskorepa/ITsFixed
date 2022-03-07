@@ -98,12 +98,28 @@ const TicketDetail: React.FC<TicketDetailProps> = ({
                         </div>
                     )}
                 </div>
+                <div>
+                    <div className="flex gap-2">
+                        <Text>
+                            <strong>First name: </strong>
+                            {data?.users.first_name}
+                        </Text>
+                        <Text>
+                            <strong>Last name: </strong>
+                            {data?.users.last_name}
+                        </Text>
+                    </div>
+                    <Text>
+                        <strong>E-mail: </strong>
+                        {data?.users.email}
+                    </Text>
 
-                <Text>{data?.users.first_name}</Text>
-                <Text>{data?.users.last_name}</Text>
-                <Text>{data?.users.email}</Text>
-
-                <Text>{data?.description}</Text>
+                    <Text>
+                        <strong>Description: </strong>
+                        <br />
+                        {data?.description}
+                    </Text>
+                </div>
             </div>
             {data && (
                 <div className="w-auto h-auto bg-lightDarker border-white rounded-3xl mr-4 border-2 dark:border-darkLighter dark:bg-darkDarker ">

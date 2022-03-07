@@ -9,6 +9,7 @@ import {
     SelectInput,
     TextAreaInput,
     SendMessageInput,
+    FileInput,
 } from './FromInputs'
 import {
     SignInValues,
@@ -16,6 +17,7 @@ import {
     CreateTicketValues,
     ResetPasswordValues,
     FilterTicketsValues,
+    OperatorFormValues,
 } from '../../types/formtypes'
 import { SubmitButton } from '../esential/Buttons'
 import useTranslation from 'next-translate/useTranslation'
@@ -197,6 +199,7 @@ export const CreateTicketModalForm: React.FC<CreateTicketFormProps> = ({
                     name="description"
                     placeholder="Briefly describe you problem"
                     maxLenght={500}
+                    rows={5}
                 />
             </Modal.Body>
             <Modal.Footer>
@@ -314,6 +317,46 @@ export const FilterTicketsModalForm: React.FC<FilterTicketsModalFormProps> = ({
                 </button>
             </Modal.Body>
             <Modal.Footer></Modal.Footer>
+        </form>
+    )
+}
+
+type OperatorFormProps = {
+    OnFormSubmit: (data: OperatorFormValues) => void
+}
+
+export const OperatorForm: React.FC<OperatorFormProps> = ({ OnFormSubmit }) => {
+    const { t } = useTranslation('common')
+
+    const {
+        register,
+        handleSubmit,
+        setError,
+        formState: { errors },
+    } = useForm()
+
+    const onSubmit: SubmitHandler<OperatorFormValues> = (data) => {
+        OnFormSubmit(data)
+    }
+    return (
+        <form
+            className="bg-secondary shadow-md rounded px-8 pt-6 pb-8 mb-4 min-w-30vw self-center"
+            onSubmit={handleSubmit(onSubmit)}
+        >
+            <TextAreaInput
+                register={register}
+                errors={errors}
+                required={true}
+                name="conviction"
+                placeholder="Try to convice us to pick you to be an operator."
+                maxLenght={500}
+                rows={10}
+            />
+            <FileInput register={register} errors={errors} />
+
+            <div className="flex items-center justify-between">
+                <SubmitButton text="Submit" />
+            </div>
         </form>
     )
 }

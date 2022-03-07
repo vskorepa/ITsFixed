@@ -29,7 +29,7 @@ const SignIn: React.FC = () => {
         console.log(error)
     }
     return (
-        <div className="justify-center flex-wrap">
+        <div className="flex justify-center flex-wrap">
             <SignInForm OnFormSubmit={(data) => onSubmit(data)} />
             {loginMutation.isError && (
                 //@ts-ignore

@@ -22,3 +22,7 @@ export type FilterTicketsValues = {
 export type ResetPasswordValues = {
     email: string
 }
+export type OperatorFormValues = {
+    conviction: string
+    cv: File
+}

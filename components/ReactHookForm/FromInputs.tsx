@@ -16,6 +16,7 @@ type InputProps = {
     }[]
     children?: React.ReactNode
     disabled?: boolean
+    rows?: number
 }
 type SelectInputProps = {
     register: UseFormReturn['register']
@@ -304,14 +305,22 @@ export const TextAreaInput: React.FC<InputProps> = ({
     placeholder,
     required,
     maxLenght,
+    rows,
 }) => {
     const { t } = useTranslation('common')
 
     return (
         <div>
-            <Textarea
+            <label
+                className="block text-gray-700 text-sm font-bold mb-2"
+                id={name ?? 'select'}
+            >
+                {name ?? 'select'}
+            </label>
+            <textarea
+                className="w-full rounded-2xl p-1 outline-none border-2 border-dark focus:border-primary"
                 placeholder={placeholder ?? 'Type some text'}
-                rows={5}
+                rows={rows}
                 {...register(name ?? 'TextArea', {
                     required: {
                         value: required ?? false,
@@ -373,6 +382,49 @@ export const SendMessageInput: React.FC<InputProps> = ({
             {errors[name ?? 'basic'] && (
                 <p className="text-red-500 text-md italic">
                     {errors[name ?? 'basic'].message}
+                </p>
+            )}
+        </div>
+    )
+}
+
+export const FileInput: React.FC<InputProps> = ({ register, errors }) => {
+    const { t } = useTranslation('common')
+    console.log(errors.cv)
+    return (
+        <div className="mb-4 w-full">
+            <label
+                className="block text-gray-700 text-sm font-bold mb-2"
+                id="cv"
+            >
+                CV
+            </label>
+            <input
+                id="cv"
+                className={` ${errors.cv ? 'border-red-500' : 'border-dark'}
+                focus:border-primary 
+                 shadow bg-light appearance-none border-2 rounded w-full py-2 px-3
+                 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline
+                 `}
+                type="file"
+                placeholder="example@email.com"
+                {...register('cv', {
+                    required: {
+                        value: true,
+                        message: t('required'),
+                    },
+                    validate: {
+                        TypeValidation: (v) =>
+                            v[0].type === 'application/pdf' || t('filePDF'),
+                        SizeValidation: (v) =>
+                            v[0].size <= 10000000 || t('BigFile'),
+                    },
+                })}
+            />
+
+            {errors.cv && (
+                <p className="text-red-500 text-md italic">
+                    {errors.cv.message}
                 </p>
             )}
         </div>
