@@ -59,7 +59,7 @@ const TicketDetail: React.FC<TicketDetailProps> = ({
     return (
         <div
             className={`h-80vh sm:w-2/4 xl:w-2/3 ${
-                ticketsToggle ? 'hidden' : 'block'
+                ticketsToggle ? 'hidden sm:block' : 'block'
             } overflow-auto`}
         >
             <div className="h-30vh w-full justify-center">

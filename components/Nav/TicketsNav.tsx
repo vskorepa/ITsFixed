@@ -65,17 +65,18 @@ const TicketsNav: React.FC<TicketsNavProps> = ({
                         <MdOutlineClear />
                     </span>
                 </span>
+                <div className="bg-secondary justify-end items-center flex px-3 ">
+                    <button
+                        onClick={() => {
+                            ticketsToggle(), setTicketsVisible(!ticketsVisible)
+                        }}
+                        className="sm:hidden flex items-center justify-center p-0 w-12 h-10 rounded-full bg-secondaryDarker hover:bg-secondaryLighter active:shadow-lg mouse shadow transition ease-in duration-200 focus:translate-y-0.5"
+                    >
+                        {ticketsVisible ? <AiOutlineUp /> : <AiOutlineDown />}
+                    </button>
+                </div>
             </div>
-            <div className="bg-secondary justify-end flex items-center px-3">
-                <button
-                    onClick={() => {
-                        ticketsToggle(), setTicketsVisible(!ticketsVisible)
-                    }}
-                    className="flex items-center justify-center p-0 w-12 h-10 rounded-full bg-secondaryDarker hover:bg-secondaryLighter active:shadow-lg mouse shadow transition ease-in duration-200 focus:translate-y-0.5"
-                >
-                    {ticketsVisible ? <AiOutlineUp /> : <AiOutlineDown />}
-                </button>
-            </div>
+            <div className="bg-secondary sm:w-2/3"></div>
         </div>
     )
 }

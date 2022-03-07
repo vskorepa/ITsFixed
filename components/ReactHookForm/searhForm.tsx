@@ -15,14 +15,14 @@ export const SearchFrom: React.FC<SearchFormProps> = ({ searchChange }) => {
     }, [searchChange])
     return (
         <form className="">
-            <div className="flex items-center gap-2  ">
+            <div className="flex items-center gap-2 m-auto">
                 <HiSearch />
                 <input
                     {...register('search', { maxLength: 50 })}
                     type="text"
                     name="search"
                     placeholder="search"
-                    className=" border-b-2 bg-secondary border-light outline-none focus:border-primary text-light"
+                    className=" border-b-2 w-52 bg-secondary border-light outline-none focus:border-primary text-light"
                 />
             </div>
         </form>

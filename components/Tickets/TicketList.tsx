@@ -108,7 +108,7 @@ const TicketList: React.FC = () => {
             <div className="flex flex-row w-full h-80vh">
                 <div
                     className={`xl:w-1/3 sm:w-2/4 w-full h-80vh ${
-                        ticketsToggle ? 'block' : 'hidden'
+                        ticketsToggle ? 'block' : 'hidden sm:block'
                     } translate
                     `}
                 >
