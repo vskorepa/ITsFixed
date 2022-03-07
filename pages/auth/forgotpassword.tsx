@@ -10,12 +10,12 @@ const LoginPage: React.FC = () => {
     return (
         <div>
             <div className="w-full h-85vh">
-                <div className="w-full flex-wrap flex justify-center gap-2">
+                <div className="w-full flex-col flex justify-center gap-2 items-center">
                     <div className="text-primary font-semibold w-full pb-4 flex justify-center text-5xl">
                         <h1>{t('forgotPassword')}</h1>
                     </div>
                     <ResetPassword />
-                    <Row justify="flex-end">
+                    <div className="flex w-1/2 justify-end">
                         <Button
                             light
                             color="primary"
@@ -23,7 +23,7 @@ const LoginPage: React.FC = () => {
                         >
                             {t('alreadyAccount')}
                         </Button>
-                    </Row>
+                    </div>
                 </div>
             </div>
         </div>

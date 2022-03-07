@@ -35,10 +35,13 @@ const ResetPassword: React.FC = () => {
                     </a>
                 </div>
             ) : (
-                <p className="text-red-500">
-                    Something went wron with the password reset. Check corectnes
-                    of the email above or contact the administrator.
-                </p>
+                forgotPasswordMutation.isError && (
+                    <p className="text-red-500">
+                        Something went wron with the password reset. Check
+                        corectnes of the email above or contact the
+                        administrator.
+                    </p>
+                )
             )}
         </div>
     )

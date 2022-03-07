@@ -10,11 +10,13 @@ import useMessages from '../../hooks/messages/useGetMessages'
 type TicketDetailProps = {
     ticket_id: string
     newMessage?: definitions['messages']
+    ticketsToggle: boolean
 }
 
 const TicketDetail: React.FC<TicketDetailProps> = ({
     ticket_id,
     newMessage,
+    ticketsToggle,
 }) => {
     const { t } = useTranslation('common')
     const { data: message } = useMessages(ticket_id)
@@ -55,7 +57,11 @@ const TicketDetail: React.FC<TicketDetailProps> = ({
         return <div className="h-80vh w-2/3"></div>
     }
     return (
-        <div className="h-80vh w-2/4 xl:w-2/3">
+        <div
+            className={`h-80vh sm:w-2/4 xl:w-2/3 ${
+                ticketsToggle ? 'hidden' : 'block'
+            } overflow-auto`}
+        >
             <div className="h-30vh w-full justify-center">
                 <div className="flex flex-nowrap justify-between p-3 items-center">
                     {isLoading ? (
