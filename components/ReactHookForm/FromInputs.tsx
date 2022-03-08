@@ -390,7 +390,6 @@ export const SendMessageInput: React.FC<InputProps> = ({
 
 export const FileInput: React.FC<InputProps> = ({ register, errors }) => {
     const { t } = useTranslation('common')
-    console.log(errors.cv)
     return (
         <div className="mb-4 w-full">
             <label

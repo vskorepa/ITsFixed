@@ -23,6 +23,7 @@ export type ResetPasswordValues = {
     email: string
 }
 export type OperatorFormValues = {
+    user_id: string
     conviction: string
-    cv: File
+    cv: File[]
 }
