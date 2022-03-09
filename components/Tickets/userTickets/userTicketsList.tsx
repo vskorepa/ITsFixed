@@ -80,9 +80,11 @@ const UserTicketList: React.FC = () => {
                         close={() => setVisible(false)}
                     />
                 </div>
-                <div className="p-10 grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-14 items-center">
+                <div className="w-full p-10 grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-14">
                     {tickets?.map((item) => (
-                        <UserTicketCard key={item.id} data={item} />
+                        <div className="w-full h-full flex-col justify-around items-center">
+                            <UserTicketCard key={item.id} data={item} />
+                        </div>
                     ))}
                 </div>
             </div>

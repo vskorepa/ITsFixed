@@ -29,7 +29,7 @@ function MyApp({ Component, pageProps }: AppProps): JSX.Element {
                 <TopNav authRole={useHandleAuthChange()} />
 
                 <Component {...pageProps} />
-                <ReactQueryDevtools initialIsOpen={false} />
+                {/* <ReactQueryDevtools initialIsOpen={false} /> */}
             </QueryClientProvider>
             <Foot />
         </ThemeProvider>

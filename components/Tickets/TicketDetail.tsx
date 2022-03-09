@@ -45,7 +45,7 @@ const TicketDetail: React.FC<TicketDetailProps> = ({
     const TicketStateChange = () => {
         TicketMutation.mutate()
     }
-    const { data, isLoading, isError } = useTicketDetail(ticket_id)
+    const { data, isLoading, status } = useTicketDetail(ticket_id)
 
     const TicketMutation = useUpdateTicket({
         id: ticket_id,
@@ -63,14 +63,14 @@ const TicketDetail: React.FC<TicketDetailProps> = ({
                     ) : (
                         <div
                             className={`flex flex-nowrap gap-2 ${
-                                isError && 'text-warning'
+                                status === 'error' && 'text-warning'
                             } text-primary`}
                         >
                             <p className="font-bold">Ticket Number:</p>
                             <p>{data?.id ?? 'Invalid ticket id'}</p>
                         </div>
                     )}
-                    {!isError && (
+                    {status !== 'error' && (
                         <div className="flex-wrap flex gap-2 items-center">
                             {isLoading ? (
                                 <Loading size="medium" />

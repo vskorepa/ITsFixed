@@ -18,7 +18,7 @@ const UserTicketCard: React.FC<userTicketCardPrps> = ({ data }) => {
                     search: '?TicketId=' + data.id,
                 })
             }
-            className={`max-w-sm rounded-2xl overflow-hidden dark:bg-darkLighter shadow-md cursor-pointer 
+            className={`flex flex-col max-w-sm rounded-2xl overflow-hidden dark:bg-darkLighter shadow-md cursor-pointer 
             ${data.state === 'done' && 'shadow-primary'}
             ${data.state === 'waiting' && 'shadow-warning'}
             ${data.state === 'ongoing' && 'shadow-secondary'}`}
