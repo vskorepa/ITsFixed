@@ -7,11 +7,13 @@ import { ToolTipDropDownStateFilter } from '../esential/ToolTipDropDown'
 import { SearchFrom } from '../ReactHookForm/searhForm'
 import TicketsModalFilter from './TicketsNavFilter'
 import { MdOutlineClear } from 'react-icons/md'
+import { AiOutlineDown, AiOutlineUp } from 'react-icons/ai'
 type TicketsNavProps = {
     filterClear: () => void
     stateChange: (state: string) => void
     typeChange: (state: number) => void
     searchChange: (search: string) => void
+    ticketsToggle: () => void
     type: number
     state: string
 }
@@ -23,31 +25,19 @@ const TicketsNav: React.FC<TicketsNavProps> = ({
     typeChange,
     type,
     state,
+    ticketsToggle,
 }) => {
-    const [toolTipVisible, setToolTipVisible] = useState(false)
+    const [ticketsVisible, setTicketsVisible] = useState(true)
     const [visible, setVisible] = useState(false)
     return (
-        <div className="flex w-screen justify-between h-5vh">
-            <div className="flex items-center  bg-secondary w-1/3 justify-between px-3 text-xl">
+        <div className="flex w-screen justify-between sm:h-5vh  h-max">
+            <div className="flex items-center sm:py-0 py-1 bg-secondary sm:w-1/3 justify-between px-3 text-xl w-full">
                 <SearchFrom
                     searchChange={(search) => {
                         searchChange(search)
                     }}
                 />
-                {/* <Tooltip
-                    trigger="click"
-                    onClick={() => setToolTipVisible(!toolTipVisible)}
-                    color="#50D890"
-                    placement="right"
-                    visible={toolTipVisible}
-                    content={
-                        <ToolTipDropDownStateFilter
-                            onClick={(state) => {
-                                stateChange(state), setToolTipVisible(false)
-                            }}
-                        />
-                    }
-                > */}
+
                 <span className="relative inline-block">
                     <div className="flex items-center">
                         <button
@@ -75,22 +65,18 @@ const TicketsNav: React.FC<TicketsNavProps> = ({
                         <MdOutlineClear />
                     </span>
                 </span>
-
-                {/* </Tooltip> */}
+                <div className="justify-end items-center flex px-3 ">
+                    <button
+                        onClick={() => {
+                            ticketsToggle(), setTicketsVisible(!ticketsVisible)
+                        }}
+                        className="sm:hidden flex items-center justify-center p-0 w-12 h-10 rounded-full bg-secondaryDarker hover:bg-secondaryLighter active:shadow-lg mouse shadow transition ease-in duration-200 focus:translate-y-0.5"
+                    >
+                        {ticketsVisible ? <AiOutlineUp /> : <AiOutlineDown />}
+                    </button>
+                </div>
             </div>
-            <div className="bg-secondary w-2/3 justify-end flex items-center px-3">
-                {/* <Button
-                    className=""
-                    onClick={() => setVisible(true)}
-                    auto
-                    rounded
-                    size="small"
-                    // icon={<HiPlus className="justify-self-center" />}
-                >
-                    +
-                    <CreateTicket visible={visible} close={()=>setVisible(false)} />
-                </Button> */}
-            </div>
+            <div className="bg-secondary sm:w-2/3"></div>
         </div>
     )
 }

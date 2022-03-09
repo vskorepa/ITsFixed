@@ -29,13 +29,13 @@ const SignIn: React.FC = () => {
         console.log(error)
     }
     return (
-        <div className="justify-center flex-wrap">
+        <div className="flex justify-center flex-col">
             <SignInForm OnFormSubmit={(data) => onSubmit(data)} />
             {loginMutation.isError && (
                 //@ts-ignore
                 <p className="text-red-500">{loginMutation.error.message}</p>
             )}
-            <Button onClick={() => signInWithFacebook()}>
+            <Button className="" onClick={() => signInWithFacebook()}>
                 LOGIN with Facebook
             </Button>
         </div>

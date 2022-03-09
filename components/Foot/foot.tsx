@@ -6,7 +6,7 @@ import { BsTools } from 'react-icons/bs'
 export const Foot: React.FC = () => {
     const router = useRouter()
     return (
-        <footer className="bottom-0 text-gray-400  bg-darkDarker h-7.5vh body-font w-full items-center z-50">
+        <footer className="bottom-0 text-gray-400  bg-darkDarker sm:h-7.5vh h-max body-font w-full items-center z-50">
             <div className="container h-full px-5 mx-auto flex items-center sm:flex-row flex-col">
                 <a className="flex title-font font-medium items-center md:justify-start justify-center text-white">
                     <BsTools />

@@ -10,11 +10,13 @@ import useMessages from '../../hooks/messages/useGetMessages'
 type TicketDetailProps = {
     ticket_id: string
     newMessage?: definitions['messages']
+    ticketsToggle: boolean
 }
 
 const TicketDetail: React.FC<TicketDetailProps> = ({
     ticket_id,
     newMessage,
+    ticketsToggle,
 }) => {
     const { t } = useTranslation('common')
     const { data: message } = useMessages(ticket_id)
@@ -55,7 +57,11 @@ const TicketDetail: React.FC<TicketDetailProps> = ({
         return <div className="h-80vh w-2/3"></div>
     }
     return (
-        <div className="h-80vh w-2/4 xl:w-2/3">
+        <div
+            className={`h-80vh sm:w-2/4 xl:w-2/3 ${
+                ticketsToggle ? 'hidden sm:block' : 'block'
+            } overflow-auto`}
+        >
             <div className="h-30vh w-full justify-center">
                 <div className="flex flex-nowrap justify-between p-3 items-center">
                     {isLoading ? (
@@ -98,12 +104,28 @@ const TicketDetail: React.FC<TicketDetailProps> = ({
                         </div>
                     )}
                 </div>
+                <div>
+                    <div className="flex gap-2">
+                        <Text>
+                            <strong>First name: </strong>
+                            {data?.users.first_name}
+                        </Text>
+                        <Text>
+                            <strong>Last name: </strong>
+                            {data?.users.last_name}
+                        </Text>
+                    </div>
+                    <Text>
+                        <strong>E-mail: </strong>
+                        {data?.users.email}
+                    </Text>
 
-                <Text>{data?.users.first_name}</Text>
-                <Text>{data?.users.last_name}</Text>
-                <Text>{data?.users.email}</Text>
-
-                <Text>{data?.description}</Text>
+                    <Text>
+                        <strong>Description: </strong>
+                        <br />
+                        {data?.description}
+                    </Text>
+                </div>
             </div>
             {data && (
                 <div className="w-auto h-auto bg-lightDarker border-white rounded-3xl mr-4 border-2 dark:border-darkLighter dark:bg-darkDarker ">
