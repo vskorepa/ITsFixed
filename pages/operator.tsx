@@ -21,7 +21,6 @@ const Home: NextPage = () => {
         conviction: conviction,
         cv: cvFile!,
     })
-    console.log(SubmitOperatorFormMutation.error)
     return (
         <div className="flex justify-center flex-col">
             <Text className="text-sandy font-bold text-4xl" h1>
@@ -39,4 +38,12 @@ const Home: NextPage = () => {
     )
 }
 
+export const getServerSideProps = async ({ req }: any) => {
+    const { user } = await supabase.auth.api.getUserByCookie(req)
+
+    if (!user) {
+        return { props: {}, redirect: { destination: '/auth/login' } }
+    }
+    return { props: { user } }
+}
 export default Home

@@ -111,6 +111,102 @@ export interface paths {
       };
     };
   };
+  "/operatorforms": {
+    get: {
+      parameters: {
+        query: {
+          id?: parameters["rowFilter.operatorforms.id"];
+          insert_at?: parameters["rowFilter.operatorforms.insert_at"];
+          conviction?: parameters["rowFilter.operatorforms.conviction"];
+          user_id?: parameters["rowFilter.operatorforms.user_id"];
+          /** Filtering Columns */
+          select?: parameters["select"];
+          /** Ordering */
+          order?: parameters["order"];
+          /** Limiting and Pagination */
+          offset?: parameters["offset"];
+          /** Limiting and Pagination */
+          limit?: parameters["limit"];
+        };
+        header: {
+          /** Limiting and Pagination */
+          Range?: parameters["range"];
+          /** Limiting and Pagination */
+          "Range-Unit"?: parameters["rangeUnit"];
+          /** Preference */
+          Prefer?: parameters["preferCount"];
+        };
+      };
+      responses: {
+        /** OK */
+        200: {
+          schema: definitions["operatorforms"][];
+        };
+        /** Partial Content */
+        206: unknown;
+      };
+    };
+    post: {
+      parameters: {
+        body: {
+          /** operatorforms */
+          operatorforms?: definitions["operatorforms"];
+        };
+        query: {
+          /** Filtering Columns */
+          select?: parameters["select"];
+        };
+        header: {
+          /** Preference */
+          Prefer?: parameters["preferReturn"];
+        };
+      };
+      responses: {
+        /** Created */
+        201: unknown;
+      };
+    };
+    delete: {
+      parameters: {
+        query: {
+          id?: parameters["rowFilter.operatorforms.id"];
+          insert_at?: parameters["rowFilter.operatorforms.insert_at"];
+          conviction?: parameters["rowFilter.operatorforms.conviction"];
+          user_id?: parameters["rowFilter.operatorforms.user_id"];
+        };
+        header: {
+          /** Preference */
+          Prefer?: parameters["preferReturn"];
+        };
+      };
+      responses: {
+        /** No Content */
+        204: never;
+      };
+    };
+    patch: {
+      parameters: {
+        query: {
+          id?: parameters["rowFilter.operatorforms.id"];
+          insert_at?: parameters["rowFilter.operatorforms.insert_at"];
+          conviction?: parameters["rowFilter.operatorforms.conviction"];
+          user_id?: parameters["rowFilter.operatorforms.user_id"];
+        };
+        body: {
+          /** operatorforms */
+          operatorforms?: definitions["operatorforms"];
+        };
+        header: {
+          /** Preference */
+          Prefer?: parameters["preferReturn"];
+        };
+      };
+      responses: {
+        /** No Content */
+        204: never;
+      };
+    };
+  };
   "/role_permissions": {
     get: {
       parameters: {
@@ -588,11 +684,16 @@ export interface paths {
       };
     };
   };
-  "/rpc/handle_new_user": {
+  "/rpc/isinmyticket": {
     post: {
       parameters: {
         body: {
-          args: { [key: string]: unknown };
+          args: {
+            /** Format: uuid */
+            v_user_id: string;
+            /** Format: uuid */
+            v_ticket_id: string;
+          };
         };
         header: {
           /** Preference */
@@ -614,50 +715,6 @@ export interface paths {
             user_id: string;
             /** Format: public.app_permission */
             request_permission: string;
-          };
-        };
-        header: {
-          /** Preference */
-          Prefer?: parameters["preferParams"];
-        };
-      };
-      responses: {
-        /** OK */
-        200: unknown;
-      };
-    };
-  };
-  "/rpc/issenttome": {
-    post: {
-      parameters: {
-        body: {
-          args: {
-            /** Format: uuid */
-            v_user_id: string;
-            /** Format: uuid */
-            v_ticket_id: string;
-          };
-        };
-        header: {
-          /** Preference */
-          Prefer?: parameters["preferParams"];
-        };
-      };
-      responses: {
-        /** OK */
-        200: unknown;
-      };
-    };
-  };
-  "/rpc/ismyticket": {
-    post: {
-      parameters: {
-        body: {
-          args: {
-            /** Format: uuid */
-            v_user_id: string;
-            /** Format: uuid */
-            v_ticket_id: string;
           };
         };
         header: {
@@ -701,6 +758,27 @@ export interface definitions {
      */
     ticket_id: string;
   };
+  operatorforms: {
+    /**
+     * Format: bigint
+     * @description Note:
+     * This is a Primary Key.<pk/>
+     */
+    id: number;
+    /**
+     * Format: timestamp with time zone
+     * @default now()
+     */
+    insert_at: string;
+    /** Format: text */
+    conviction?: string;
+    /**
+     * Format: uuid
+     * @description Note:
+     * This is a Foreign Key to `users.id`.<fk table='users' column='id'/>
+     */
+    user_id: string;
+  };
   role_permissions: {
     /**
      * Format: bigint
@@ -713,19 +791,19 @@ export interface definitions {
     /** Format: public.app_permission */
     permission:
       | "tickets.select"
-      | "tickets.delete"
       | "tickets.update"
+      | "tickets.delete"
       | "user_roles.update"
-      | "users.delete"
-      | "users.update"
       | "users.select"
+      | "users.update"
       | "users.insert"
-      | "ticket_type.insert"
-      | "ticket_type.update"
+      | "users.delete"
       | "ticket_type.select"
+      | "ticket_type.update"
+      | "ticket_type.insert"
       | "ticket_type.delete"
-      | "messages.delete"
-      | "messages.select";
+      | "messages.select"
+      | "messages.delete";
   };
   ticket_type: {
     /**
@@ -735,7 +813,7 @@ export interface definitions {
      */
     id: number;
     /** Format: text */
-    name: string;
+    name?: string;
     /** Format: text */
     description?: string;
     /**
@@ -840,6 +918,16 @@ export interface parameters {
   "rowFilter.messages.user_id": string;
   /** Format: uuid */
   "rowFilter.messages.ticket_id": string;
+  /** @description operatorforms */
+  "body.operatorforms": definitions["operatorforms"];
+  /** Format: bigint */
+  "rowFilter.operatorforms.id": string;
+  /** Format: timestamp with time zone */
+  "rowFilter.operatorforms.insert_at": string;
+  /** Format: text */
+  "rowFilter.operatorforms.conviction": string;
+  /** Format: uuid */
+  "rowFilter.operatorforms.user_id": string;
   /** @description role_permissions */
   "body.role_permissions": definitions["role_permissions"];
   /** Format: bigint */
