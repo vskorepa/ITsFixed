@@ -37,13 +37,18 @@ const useCreateUser = (myUser: typeUser, facebookAuth: boolean) => {
         onSuccess: async (data) => {
             const { data: insertData, error: insertError } = await supabase
                 .from('users')
-                .insert({
-                    first_name: myUser.first_name,
-                    last_name: myUser.last_name,
-                    email: myUser.email,
-                    //@ts-ignore
-                    id: data.id,
-                })
+                .insert(
+                    [
+                        {
+                            first_name: myUser.first_name,
+                            last_name: myUser.last_name,
+                            email: myUser.email,
+                            //@ts-ignore
+                            id: data.id,
+                        },
+                    ],
+                    { returning: 'minimal' }
+                )
             if (insertError) {
                 throw insertError
             }

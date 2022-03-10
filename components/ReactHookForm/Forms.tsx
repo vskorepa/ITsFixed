@@ -18,6 +18,7 @@ import {
     ResetPasswordValues,
     FilterTicketsValues,
     OperatorFormValues,
+    ChangePasswordFormValues,
 } from '../../types/formtypes'
 import { SubmitButton } from '../esential/Buttons'
 import useTranslation from 'next-translate/useTranslation'
@@ -52,6 +53,38 @@ export const ResetPasswordForm: React.FC<ResetPasswordFormProps> = ({
                     password
                 </p>
                 <SubmitButton text="send" />
+            </div>
+        </form>
+    )
+}
+
+type changePasswordFormProps = {
+    OnFormSubmit: (data: ChangePasswordFormValues) => void
+}
+export const ChangePasswordForm: React.FC<changePasswordFormProps> = ({
+    OnFormSubmit,
+}) => {
+    const {
+        register,
+        formState: { errors },
+        handleSubmit,
+    } = useForm()
+    const onSubmit = (data: ChangePasswordFormValues) => {
+        OnFormSubmit(data)
+    }
+    return (
+        <form
+            className="shadow-md rounded px-8 pt-6 pb-8 mb-4 self-center"
+            onSubmit={handleSubmit(onSubmit)}
+        >
+            <RegexPasswordInput
+                name="newpassword"
+                placeholder="New password"
+                register={register}
+                errors={errors}
+            />
+            <div className="flex items-center justify-between">
+                <SubmitButton text="change" />
             </div>
         </form>
     )

@@ -2,7 +2,7 @@ import { Loading } from '@nextui-org/react'
 import Link from 'next/link'
 import React, { useState } from 'react'
 import { SubmitHandler } from 'react-hook-form'
-import useForgotPassword from '../../hooks/login/useForgotPassword'
+import useForgotPassword from '../../hooks/login/useSendForgotPasswordEmail'
 import { ResetPasswordValues } from '../../types/formtypes'
 
 import { ResetPasswordForm } from '../ReactHookForm/Forms'

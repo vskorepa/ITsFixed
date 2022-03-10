@@ -167,6 +167,8 @@ export const PasswordInput: React.FC<InputProps> = ({ register, errors }) => {
 export const RegexPasswordInput: React.FC<InputProps> = ({
     register,
     errors,
+    name,
+    placeholder,
 }) => {
     const { t } = useTranslation('common')
 
@@ -174,12 +176,12 @@ export const RegexPasswordInput: React.FC<InputProps> = ({
         <div className="mb-4 w-full">
             <label
                 className="block text-gray-700 text-sm font-bold mb-2"
-                id="password"
+                id={name ?? 'password'}
             >
-                Password
+                {name ?? 'Password'}
             </label>
             <input
-                id="password"
+                id={name ?? 'password'}
                 className={` ${
                     errors.password ? 'border-red-500' : 'border-dark'
                 }
@@ -188,8 +190,8 @@ export const RegexPasswordInput: React.FC<InputProps> = ({
                  text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline
                  `}
                 type="password"
-                placeholder="password"
-                {...register('password', {
+                placeholder={placeholder ?? 'password'}
+                {...register(name ?? 'password', {
                     required: {
                         value: true,
                         message: t('required'),

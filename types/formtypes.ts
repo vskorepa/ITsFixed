@@ -27,3 +27,6 @@ export type OperatorFormValues = {
     conviction: string
     cv: File[]
 }
+export type ChangePasswordFormValues = {
+    newpassword: string
+}

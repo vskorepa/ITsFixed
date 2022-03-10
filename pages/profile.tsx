@@ -3,6 +3,7 @@ import type { NextApiRequest, NextPage } from 'next'
 import { Avatar, Loading } from '@nextui-org/react'
 import useUser from '../hooks/useUser'
 import { supabase } from '../lib/supabaseClient'
+import ChangePassword from '../components/login/changePassword'
 
 const Home: NextPage = () => {
     const { data, isLoading } = useUser()
@@ -21,7 +22,7 @@ const Home: NextPage = () => {
                             size={250}
                         />
                     </div>
-                    <div className="w-full h-auto flex text-2xl flex-wrap gap-3">
+                    <div className="w-full h-auto flex text-2xl flex-wrap gap-3 items-center justify-center">
                         <div className="flex h-10 justify-center gap-4 w-full">
                             <h2>{data?.userData?.first_name}</h2>
                             <h2>{data?.userData?.last_name}</h2>
@@ -30,6 +31,7 @@ const Home: NextPage = () => {
                             <h2>{data?.roledata?.role}</h2>
                             <h2>{data?.data.email}</h2>
                         </div>
+                        <ChangePassword />
                     </div>
                 </div>
             )}
