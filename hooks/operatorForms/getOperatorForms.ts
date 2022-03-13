@@ -1,18 +1,25 @@
 import { useQuery } from 'react-query'
 import { supabase } from '../../lib/supabaseClient'
 import { definitions } from '../../types/supabase'
+import { OperatorForm } from '../../types/supabaseTypes'
 const getOperatorForms = async () => {
     const { data, error } = await supabase
-        .from<definitions['operatorforms']>('operatorforms')
+        .from<OperatorForm>('operatorforms')
         .select(
             `
             id,
             conviction,
             user_id,
+            insert_at,
+            users:user_id(
+                first_name,
+                last_name,
+                email
+            )
     `
         )
-        .order('insert_at')
 
+    console.log(data)
     if (error) {
         throw new Error(error.message)
     }

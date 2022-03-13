@@ -1,3 +1,4 @@
+import { OperatorForm } from './../components/ReactHookForm/Forms'
 import { definitions } from './supabase'
 
 export type typeUser = {
@@ -31,4 +32,7 @@ export type Messages = {
 }
 export type Message = {
     messages: definitions['messages']
+}
+export type OperatorForm = definitions['operatorforms'] & {
+    users: definitions['users']
 }

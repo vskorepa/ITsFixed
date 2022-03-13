@@ -28,5 +28,5 @@ export type OperatorFormValues = {
     cv: File[]
 }
 export type ChangePasswordFormValues = {
-    newpassword: string
+    password: string
 }

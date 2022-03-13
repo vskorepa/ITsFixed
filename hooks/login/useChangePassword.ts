@@ -7,7 +7,7 @@ const changePassword = async (props: ChangePasswordFormValues) => {
 
     //@ts-ignore
     const { data, error } = supabase.auth.update({
-        password: props.newpassword,
+        password: props.password,
     })
     if (error) {
         throw new Error(error.message)

@@ -4,30 +4,22 @@ import { Loading, Text } from '@nextui-org/react'
 import { supabase } from '../lib/supabaseClient'
 import { definitions } from '../types/supabase'
 import { useRouter } from 'next/router'
+import OperatorFormList from '../components/operatorForms/operatorFormsList'
+import useUser from '../hooks/useUser'
 const Home: NextPage = () => {
-    const [loading, setLoading] = useState(true)
     const router = useRouter()
+    const { data, isLoading } = useUser()
+
     useEffect(() => {
-        getUserRole()
+        if (!isLoading) {
+            if (data?.roledata?.role !== 'admin') {
+                console.log(data?.roledata?.role)
+                router.push('/')
+            }
+        }
     }, [])
 
-    const getUserRole = async () => {
-        const { data: userRole } = await supabase
-            .from<definitions['user_roles']>('user_roles')
-            .select(
-                `
-            role
-            `
-            )
-            .eq('user_id', supabase.auth.user()?.id)
-            .single()
-        if (userRole?.role !== 'admin') {
-            router.push('/')
-        } else {
-            setLoading(false)
-        }
-    }
-    if (loading) {
+    if (isLoading) {
         return (
             <div>
                 <div className="text-center">
@@ -45,6 +37,9 @@ const Home: NextPage = () => {
                 <Text className="text-sandy font-bold text-4xl" h1>
                     ADMIN Page
                 </Text>
+            </div>
+            <div>
+                <OperatorFormList key={data?.data.id} />
             </div>
         </div>
     )

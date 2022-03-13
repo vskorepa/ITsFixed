@@ -171,7 +171,7 @@ export const RegexPasswordInput: React.FC<InputProps> = ({
     placeholder,
 }) => {
     const { t } = useTranslation('common')
-
+    console.log(errors)
     return (
         <div className="mb-4 w-full">
             <label
@@ -191,7 +191,7 @@ export const RegexPasswordInput: React.FC<InputProps> = ({
                  `}
                 type="password"
                 placeholder={placeholder ?? 'password'}
-                {...register(name ?? 'password', {
+                {...register('password', {
                     required: {
                         value: true,
                         message: t('required'),
