@@ -36,3 +36,6 @@ export type Message = {
 export type OperatorForm = definitions['operatorforms'] & {
     users: definitions['users']
 }
+export type PromoteToOperator = {
+    user_id: string
+}

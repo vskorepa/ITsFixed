@@ -1,4 +1,4 @@
-import { CreateTicketValues } from './../../types/formtypes'
+import { CreateTicketValues } from '../../types/formtypes'
 import { useMutation } from 'react-query'
 import { supabase } from '../../lib/supabaseClient'
 import { SendMessageProps } from '../../types/supabaseTypes'

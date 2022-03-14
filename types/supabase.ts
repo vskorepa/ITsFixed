@@ -119,6 +119,7 @@ export interface paths {
           insert_at?: parameters["rowFilter.operatorforms.insert_at"];
           conviction?: parameters["rowFilter.operatorforms.conviction"];
           user_id?: parameters["rowFilter.operatorforms.user_id"];
+          active?: parameters["rowFilter.operatorforms.active"];
           /** Filtering Columns */
           select?: parameters["select"];
           /** Ordering */
@@ -173,6 +174,7 @@ export interface paths {
           insert_at?: parameters["rowFilter.operatorforms.insert_at"];
           conviction?: parameters["rowFilter.operatorforms.conviction"];
           user_id?: parameters["rowFilter.operatorforms.user_id"];
+          active?: parameters["rowFilter.operatorforms.active"];
         };
         header: {
           /** Preference */
@@ -191,6 +193,7 @@ export interface paths {
           insert_at?: parameters["rowFilter.operatorforms.insert_at"];
           conviction?: parameters["rowFilter.operatorforms.conviction"];
           user_id?: parameters["rowFilter.operatorforms.user_id"];
+          active?: parameters["rowFilter.operatorforms.active"];
         };
         body: {
           /** operatorforms */
@@ -778,6 +781,11 @@ export interface definitions {
      * This is a Foreign Key to `users.id`.<fk table='users' column='id'/>
      */
     user_id: string;
+    /**
+     * Format: boolean
+     * @default true
+     */
+    active: boolean;
   };
   role_permissions: {
     /**
@@ -928,6 +936,8 @@ export interface parameters {
   "rowFilter.operatorforms.conviction": string;
   /** Format: uuid */
   "rowFilter.operatorforms.user_id": string;
+  /** Format: boolean */
+  "rowFilter.operatorforms.active": string;
   /** @description role_permissions */
   "body.role_permissions": definitions["role_permissions"];
   /** Format: bigint */

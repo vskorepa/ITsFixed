@@ -5,7 +5,7 @@ import { Text } from '@nextui-org/react'
 import { OperatorForm } from '../components/ReactHookForm/Forms'
 import { SubmitHandler } from 'react-hook-form'
 import { OperatorFormValues } from '../types/formtypes'
-import useSubmitOperatorForm from '../hooks/operatorForms/submitOperatorForm'
+import useSubmitOperatorForm from '../hooks/operatorForms/useSubmitOperatorForm'
 import { supabase } from '../lib/supabaseClient'
 const Home: NextPage = () => {
     const { t } = useTranslation('common')

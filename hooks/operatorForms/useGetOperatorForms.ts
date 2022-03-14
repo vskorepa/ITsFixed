@@ -18,8 +18,8 @@ const getOperatorForms = async () => {
             )
     `
         )
+        .eq('active', true)
 
-    console.log(data)
     if (error) {
         throw new Error(error.message)
     }

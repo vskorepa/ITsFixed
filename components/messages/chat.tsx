@@ -4,7 +4,7 @@ import 'simplebar/dist/simplebar.css'
 import { SendMassageForm } from '../ReactHookForm/Forms'
 import { SentMessage, RecievedMessage } from './message'
 import { SubmitHandler } from 'react-hook-form'
-import useSendMessage from '../../hooks/messages/sendMessage'
+import useSendMessage from '../../hooks/messages/useSendMessage'
 import { supabase } from '../../lib/supabaseClient'
 import { definitions } from '../../types/supabase'
 

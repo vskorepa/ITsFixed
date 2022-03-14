@@ -1,7 +1,7 @@
 import { Button, Loading } from '@nextui-org/react'
 import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
-import useGetOperatorForms from '../../hooks/operatorForms/getOperatorForms'
+import useGetOperatorForms from '../../hooks/operatorForms/useGetOperatorForms'
 import OperatorFormCard from './operatorFormCard'
 
 const OperatorFormList: React.FC = () => {
