@@ -34,7 +34,11 @@ const OperatorFormList: React.FC = () => {
                             key={item.id}
                             className="w-full h-full flex-col justify-around items-center"
                         >
-                            <OperatorFormCard key={item.id} data={item} />
+                            <OperatorFormCard
+                                key={item.id}
+                                data={item}
+                                refetch={() => refetch()}
+                            />
                         </div>
                     ))}
                 </div>

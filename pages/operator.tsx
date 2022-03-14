@@ -17,7 +17,7 @@ const Home: NextPage = () => {
         SubmitOperatorFormMutation.mutate()
     }
     const SubmitOperatorFormMutation = useSubmitOperatorForm({
-        user_id: supabase.auth.user()?.id!,
+        user_id: supabase.auth.user()?.id ?? '',
         conviction: conviction,
         cv: cvFile!,
     })
@@ -30,7 +30,10 @@ const Home: NextPage = () => {
             <div className="w-full flex justify-center pb-2">
                 {SubmitOperatorFormMutation.isError && (
                     <p className="text-red-500">
-                        {SubmitOperatorFormMutation.error.message ?? ''}
+                        {
+                            //@ts-ignore
+                            SubmitOperatorFormMutation.error.message ?? ''
+                        }
                     </p>
                 )}
             </div>

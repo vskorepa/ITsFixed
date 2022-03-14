@@ -8,7 +8,7 @@ import { useRouter } from 'next/router'
 const promoteToOperator = async (user_id: string) => {
     const { data, error } = await supabase
         .from<definitions['user_roles']>('user_roles')
-        .update({ role: 'admin' })
+        .update({ role: 'operator' })
         .eq('user_id', user_id)
     if (error) {
         throw new Error('Updating user role failed')

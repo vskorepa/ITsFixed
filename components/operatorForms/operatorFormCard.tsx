@@ -4,18 +4,26 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 import React from 'react'
 import { AiOutlineCheckSquare, AiOutlineCloseSquare } from 'react-icons/ai'
+import useAcceptNewOperator from '../../hooks/operatorForms/useAcceptNewOperator'
+import useDeclinNewOperator from '../../hooks/operatorForms/useDeclineNewOperator'
 import { OperatorFormValues } from '../../types/formtypes'
 import { OperatorForm } from '../../types/supabaseTypes'
 type operatorFomrCardProps = {
     data: OperatorForm
+    refetch: () => void
 }
 
-const OperatorFormCard: React.FC<operatorFomrCardProps> = ({ data }) => {
+const OperatorFormCard: React.FC<operatorFomrCardProps> = ({
+    data,
+    refetch,
+}) => {
     const createdAt = moment(data.insert_at).tz('Europe/Prague', true)
     const router = useRouter()
-    const acceptOperator = () => {}
-    const declineOperator = () => {}
 
+    const acceptOperatorMutation = useAcceptNewOperator(data.user_id)
+    const declineOperatorMutation = useDeclinNewOperator(data.user_id)
+    if (acceptOperatorMutation.isSuccess || declineOperatorMutation.isSuccess)
+        refetch()
     return (
         <div
             className={`flex flex-col max-w-sm rounded-2xl overflow-hidden dark:bg-darkLighter shadow-md 
@@ -29,11 +37,11 @@ const OperatorFormCard: React.FC<operatorFomrCardProps> = ({ data }) => {
                     </div>
                     <div className="flex flex-row text-3xl">
                         <AiOutlineCheckSquare
-                            onClick={() => acceptOperator()}
+                            onClick={() => acceptOperatorMutation.mutate()}
                             className="text-primary cursor-pointer active:translate-y-0.5"
                         />
                         <AiOutlineCloseSquare
-                            onClick={() => declineOperator()}
+                            onClick={() => declineOperatorMutation.mutate()}
                             className="text-red-500 cursor-pointer active:translate-y-0.5"
                         />
                     </div>
@@ -41,6 +49,7 @@ const OperatorFormCard: React.FC<operatorFomrCardProps> = ({ data }) => {
                 <a
                     className="text-primary dark:hover:text-light hover:text-dark"
                     target="_blank"
+                    rel="noreferrer"
                     href={
                         'https://puqfdgaqnioxcbuytvwe.supabase.in/storage/v1/object/public/cv-files/' +
                         data.user_id

@@ -5,7 +5,6 @@ import { SendMessageProps } from '../../types/supabaseTypes'
 import { useRouter } from 'next/router'
 
 const submitOperatorForm = async (props: OperatorFormValues) => {
-    console.log(props)
     const { data, error } = await supabase
         .from<OperatorFormValues>('operatorforms')
         .insert([
@@ -24,8 +23,6 @@ const submitOperatorForm = async (props: OperatorFormValues) => {
 }
 
 const useSubmitOperatorForm = (props: OperatorFormValues) => {
-    console.log(props)
-
     return useMutation(
         ['SubmitForm', props.user_id],
         () => submitOperatorForm(props),

@@ -9,13 +9,13 @@ import { ChangePasswordForm } from '../ReactHookForm/Forms'
 const ChangePassword: React.FC = () => {
     const onSubmit: SubmitHandler<ChangePasswordFormValues> = (data) => {
         console.log(data)
-        setNewPassword(data.newpassword)
+        setNewPassword(data.password)
         changePasswordMutation.mutate()
     }
     const [newPassword, setNewPassword] = useState('')
 
     const changePasswordMutation = useChangePassword({
-        newpassword: newPassword,
+        password: newPassword,
     })
 
     return (
