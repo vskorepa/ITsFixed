@@ -49,7 +49,9 @@
     "filePDF": "Soubor musí být PDF",
     "OperatorFormSent": "Formulář byl úspěšně odeslán. Jeden z našich Adminů ho brzi vyhodnotí.",
     "Inserting form failed": "Odeslání formuláře selhalo. Formulář můžete odeslat pouze jednou",
-
+    "OnlyOneTicket": "Můžete mít jenom jeden čekající ticket.",
+    "Briefly describe you problem": "Stručně popište svůj problém",
+    "createTicket": "Vytvořit ticket",
     "TypeYourMessage": "Napište svou zprávu...",
     "CheckYourEmail": "Na váš email jsme vám poslali odkaz na přihlášení. Zpátky na přihlašovací stránku:",
     "LoginPage": "Přihlašovací stránka",

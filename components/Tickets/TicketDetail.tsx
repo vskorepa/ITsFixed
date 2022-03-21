@@ -129,6 +129,7 @@ const TicketDetail: React.FC<TicketDetailProps> = ({
             {data && (
                 <div className="w-auto h-auto bg-lightDarker border-white rounded-3xl mr-4 border-2 dark:border-darkLighter dark:bg-darkDarker ">
                     <Chat
+                        disabled={data?.state == 'done'}
                         MessagesData={messages ?? []}
                         key={'TicketChat' + ticket_id}
                         id={ticket_id}

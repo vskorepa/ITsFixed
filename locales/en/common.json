@@ -33,8 +33,11 @@
     "send": "Send",
     "forgotPassword": "Forogt password?",
     "newpassword": "New password",
-
+    "OnlyOneTicket": "You can have only one waiting ticket at a time.",
     "user": "User:",
+    "Briefly describe you problem": "Briefly describe your problem",
+    "createTicket": "Create ticket",
+
     "ticketNumber": "Ticket number:",
     "isActive": "Is active:",
     "profile": "Profile",

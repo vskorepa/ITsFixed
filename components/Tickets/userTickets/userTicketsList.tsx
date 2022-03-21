@@ -1,4 +1,5 @@
 import { Button, Loading } from '@nextui-org/react'
+import useTranslation from 'next-translate/useTranslation'
 import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
 import useUsersTickets from '../../../hooks/tickets/useUsersTickets'
@@ -7,6 +8,8 @@ import { TicketBasicInfo } from '../../../types/supabaseTypes'
 import CreateTicket from '../CreateTicket/CreateTicket'
 import UserTicketCard from './userTicketCard'
 const UserTicketList: React.FC = () => {
+    const { t } = useTranslation('common')
+
     const [tickets, setTickets] = useState<TicketBasicInfo[]>()
     const [visible, setVisible] = useState(false)
     const router = useRouter()
@@ -53,7 +56,7 @@ const UserTicketList: React.FC = () => {
             <div className="flex flex-col w-full h-85vh overflow-auto items-center">
                 <div className=" flex w-full justify-items-center justify-center p-4">
                     <Button onClick={() => setVisible(!visible)}>
-                        Create ticket
+                        {t('createTicket')}
                     </Button>
                     <CreateTicket
                         visible={visible}

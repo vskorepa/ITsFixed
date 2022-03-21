@@ -11,9 +11,10 @@ import { definitions } from '../../types/supabase'
 type chatProps = {
     id: string
     MessagesData: definitions['messages'][]
+    disabled?: boolean
 }
 
-const Chat: React.FC<chatProps> = ({ id, MessagesData }) => {
+const Chat: React.FC<chatProps> = ({ id, MessagesData, disabled }) => {
     const messageBottom = useRef<HTMLDivElement>(null)
     useEffect(() => {
         messageBottom.current?.scrollIntoView({})
@@ -55,6 +56,7 @@ const Chat: React.FC<chatProps> = ({ id, MessagesData }) => {
                 <div ref={messageBottom}></div>
             </SimpleBar>
             <SendMassageForm
+                disabled={disabled}
                 isSending={SendMessageMutation.isLoading ?? false}
                 OnFormSubmit={(data) => onSubmit(data)}
             />

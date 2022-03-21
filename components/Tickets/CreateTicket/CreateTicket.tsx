@@ -5,6 +5,7 @@ import useCreateTicket from '../../../hooks/tickets/useCreateTicket'
 import { CreateTicketModalForm } from '../../ReactHookForm/Forms'
 import { CreateTicketValues } from '../../../types/formtypes'
 import useTicketType from '../../../hooks/tickets/useTicketType'
+import useTranslation from 'next-translate/useTranslation'
 
 type createTicketProps = {
     visible: boolean
@@ -12,6 +13,8 @@ type createTicketProps = {
 }
 
 const CreateTicket: React.FC<createTicketProps> = ({ close, visible }) => {
+    const { t } = useTranslation('common')
+
     const [description, setdescription] = useState('')
     const [ticketType, setTicketType] = useState(0)
     const { data } = useTicketType()
@@ -33,6 +36,9 @@ const CreateTicket: React.FC<createTicketProps> = ({ close, visible }) => {
             open={visible}
             onClose={close}
         >
+            {TicketMutation.error instanceof Error && (
+                <p className="text-red-500">{t('OnlyOneTicket')}</p>
+            )}
             <CreateTicketModalForm
                 options={data ?? []}
                 OnFormSubmit={(data) => onSubmit(data)}
