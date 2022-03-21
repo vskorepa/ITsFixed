@@ -1,7 +1,6 @@
 import React from 'react'
 import { UseFormReturn, FieldErrors } from 'react-hook-form'
 import useTranslation from 'next-translate/useTranslation'
-import { Textarea } from '@nextui-org/react'
 type InputProps = {
     register: UseFormReturn['register']
     errors: FieldErrors
@@ -130,7 +129,7 @@ export const PasswordInput: React.FC<InputProps> = ({ register, errors }) => {
                 className="block text-gray-700 text-sm font-bold mb-2"
                 id="password"
             >
-                Password
+                {t('password')}
             </label>
             <input
                 id="password"
@@ -142,7 +141,7 @@ export const PasswordInput: React.FC<InputProps> = ({ register, errors }) => {
                  text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline
                  `}
                 type="password"
-                placeholder="password"
+                placeholder={t('password')}
                 {...register('password', {
                     required: {
                         value: true,
@@ -171,14 +170,13 @@ export const RegexPasswordInput: React.FC<InputProps> = ({
     placeholder,
 }) => {
     const { t } = useTranslation('common')
-    console.log(errors)
     return (
         <div className="mb-4 w-full">
             <label
                 className="block text-gray-700 text-sm font-bold mb-2"
                 id={name ?? 'password'}
             >
-                {name ?? 'Password'}
+                {t(name ?? 'password')}
             </label>
             <input
                 id={name ?? 'password'}
@@ -190,7 +188,7 @@ export const RegexPasswordInput: React.FC<InputProps> = ({
                  text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline
                  `}
                 type="password"
-                placeholder={placeholder ?? 'password'}
+                placeholder={t(placeholder ?? 'password')}
                 {...register('password', {
                     required: {
                         value: true,
@@ -234,7 +232,7 @@ export const ConfirmPasswordInput: React.FC<InputProps> = ({
                 className="block text-gray-700 text-sm font-bold mb-2"
                 id="confirm_password"
             >
-                Confirm password
+                {t('confirmpassword')}
             </label>
             <input
                 id="confirm_password"
@@ -246,7 +244,7 @@ export const ConfirmPasswordInput: React.FC<InputProps> = ({
                  text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline
                  `}
                 type="password"
-                placeholder="Confirm password"
+                placeholder={t('confirmpassword')}
                 {...register('confirm_password', {
                     required: {
                         value: true,
@@ -315,13 +313,13 @@ export const TextAreaInput: React.FC<InputProps> = ({
         <div>
             <label
                 className="block text-gray-700 text-sm font-bold mb-2"
-                id={name ?? 'select'}
+                id={name ?? 'textArea'}
             >
-                {name ?? 'select'}
+                {t(name ?? 'textArea')}
             </label>
             <textarea
                 className="w-full rounded-2xl p-1 outline-none border-2 border-dark focus:border-primary"
-                placeholder={placeholder ?? 'Type some text'}
+                placeholder={t(placeholder ?? 'Type some text')}
                 rows={rows}
                 {...register(name ?? 'TextArea', {
                     required: {

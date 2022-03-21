@@ -7,17 +7,17 @@ import { useRouter } from 'next/router'
 const submitOperatorForm = async (props: OperatorFormValues) => {
     const { data, error } = await supabase
         .from<OperatorFormValues>('operatorforms')
-        .insert([
-            {
-                user_id: supabase.auth.user()?.id,
-                conviction: props.conviction,
-            },
-        ])
+        .insert(
+            [
+                {
+                    user_id: supabase.auth.user()?.id,
+                    conviction: props.conviction,
+                },
+            ],
+            { returning: 'minimal' }
+        )
     if (error) {
         throw new Error('Inserting form failed')
-    }
-    if (!data) {
-        throw new Error('Submiting form failed')
     }
     return data
 }
@@ -35,7 +35,7 @@ const useSubmitOperatorForm = (props: OperatorFormValues) => {
                         props.cv[0]
                     )
                 if (uploadError) {
-                    throw new Error('Uploading cv failed')
+                    throw new Error(uploadError.message)
                 }
             },
         }

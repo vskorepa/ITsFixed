@@ -4,15 +4,6 @@ import { supabase } from '../../lib/supabaseClient'
 import { typeUser } from '../../types/supabaseTypes'
 
 const createUser = async (myUser: typeUser, facebookAuth: boolean) => {
-    // const { data: userWithEmail } = await supabase
-    //     .from("users")
-    //     .select("*")
-    //     .eq("email", user.email)
-    //     .single();
-
-    // if (userWithEmail) {
-    //     throw new Error("User with this email exists");
-    // }
     if (facebookAuth) {
     } else {
         const { user, error: SighUpError } = await supabase.auth.signUp({
@@ -26,11 +17,6 @@ const createUser = async (myUser: typeUser, facebookAuth: boolean) => {
         return user
     }
 }
-
-// console.log(SighUpError?.code);
-// if (SighUpError?.code == "23505") {
-//     throw new Error("User with this email exists");
-// }
 
 const useCreateUser = (myUser: typeUser, facebookAuth: boolean) => {
     return useMutation(() => createUser(myUser, facebookAuth), {
@@ -49,6 +35,7 @@ const useCreateUser = (myUser: typeUser, facebookAuth: boolean) => {
                     ],
                     { returning: 'minimal' }
                 )
+
             if (insertError) {
                 throw insertError
             }

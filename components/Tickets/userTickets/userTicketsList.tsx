@@ -1,21 +1,16 @@
 import { Button, Loading } from '@nextui-org/react'
 import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
-import useTickets from '../../../hooks/tickets/useTickets'
 import useUsersTickets from '../../../hooks/tickets/useUsersTickets'
 import { supabase } from '../../../lib/supabaseClient'
-import { definitions } from '../../../types/supabase'
 import { TicketBasicInfo } from '../../../types/supabaseTypes'
 import CreateTicket from '../CreateTicket/CreateTicket'
 import UserTicketCard from './userTicketCard'
 const UserTicketList: React.FC = () => {
     const [tickets, setTickets] = useState<TicketBasicInfo[]>()
-    const [messages, setMessages] = useState<definitions['messages'][]>()
-    const [ticketId, setTicketId] = useState('')
     const [visible, setVisible] = useState(false)
     const router = useRouter()
     const { data, isLoading, refetch } = useUsersTickets()
-    const [newMessage, setNewMessage] = useState<definitions['messages']>()
     useEffect(() => {
         const TicketSubscription = supabase
             .from<TicketBasicInfo>('tickets')
@@ -37,21 +32,6 @@ const UserTicketList: React.FC = () => {
     useEffect(() => {
         setTickets(data ?? [])
     }, [data])
-    // useEffect(() => {
-    //     console.log('SUBSCRIBE USERS MESSAGES')
-
-    //     const MessageSubscription = supabase
-    //         .from<definitions['messages']>('messages')
-    //         .on('INSERT', (payload) => {
-    //             setNewMessage(payload.new)
-    //         })
-    //         .subscribe()
-
-    //     return () => {
-    //         console.log('UNSUBSCRIBE USERS MESSAGES')
-    //         supabase.removeSubscription(MessageSubscription)
-    //     }
-    // }, [])
 
     if (isLoading) {
         return (
@@ -80,11 +60,11 @@ const UserTicketList: React.FC = () => {
                         close={() => setVisible(false)}
                     />
                 </div>
-                <div className="w-full p-10 grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-14">
+                <div className="w-full items-center p-10 grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-14">
                     {tickets?.map((item) => (
                         <div
                             key={item.id}
-                            className="w-full h-full flex-col justify-around items-center"
+                            className="w-full h-full flex-col justify-center items-center"
                         >
                             <UserTicketCard key={item.id} data={item} />
                         </div>

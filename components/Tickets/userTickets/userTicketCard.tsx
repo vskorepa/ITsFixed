@@ -2,7 +2,6 @@ import moment from 'moment'
 import 'moment-timezone'
 import { useRouter } from 'next/router'
 import React from 'react'
-import { definitions } from '../../../types/supabase'
 import { TicketBasicInfo } from '../../../types/supabaseTypes'
 type userTicketCardPrps = {
     data: TicketBasicInfo

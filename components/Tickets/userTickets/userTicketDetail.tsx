@@ -1,4 +1,4 @@
-import { Loading, Button, Text } from '@nextui-org/react'
+import { Loading, Text } from '@nextui-org/react'
 import React, { useEffect, useState } from 'react'
 import useTranslation from 'next-translate/useTranslation'
 import { definitions } from '../../../types/supabase'
@@ -19,18 +19,14 @@ const UserTicketDetail: React.FC<TicketDetailProps> = ({ ticket_id }) => {
     const [newMessage, setNewMessage] = useState<definitions['messages']>()
 
     useEffect(() => {
-        console.log('subscribe')
-
         const UserMessageSubscription = supabase
             .from<definitions['messages']>('messages')
             .on('INSERT', (payload) => {
-                console.log('USER MESSAGE CALLBACK')
                 setNewMessage(payload.new)
             })
             .subscribe()
 
         return () => {
-            console.log('unsubscribe')
             supabase.removeSubscription(UserMessageSubscription)
         }
     }, [])
@@ -50,10 +46,7 @@ const UserTicketDetail: React.FC<TicketDetailProps> = ({ ticket_id }) => {
     }, [message, newMessage, ticket_id])
 
     const { data, isLoading, isError } = useTicketDetail(ticket_id ?? '')
-    const TicketMutation = useUpdateTicket({
-        id: ticket_id ?? '',
-        state: 'done',
-    })
+
     if (ticket_id === null) {
         return <div className="h-80vh w-full"></div>
     }

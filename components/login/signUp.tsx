@@ -8,7 +8,6 @@ import { SignUpForm } from '../ReactHookForm/Forms'
 
 const SignUp: React.FC = () => {
     const onSubmit: SubmitHandler<SignUpValues> = (data) => {
-        console.log(data)
         setEmail(data.email)
         setPassword(data.password)
         setFirst_name(data.first_name)

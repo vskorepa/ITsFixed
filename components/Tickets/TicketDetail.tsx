@@ -1,4 +1,4 @@
-import { Loading, Button, Text } from '@nextui-org/react'
+import { Loading, Text } from '@nextui-org/react'
 import React, { useEffect, useState } from 'react'
 import useTranslation from 'next-translate/useTranslation'
 import useTicketDetail from '../../hooks/tickets/useTicketDetail'
@@ -40,7 +40,6 @@ const TicketDetail: React.FC<TicketDetailProps> = ({
     }, [message, newMessage, ticket_id])
     useEffect(() => {
         if (ticketState) {
-            console.log('Change State')
             TicketStateChange()
         }
     }, [ticketState])
@@ -107,21 +106,21 @@ const TicketDetail: React.FC<TicketDetailProps> = ({
                 <div>
                     <div className="flex gap-2">
                         <Text>
-                            <strong>First name: </strong>
+                            <strong>{t('firstName')}</strong>
                             {data?.users.first_name}
                         </Text>
                         <Text>
-                            <strong>Last name: </strong>
+                            <strong>{t('lastName')}</strong>
                             {data?.users.last_name}
                         </Text>
                     </div>
                     <Text>
-                        <strong>E-mail: </strong>
+                        <strong>email</strong>
                         {data?.users.email}
                     </Text>
 
                     <Text>
-                        <strong>Description: </strong>
+                        <strong>{t('description')}</strong>
                         <br />
                         {data?.description}
                     </Text>
@@ -130,9 +129,6 @@ const TicketDetail: React.FC<TicketDetailProps> = ({
             {data && (
                 <div className="w-auto h-auto bg-lightDarker border-white rounded-3xl mr-4 border-2 dark:border-darkLighter dark:bg-darkDarker ">
                     <Chat
-                        // MessagesData={messagesData.filter(
-                        //     (messages) => messages.ticket_id === ticket_id
-                        // )}
                         MessagesData={messages ?? []}
                         key={'TicketChat' + ticket_id}
                         id={ticket_id}

@@ -7,7 +7,6 @@ import { UpdateStateProps } from '../../types/supabaseTypes'
 import { definitions } from '../../types/supabase'
 // const userId = supabase.auth.user()!.id;
 const updateTicket = async (props: UpdateStateProps) => {
-    console.log(props)
     const { data, error } = await supabase
         .from<UpdateStateProps>('tickets')
         .update({

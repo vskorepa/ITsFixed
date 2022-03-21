@@ -1,5 +1,5 @@
 import React from 'react'
-import type { NextApiRequest, NextPage } from 'next'
+import type { NextPage } from 'next'
 import TicketList from '../components/Tickets/TicketList'
 import { supabase } from '../lib/supabaseClient'
 import useUser from '../hooks/useUser'

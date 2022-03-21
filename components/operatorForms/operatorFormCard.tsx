@@ -1,12 +1,9 @@
 import moment from 'moment'
 import 'moment-timezone'
-import Link from 'next/link'
-import { useRouter } from 'next/router'
 import React from 'react'
 import { AiOutlineCheckSquare, AiOutlineCloseSquare } from 'react-icons/ai'
 import useAcceptNewOperator from '../../hooks/operatorForms/useAcceptNewOperator'
 import useDeclinNewOperator from '../../hooks/operatorForms/useDeclineNewOperator'
-import { OperatorFormValues } from '../../types/formtypes'
 import { OperatorForm } from '../../types/supabaseTypes'
 type operatorFomrCardProps = {
     data: OperatorForm
@@ -18,7 +15,6 @@ const OperatorFormCard: React.FC<operatorFomrCardProps> = ({
     refetch,
 }) => {
     const createdAt = moment(data.insert_at).tz('Europe/Prague', true)
-    const router = useRouter()
 
     const acceptOperatorMutation = useAcceptNewOperator(data.user_id)
     const declineOperatorMutation = useDeclinNewOperator(data.user_id)

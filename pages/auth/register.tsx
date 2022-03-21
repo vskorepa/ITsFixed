@@ -1,4 +1,4 @@
-import { Button, Row } from '@nextui-org/react'
+import { Button } from '@nextui-org/react'
 import React from 'react'
 import SignUp from '../../components/login/signUp'
 import useTranslation from 'next-translate/useTranslation'

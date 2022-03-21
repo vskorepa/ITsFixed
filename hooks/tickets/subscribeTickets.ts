@@ -11,7 +11,6 @@ export const SubscribeTickets = async (page: number) => {
         const mySubscription = supabase
             .from('tickets')
             .on('*', () => {
-                console.log('something happened....')
                 fetchTickets()
             })
             .subscribe()

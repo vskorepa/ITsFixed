@@ -31,7 +31,10 @@ export const RecievedMessage: React.FC<MessageProps> = ({ content, id }) => {
         // >
         //                 <p className="">{content}</p>
 
-        <p className="max-w-3/5 w-fit z-0 break-words mt-2 ml-5 rounded-bl-none float-none bg-secondary mr-auto rounded-2xl p-2 whitespace-pre-wrap">
+        <p
+            id={id}
+            className="max-w-3/5 w-fit z-0 break-words mt-2 ml-5 rounded-bl-none float-none bg-secondary mr-auto rounded-2xl p-2 whitespace-pre-wrap"
+        >
             {content}
         </p>
         // </div>

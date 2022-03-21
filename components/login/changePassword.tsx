@@ -1,5 +1,4 @@
-import { Loading } from '@nextui-org/react'
-import Link from 'next/link'
+import useTranslation from 'next-translate/useTranslation'
 import React, { useState } from 'react'
 import { SubmitHandler } from 'react-hook-form'
 import useChangePassword from '../../hooks/login/useChangePassword'
@@ -7,10 +6,10 @@ import { ChangePasswordFormValues } from '../../types/formtypes'
 
 import { ChangePasswordForm } from '../ReactHookForm/Forms'
 const ChangePassword: React.FC = () => {
+    const { t } = useTranslation('common')
+
     const onSubmit: SubmitHandler<ChangePasswordFormValues> = (data) => {
-        console.log(data)
         setNewPassword(data.password)
-        changePasswordMutation.mutate()
     }
     const [newPassword, setNewPassword] = useState('')
 
@@ -24,8 +23,11 @@ const ChangePassword: React.FC = () => {
                 OnFormSubmit={(data) => onSubmit(data)}
             ></ChangePasswordForm>
             {changePasswordMutation.isSuccess && (
+                <p className="text-primary">{t('PasswordChanged')}</p>
+            )}
+            {changePasswordMutation.error instanceof Error && (
                 <p className="text-primary">
-                    your password has been succesfully changed
+                    {changePasswordMutation.error.message}
                 </p>
             )}
         </div>

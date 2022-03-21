@@ -7,10 +7,12 @@ import { SubmitHandler } from 'react-hook-form'
 import { OperatorFormValues } from '../types/formtypes'
 import useSubmitOperatorForm from '../hooks/operatorForms/useSubmitOperatorForm'
 import { supabase } from '../lib/supabaseClient'
+import { useRouter } from 'next/router'
 const Home: NextPage = () => {
     const { t } = useTranslation('common')
     const [conviction, setConviction] = useState('')
     const [cvFile, setCvFile] = useState<File[]>()
+    const router = useRouter()
     const onSubmit: SubmitHandler<OperatorFormValues> = (data) => {
         setConviction(data.conviction)
         setCvFile(data.cv)
@@ -21,9 +23,10 @@ const Home: NextPage = () => {
         conviction: conviction,
         cv: cvFile!,
     })
+
     return (
-        <div className="flex justify-center flex-col">
-            <Text className="text-sandy font-bold text-4xl" h1>
+        <div className="flex justify-center items-center gap-2 flex-col">
+            <Text className="text-sandy font-bold text-4xl " h1>
                 {t('operatorForm')}
             </Text>
             <OperatorForm OnFormSubmit={(data) => onSubmit(data)} />
@@ -32,9 +35,12 @@ const Home: NextPage = () => {
                     <p className="text-red-500">
                         {
                             //@ts-ignore
-                            SubmitOperatorFormMutation.error.message ?? ''
+                            t(SubmitOperatorFormMutation.error.message ?? '')
                         }
                     </p>
+                )}
+                {SubmitOperatorFormMutation.isSuccess && (
+                    <p className="text-primary">{t('OperatorFormSent')}</p>
                 )}
             </div>
         </div>

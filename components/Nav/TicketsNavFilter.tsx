@@ -1,12 +1,8 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { Modal } from '@nextui-org/react'
 import { SubmitHandler } from 'react-hook-form'
 import useTicketType from '../../hooks/tickets/useTicketType'
-import {
-    CreateTicketModalForm,
-    FilterTicketsModalForm,
-} from '../ReactHookForm/Forms'
-import { SelectInput } from '../ReactHookForm/FromInputs'
+import { FilterTicketsModalForm } from '../ReactHookForm/Forms'
 import { FilterTicketsValues } from '../../types/formtypes'
 
 type filtericketProps = {
@@ -29,7 +25,6 @@ const TicketsModalFilter: React.FC<filtericketProps> = ({
     onFilterSubmit,
 }) => {
     const onSubmit: SubmitHandler<FilterTicketsValues> = (data) => {
-        console.log(data)
         ticketStateChange(data.ticketState)
         ticketTypeChage(data.ticketType)
         onFilterSubmit()

@@ -79,7 +79,7 @@ export const ChangePasswordForm: React.FC<changePasswordFormProps> = ({
         >
             <RegexPasswordInput
                 name="newpassword"
-                placeholder="New password"
+                placeholder="newpassword"
                 register={register}
                 errors={errors}
             />
@@ -94,6 +94,8 @@ type SignInFormProps = {
     OnFormSubmit: (data: SignInValues) => void
 }
 export const SignInForm: React.FC<SignInFormProps> = ({ OnFormSubmit }) => {
+    const { t } = useTranslation('common')
+
     const {
         register,
         formState: { errors },
@@ -112,7 +114,9 @@ export const SignInForm: React.FC<SignInFormProps> = ({ OnFormSubmit }) => {
             <div className="flex items-center justify-between">
                 <SubmitButton text="SignIn" />{' '}
                 <div className="inline-block align-baseline font-bold text-sm text-primary hover:text-blue-800 cursor-pointer">
-                    <Link href="/auth/forgotpassword">Forgot Password?</Link>
+                    <Link href="/auth/forgotpassword">
+                        {t('forgotPassword')}
+                    </Link>
                 </div>
             </div>
         </form>
@@ -140,7 +144,6 @@ export const SignUpForm: React.FC<SignUpFormProps> = ({ OnFormSubmit }) => {
                 message: t('NotMatchingPasswords'),
             })
         } else {
-            console.log('ahoj')
             OnFormSubmit(data)
         }
     }
@@ -178,12 +181,6 @@ export const SignUpForm: React.FC<SignUpFormProps> = ({ OnFormSubmit }) => {
             )}
             <div className="flex items-center justify-between">
                 <SubmitButton text="SignUp" />
-                <a
-                    className="inline-block align-baseline font-bold text-sm text-primary hover:text-blue-800"
-                    href="#"
-                >
-                    Forgot Password?
-                </a>
             </div>
         </form>
     )
@@ -246,7 +243,7 @@ export const CreateTicketModalForm: React.FC<CreateTicketFormProps> = ({
 
 type SendMassageFormProps = {
     disabled?: boolean
-    OnFormSubmit: (data: definitions['messages']) => void
+    OnFormSubmit?: (data: definitions['messages']) => void
     isSending: boolean
 }
 export const SendMassageForm: React.FC<SendMassageFormProps> = ({
@@ -262,7 +259,9 @@ export const SendMassageForm: React.FC<SendMassageFormProps> = ({
         reset,
     } = useForm()
     const onSubmit = (data: definitions['messages']) => {
-        OnFormSubmit(data)
+        if (!disabled && OnFormSubmit) {
+            OnFormSubmit(data)
+        }
         reset()
         setFocus('message')
     }
@@ -359,8 +358,6 @@ type OperatorFormProps = {
 }
 
 export const OperatorForm: React.FC<OperatorFormProps> = ({ OnFormSubmit }) => {
-    const { t } = useTranslation('common')
-
     const {
         register,
         handleSubmit,
@@ -381,14 +378,14 @@ export const OperatorForm: React.FC<OperatorFormProps> = ({ OnFormSubmit }) => {
                 errors={errors}
                 required={true}
                 name="conviction"
-                placeholder="Try to convice us to pick you to be an operator."
+                placeholder="convictionText"
                 maxLenght={500}
                 rows={10}
             />
             <FileInput register={register} errors={errors} />
 
             <div className="flex items-center justify-between">
-                <SubmitButton text="Submit" />
+                <SubmitButton text="submit" />
             </div>
         </form>
     )

@@ -1,5 +1,5 @@
 import React from 'react'
-import type { NextApiRequest, NextPage } from 'next'
+import type { NextPage } from 'next'
 import { Avatar, Loading } from '@nextui-org/react'
 import useUser from '../hooks/useUser'
 import { supabase } from '../lib/supabaseClient'
@@ -7,7 +7,6 @@ import ChangePassword from '../components/login/changePassword'
 
 const Home: NextPage = () => {
     const { data, isLoading } = useUser()
-    console.log(data)
     return (
         <div className="h-85vh w-full flex flex-nowrap">
             {isLoading ? (

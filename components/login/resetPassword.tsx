@@ -1,4 +1,5 @@
 import { Loading } from '@nextui-org/react'
+import useTranslation from 'next-translate/useTranslation'
 import Link from 'next/link'
 import React, { useState } from 'react'
 import { SubmitHandler } from 'react-hook-form'
@@ -7,6 +8,8 @@ import { ResetPasswordValues } from '../../types/formtypes'
 
 import { ResetPasswordForm } from '../ReactHookForm/Forms'
 const ResetPassword: React.FC = () => {
+    const { t } = useTranslation('common')
+
     const onSubmit: SubmitHandler<ResetPasswordValues> = (data) => {
         setEmail(data.email)
         forgotPasswordMutation.mutate()
@@ -22,10 +25,7 @@ const ResetPassword: React.FC = () => {
                 <Loading></Loading>
             ) : forgotPasswordMutation.isSuccess ? (
                 <div className="text-primary flex gap-2">
-                    <p>
-                        Check your email for a reset password link. Back to
-                        login page:
-                    </p>
+                    <p>{t('Ema')}</p>
 
                     <a
                         className="text-secondary

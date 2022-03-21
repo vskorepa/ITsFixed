@@ -1,5 +1,5 @@
 import React from 'react'
-import type { GetStaticProps, NextPage } from 'next'
+import type { NextPage } from 'next'
 import useTranslation from 'next-translate/useTranslation'
 import { Text } from '@nextui-org/react'
 import { SiteLogo } from '../components/Nav/logo'
@@ -10,6 +10,7 @@ import { RecievedMessage, SentMessage } from '../components/messages/message'
 
 const Home: NextPage = () => {
     const { t } = useTranslation('common')
+
     const chatData = [
         {
             id: '0',
@@ -95,16 +96,16 @@ const Home: NextPage = () => {
     ]
 
     return (
-        <div className="w-full h-85vh flex justify-around">
+        <div className={`w-full h-85vh flex justify-around`}>
             <div className="flex flex-col items-center gap-2 w-full">
                 <div className="flex flex-row gap-4 p-4">
-                    <Text className="font-bold text-5xl" h1>
+                    <Text className="font-bold md:text-5xl text-3xl" h1>
                         {t('greeting')}
                     </Text>
                     <SiteLogo height={50} />
                 </div>
 
-                <div className=" w-4/5 h-auto bg-lightDarker border-white m-auto rounded-3xl border-2 dark:border-darkLighter dark:bg-darkDarker ">
+                <div className="sm:w-4/5 w-full px-1 h-auto bg-lightDarker border-white m-auto rounded-3xl border-2 dark:border-darkLighter dark:bg-darkDarker ">
                     <div className="flex flex-col justify-end gap-2">
                         <SimpleBar className="w-full flex flex-col max-h-60vh 0vh text-3xl  overflow-y-auto">
                             {chatData.map((message) => {
@@ -123,13 +124,7 @@ const Home: NextPage = () => {
                                 )
                             })}
                         </SimpleBar>
-                        <SendMassageForm
-                            OnFormSubmit={() => {
-                                console.log()
-                            }}
-                            isSending={false}
-                            disabled={true}
-                        />
+                        <SendMassageForm isSending={false} disabled={true} />
                     </div>
                 </div>
             </div>

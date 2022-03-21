@@ -1,5 +1,5 @@
 import { definitions } from './../types/supabase'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { AuthChangeEvent, Session } from '@supabase/supabase-js'
 
 import { supabase } from './supabaseClient'
@@ -22,7 +22,6 @@ export const useHandleAuthChange = () => {
         )
         checkUser()
         return () => {
-            console.log('REMOVE')
             authListener?.unsubscribe()
         }
     }, [])

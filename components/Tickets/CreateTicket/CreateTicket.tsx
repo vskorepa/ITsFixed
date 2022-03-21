@@ -5,7 +5,6 @@ import useCreateTicket from '../../../hooks/tickets/useCreateTicket'
 import { CreateTicketModalForm } from '../../ReactHookForm/Forms'
 import { CreateTicketValues } from '../../../types/formtypes'
 import useTicketType from '../../../hooks/tickets/useTicketType'
-import { useRouter } from 'next/router'
 
 type createTicketProps = {
     visible: boolean
@@ -17,12 +16,10 @@ const CreateTicket: React.FC<createTicketProps> = ({ close, visible }) => {
     const [ticketType, setTicketType] = useState(0)
     const { data } = useTicketType()
     const onSubmit: SubmitHandler<CreateTicketValues> = (data) => {
-        // console.log(data);
         setTicketType(data.ticket_type_id ?? 0)
         setdescription(data.description ?? '')
         TicketMutation.mutate()
     }
-    // console.log(ticketType);
     const TicketMutation = useCreateTicket({
         description: description,
         ticket_type_id: ticketType,

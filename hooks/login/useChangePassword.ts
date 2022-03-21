@@ -3,8 +3,6 @@ import { supabase } from '../../lib/supabaseClient'
 import { ChangePasswordFormValues } from '../../types/formtypes'
 
 const changePassword = async (props: ChangePasswordFormValues) => {
-    console.log(props)
-
     //@ts-ignore
     const { data, error } = supabase.auth.update({
         password: props.password,

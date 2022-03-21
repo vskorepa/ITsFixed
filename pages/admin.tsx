@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from 'react'
-import type { NextApiRequest, NextApiResponse, NextPage } from 'next'
+import React, { useEffect } from 'react'
+import type { NextPage } from 'next'
 import { Loading, Text } from '@nextui-org/react'
 import { supabase } from '../lib/supabaseClient'
-import { definitions } from '../types/supabase'
 import { useRouter } from 'next/router'
 import OperatorFormList from '../components/operatorForms/operatorFormsList'
 import useUser from '../hooks/useUser'
@@ -13,7 +12,6 @@ const Home: NextPage = () => {
     useEffect(() => {
         if (!isLoading) {
             if (data?.roledata?.role !== 'admin') {
-                console.log(data?.roledata?.role)
                 router.push('/')
             }
         }

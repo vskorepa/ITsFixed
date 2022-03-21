@@ -15,7 +15,6 @@ import { useRouter } from 'next/router'
 const TicketList: React.FC = () => {
     const router = useRouter()
     const [tickets, setTickets] = useState<TicketBasicInfo[]>()
-    const [messages, setMessages] = useState<definitions['messages'][]>()
     const [ticketId, setTicketId] = useState('')
     const [requiredState, setRequiredState] = useState('waiting')
     const [search, setSearch] = useState('')
@@ -49,12 +48,9 @@ const TicketList: React.FC = () => {
     }, [data])
 
     useEffect(() => {
-        console.log('subscribe')
-
         const MessageSubscription = supabase
             .from<definitions['messages']>('messages')
             .on('INSERT', (payload) => {
-                console.log('OPERATOR MESSAGES CALLBACK')
                 setNewMessage(payload.new)
             })
             .subscribe()
@@ -70,13 +66,13 @@ const TicketList: React.FC = () => {
                 <TicketsNav
                     filterClear={() => clearFilters()}
                     stateChange={(state) => {
-                        setRequiredState(state), console.log(state)
+                        setRequiredState(state)
                     }}
                     searchChange={(search) => {
-                        setSearch(search), console.log(search)
+                        setSearch(search)
                     }}
                     typeChange={(type) => {
-                        setType(type), console.log(type)
+                        setType(type)
                     }}
                     type={type}
                     state={requiredState}

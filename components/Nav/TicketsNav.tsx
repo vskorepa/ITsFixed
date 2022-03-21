@@ -1,10 +1,6 @@
 import React, { useState } from 'react'
 import { GrFilter } from 'react-icons/gr'
-import { Button, Tooltip } from '@nextui-org/react'
-
-import CreateTicket from '../Tickets/CreateTicket/CreateTicket'
-import { ToolTipDropDownStateFilter } from '../esential/ToolTipDropDown'
-import { SearchFrom } from '../ReactHookForm/searhForm'
+import { SearchFrom } from '../ReactHookForm/searchForm'
 import TicketsModalFilter from './TicketsNavFilter'
 import { MdOutlineClear } from 'react-icons/md'
 import { AiOutlineDown, AiOutlineUp } from 'react-icons/ai'
