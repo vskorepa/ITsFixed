@@ -4,8 +4,15 @@ import { supabase } from '../lib/supabaseClient'
 import { definitions } from '../types/supabase'
 import UserTicketDetail from '../components/Tickets/userTickets/userTicketDetail'
 import { useRouter } from 'next/router'
+import useUser from '../hooks/useUser'
 const Home: NextPage = () => {
     const router = useRouter()
+    const { data, isLoading } = useUser()
+    if (!isLoading) {
+        if (data?.roledata?.role !== 'user') {
+            router.push('/')
+        }
+    }
     const [ticket_id, setTicket_id] = useState('')
     useEffect(() => {
         //@ts-ignore

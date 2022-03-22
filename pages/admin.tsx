@@ -8,14 +8,11 @@ import useUser from '../hooks/useUser'
 const Home: NextPage = () => {
     const router = useRouter()
     const { data, isLoading } = useUser()
-
-    useEffect(() => {
-        if (!isLoading) {
-            if (data?.roledata?.role !== 'admin') {
-                router.push('/')
-            }
+    if (!isLoading) {
+        if (data?.roledata?.role !== 'admin') {
+            router.push('/')
         }
-    }, [])
+    }
 
     if (isLoading) {
         return (
@@ -28,19 +25,20 @@ const Home: NextPage = () => {
                 </div>
             </div>
         )
-    }
-    return (
-        <div>
-            <div className="text-center">
-                <Text className="text-sandy font-bold text-4xl" h1>
-                    ADMIN Page
-                </Text>
-            </div>
+    } else {
+        return (
             <div>
-                <OperatorFormList key={data?.data.id} />
+                <div className="text-center">
+                    <Text className="text-sandy font-bold text-4xl" h1>
+                        ADMIN Page
+                    </Text>
+                </div>
+                <div>
+                    <OperatorFormList key={data?.data.id} />
+                </div>
             </div>
-        </div>
-    )
+        )
+    }
 }
 
 export const getServerSideProps = async ({ req }: any) => {

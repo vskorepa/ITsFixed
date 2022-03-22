@@ -8,11 +8,19 @@ import { OperatorFormValues } from '../types/formtypes'
 import useSubmitOperatorForm from '../hooks/operatorForms/useSubmitOperatorForm'
 import { supabase } from '../lib/supabaseClient'
 import { useRouter } from 'next/router'
+import useUser from '../hooks/useUser'
 const Home: NextPage = () => {
     const { t } = useTranslation('common')
     const [conviction, setConviction] = useState('')
     const [cvFile, setCvFile] = useState<File[]>()
     const router = useRouter()
+    const { data, isLoading } = useUser()
+    if (!isLoading) {
+        if (data?.roledata?.role !== 'user') {
+            router.push('/')
+        }
+    }
+
     const onSubmit: SubmitHandler<OperatorFormValues> = (data) => {
         setConviction(data.conviction)
         setCvFile(data.cv)
