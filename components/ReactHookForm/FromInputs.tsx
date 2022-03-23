@@ -318,7 +318,7 @@ export const TextAreaInput: React.FC<InputProps> = ({
                 {t(name ?? 'textArea')}
             </label>
             <textarea
-                className="w-full rounded-2xl p-1 outline-none border-2 border-dark focus:border-primary"
+                className="w-full rounded-2xl p-1 outline-none border-2 border-dark focus:border-primary bg-light text-dark"
                 placeholder={t(placeholder ?? 'Type some text')}
                 rows={rows}
                 {...register(name ?? 'TextArea', {

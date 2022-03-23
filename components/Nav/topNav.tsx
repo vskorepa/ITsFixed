@@ -49,34 +49,40 @@ const TopNav: React.FC<navProps> = ({ authRole }) => {
                         </Link>
                     )}
                 </nav>
-                <div className="sm:hidden flex  h-full items-center">
-                    <Tooltip
-                        trigger="click"
-                        initialVisible={false}
-                        placement="bottomEnd"
-                        content={<ToolTipMobileDropDown />}
-                    >
-                        <MdOutlineMenu size={50} />
-                    </Tooltip>
-                </div>
+
                 <div className="flex justify-end h-full items-center">
                     <div className="flex gap-2 items-center">
-                        <div className="sm:flex hidden">
+                        <div className="flex">
                             {authRole !== 'not-authenticated' && (
-                                <Tooltip
-                                    trigger="click"
-                                    color="#4F98CA"
-                                    placement="bottom"
-                                    content={<ToolTipDropDown />}
-                                >
-                                    <Avatar
-                                        src="/avatar1.png"
-                                        pointer
-                                        bordered
-                                        color="success"
-                                        size="medium"
-                                    />
-                                </Tooltip>
+                                <div>
+                                    <div className="sm:hidden flex h-full items-center">
+                                        <Tooltip
+                                            trigger="click"
+                                            color="#4F98CA"
+                                            initialVisible={false}
+                                            placement="bottomEnd"
+                                            content={<ToolTipMobileDropDown />}
+                                        >
+                                            <MdOutlineMenu size={50} />
+                                        </Tooltip>
+                                    </div>
+                                    <div className="sm:flex hidden h-full items-center">
+                                        <Tooltip
+                                            trigger="click"
+                                            color="#4F98CA"
+                                            placement="bottom"
+                                            content={<ToolTipDropDown />}
+                                        >
+                                            <Avatar
+                                                src="/avatar1.png"
+                                                pointer
+                                                bordered
+                                                color="success"
+                                                size="medium"
+                                            />
+                                        </Tooltip>
+                                    </div>
+                                </div>
                             )}
                         </div>
 

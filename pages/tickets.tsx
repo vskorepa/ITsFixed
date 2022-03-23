@@ -18,7 +18,7 @@ const Home: NextPage = () => {
     return (
         <div>
             <div className="flex w-full h-full flex-wrap justify-center">
-                {data?.roledata?.role === 'operator' ? (
+                {data?.roledata?.role !== 'user' ? (
                     <TicketList />
                 ) : (
                     <UserTicketList />
@@ -29,20 +29,8 @@ const Home: NextPage = () => {
 }
 export const getServerSideProps = async ({ req }: any) => {
     const { user } = await supabase.auth.api.getUserByCookie(req)
-    const { data: userRole } = await supabase
-        .from<definitions['user_roles']>('user_roles')
-        .select(
-            `
-            role
-        `
-        )
-        .eq('user_id', user?.id)
-        .single()
     if (!user) {
         return { props: {}, redirect: { destination: '/auth/login' } }
-    }
-    if (userRole?.role !== 'operator' && userRole?.role !== 'user') {
-        return { props: {}, redirect: { destination: '/' } }
     }
 
     return { props: { user } }

@@ -7,15 +7,19 @@ import useTranslation from 'next-translate/useTranslation'
 import { GrTicket } from 'react-icons/gr'
 import { FaHandsHelping } from 'react-icons/fa'
 import { CgProfile } from 'react-icons/cg'
-import { Avatar, Tooltip } from '@nextui-org/react'
+import { TiTicket } from 'react-icons/ti'
 export const ToolTipDropDown: React.FC = () => {
     const { t } = useTranslation('common')
     const LogoutMutation = useLogoutUser()
     const handleLogOut = () => {
         LogoutMutation.mutate()
     }
+    if (LogoutMutation.isSuccess) {
+        router.push('/auth/login')
+    }
+
     return (
-        <div color="error" className="flex flex-wrap w-48">
+        <div className="flex flex-wrap w-48">
             <ToolTipButton text={t('profile')} href="/profile">
                 <CgProfile />
             </ToolTipButton>
@@ -37,28 +41,49 @@ export const ToolTipDropDown: React.FC = () => {
 export const ToolTipMobileDropDown: React.FC = () => {
     const { t } = useTranslation('common')
     const LogoutMutation = useLogoutUser()
+    const handleLogOut = () => {
+        LogoutMutation.mutate()
+    }
+
     if (LogoutMutation.isSuccess) {
         router.push('/auth/login')
     }
     return (
-        <div color="error" className="flex flex-wrap w-48">
+        <div className="flex flex-wrap w-48">
             <ToolTipButton text={t('tickets')} href="/tickets">
-                <GrTicket />
+                <TiTicket />
             </ToolTipButton>
-            <Tooltip
+            <ToolTipButton text={t('profile')} href="/profile">
+                <CgProfile />
+            </ToolTipButton>
+            <ToolTipButton text={t('wantToHelp')} href="/operator">
+                <FaHandsHelping />
+            </ToolTipButton>
+
+            <button
+                className="flex rounded-xl w-full h-full justify-start gap-3 items-center border-2 border-opacity-0 focus:border-opacity-100 focus:border-dark hover:bg-gray-100 hover:bg-opacity-10 text-xl"
+                onClick={() => handleLogOut()}
+            >
+                <IoLogOutOutline />
+                {t('logout')}
+            </button>
+
+            {/* <Tooltip
                 trigger="click"
                 color="#4F98CA"
-                placement="bottomStart"
+                placement="bottom"
                 content={<ToolTipDropDown />}
             >
-                <Avatar
-                    src="/avatar1.png"
-                    pointer
-                    bordered
-                    color="success"
-                    size="medium"
-                />
-            </Tooltip>
+                <div className="flex rounded-xl w-full h-full justify-start gap-3 items-center border-2 border-opacity-0 focus:border-opacity-100 focus:border-dark hover:bg-gray-100 hover:bg-opacity-10 text-xl">
+                    <Avatar
+                        src="/avatar1.png"
+                        pointer
+                        bordered
+                        color="success"
+                        size="medium"
+                    />
+                </div>
+            </Tooltip> */}
         </div>
     )
 }
