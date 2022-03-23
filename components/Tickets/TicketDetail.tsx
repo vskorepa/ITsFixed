@@ -110,7 +110,7 @@ const TicketDetail: React.FC<TicketDetailProps> = ({
                             {data?.users.first_name}
                         </Text>
                         <Text>
-                            <strong>{t('lastName')}</strong>
+                            <strong>{t('surname')}</strong>
                             {data?.users.last_name}
                         </Text>
                     </div>

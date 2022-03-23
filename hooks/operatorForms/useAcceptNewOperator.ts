@@ -6,6 +6,7 @@ import { SendMessageProps } from '../../types/supabaseTypes'
 import { useRouter } from 'next/router'
 
 const promoteToOperator = async (user_id: string) => {
+    console.log(user_id)
     const { data, error } = await supabase
         .from<definitions['user_roles']>('user_roles')
         .update({ role: 'operator' })
