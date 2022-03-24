@@ -5,7 +5,7 @@ import { SendMessageProps } from '../../types/supabaseTypes'
 import { useRouter } from 'next/router'
 
 const sendMessage = async (props: SendMessageProps) => {
-    if (props.message.length > 0) {
+    if (props.message.trim().length > 0) {
         const { data, error } = await supabase
             .from<SendMessageProps>('messages')
             .insert([
