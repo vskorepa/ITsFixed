@@ -77,11 +77,24 @@ const UserTicketDetail: React.FC<TicketDetailProps> = ({ ticket_id }) => {
                         </div>
                     </div>
 
-                    <Text>{data?.users.first_name}</Text>
-                    <Text>{data?.users.last_name}</Text>
-                    <Text>{data?.users.email}</Text>
+                    <Text>
+                        <strong>{t('firstName')}: </strong>
+                        {data?.users.first_name}
+                    </Text>
+                    <Text>
+                        <strong>{t('surname')}: </strong>
+                        {data?.users.last_name}
+                    </Text>
+                    <Text>
+                        <strong>email: </strong>
+                        {data?.users.email}
+                    </Text>
 
-                    <Text>{data?.description}</Text>
+                    <Text>
+                        <strong>{t('description')}: </strong>
+                        <br />
+                        {data?.description}
+                    </Text>
                 </div>
             ) : (
                 <div className="h-30vh w-full justify-center">

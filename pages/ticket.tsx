@@ -29,20 +29,9 @@ const Home: NextPage = () => {
 
 export const getServerSideProps = async ({ req }: any) => {
     const { user } = await supabase.auth.api.getUserByCookie(req)
-    const { data: userRole, error: roleError } = await supabase
-        .from<definitions['user_roles']>('user_roles')
-        .select(
-            `
-            role
-        `
-        )
-        .eq('user_id', user?.id)
-        .single()
+
     if (!user) {
         return { props: {}, redirect: { destination: '/auth/login' } }
-    }
-    if (userRole?.role !== 'user') {
-        return { props: {}, redirect: { destination: '/' } }
     }
 
     return { props: { user } }

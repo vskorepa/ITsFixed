@@ -106,21 +106,21 @@ const TicketDetail: React.FC<TicketDetailProps> = ({
                 <div>
                     <div className="flex gap-2">
                         <Text>
-                            <strong>{t('firstName')}</strong>
+                            <strong>{t('firstName')}: </strong>
                             {data?.users.first_name}
                         </Text>
                         <Text>
-                            <strong>{t('lastName')}</strong>
+                            <strong>{t('surname')}: </strong>
                             {data?.users.last_name}
                         </Text>
                     </div>
                     <Text>
-                        <strong>email</strong>
+                        <strong>email: </strong>
                         {data?.users.email}
                     </Text>
 
                     <Text>
-                        <strong>{t('description')}</strong>
+                        <strong>{t('description')}: </strong>
                         <br />
                         {data?.description}
                     </Text>

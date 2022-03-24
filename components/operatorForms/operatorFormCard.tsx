@@ -15,7 +15,7 @@ const OperatorFormCard: React.FC<operatorFomrCardProps> = ({
     refetch,
 }) => {
     const createdAt = moment(data.insert_at).tz('Europe/Prague', true)
-
+    console.log(data)
     const acceptOperatorMutation = useAcceptNewOperator(data.user_id)
     const declineOperatorMutation = useDeclinNewOperator(data.user_id)
     if (acceptOperatorMutation.isSuccess || declineOperatorMutation.isSuccess)
@@ -47,7 +47,8 @@ const OperatorFormCard: React.FC<operatorFomrCardProps> = ({
                     target="_blank"
                     rel="noreferrer"
                     href={
-                        'https://puqfdgaqnioxcbuytvwe.supabase.in/storage/v1/object/public/cv-files/' +
+                        process.env.NEXT_PUBLIC_SUPABASE_URL +
+                        '/storage/v1/object/public/cv-files/' +
                         data.user_id
                     }
                 >

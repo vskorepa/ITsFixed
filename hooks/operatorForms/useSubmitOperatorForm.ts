@@ -35,7 +35,7 @@ const useSubmitOperatorForm = (props: OperatorFormValues) => {
                         props.cv[0]
                     )
                 if (uploadError) {
-                    throw new Error(uploadError.message)
+                    throw new Error('Inserting form failed')
                 }
             },
         }
