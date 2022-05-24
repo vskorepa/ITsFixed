@@ -10,6 +10,7 @@ const ChangePassword: React.FC = () => {
 
     const onSubmit: SubmitHandler<ChangePasswordFormValues> = (data) => {
         setNewPassword(data.password)
+        changePasswordMutation.mutate()
     }
     const [newPassword, setNewPassword] = useState('')
 
